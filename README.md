@@ -6,6 +6,9 @@
 
 ## Funcionalidades
 
+- **Realizar pesquisa**:  Abre seu navegador padrão e realiza uma pesquisa.
+- **Data e hora**: Diz a data e a hora do dia.
+- **Abrir aplicativo**: Abre qualquer aplicativo na área de trabalho ou presente no dicionario do projeto.
 - **Tocar Playlist**: Reproduz uma playlist do Spotify com opção de modo padrão ou aleatório.
 - **Controlar Reprodução**: Pausar, retomar, avançar e retroceder músicas.
 - **Listar Dispositivos**: Lista dispositivos disponíveis para reprodução no Spotify.
