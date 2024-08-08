@@ -21,9 +21,9 @@ def listar_e_conectar_dispositivo():
         responde_voz("Dispositivos disponíveis:")
         for i, dispositivo in enumerate(dispositivos):
             print(f"{i+1}. {dispositivo['name']} (ID: {dispositivo['id']})")
-            responde_voz(f"{i+1}. {dispositivo['name']}")
+            
 
-        responde_voz("Qual dispositivo você deseja conectar? Você pode dizer o número ou o nome.")
+        responde_voz("Qual dispositivo você deseja conectar?")
         escolha = reconhece_fala()
         if escolha:
             try:
