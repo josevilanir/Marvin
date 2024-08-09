@@ -8,7 +8,9 @@ from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, a
 from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
+from comandos.enviar_zap import enviar_mensagem_whatsapp
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
+from utils.contato_para_numero import obter_numero_contato
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
 
@@ -160,6 +162,23 @@ if __name__ == "__main__":
                     responde_voz(f"Abrindo {aplicativo}.")
                 else:
                     responde_voz("Desculpe, não consegui ouvir o nome do aplicativo.")
+
+            elif "Enviar mensagem" in comando:
+                responde_voz("Para quem você deseja enviar a mensagem?")
+                contato = reconhece_fala()
+
+                if contato:
+                    responde_voz(f"O que você gostaria de dizer para {contato}?")
+                    mensagem = reconhece_fala()
+
+                    if mensagem:
+                        responde_voz(f"Enviando mensagem para {contato}.")
+                        enviar_mensagem_whatsapp(contato, mensagem)
+                        responde_voz("Mensagem enviada com sucesso.")
+                    else:
+                        responde_voz("Não consegui entender a mensagem. Por favor, tente novamente.")
+                else:
+                    responde_voz("Não consegui entender o nome do contato. Por favor, tente novamente.")
 
             else:
                 responde_voz("Desculpe, não entendi o comando.")

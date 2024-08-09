@@ -14,5 +14,4 @@ def responde_voz(texto):
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(1)
     pygame.mixer.quit()
-    time.sleep(2)
     os.remove(caminho_arquivo)
