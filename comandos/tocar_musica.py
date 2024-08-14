@@ -101,7 +101,6 @@ def pausar_musica():
     except spotipy.exceptions.SpotifyException as e:
         print(f"Erro ao pausar a reprodução: {e}")
 
-
 def retomar_musica():
     dispositivos = listar_dispositivos_spotify()
     
@@ -113,12 +112,10 @@ def retomar_musica():
         print("Reprodução retomada.")
     except spotipy.exceptions.SpotifyException as e:
         print(f"Erro ao retomar a reprodução: {e}")
-
-    
+   
 def verificar_dispositivo_ativo():
     dispositivos = sp.devices()
     return dispositivos['devices']
-
 
 def tocar_playlist(pesquisa, modo='standard'):
     dispositivos = listar_dispositivos_spotify()

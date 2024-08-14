@@ -9,8 +9,8 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
+from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
-from utils.contato_para_numero import obter_numero_contato
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
 
@@ -179,6 +179,49 @@ if __name__ == "__main__":
                         responde_voz("Não consegui entender a mensagem. Por favor, tente novamente.")
                 else:
                     responde_voz("Não consegui entender o nome do contato. Por favor, tente novamente.")
+
+            #elif "pesquisar no YouTube" in comando:
+                ##pesquisa = reconhece_fala()
+                #if pesquisa:
+             #       responde_voz(f"Pesquisando no YouTube por {pesquisa}")
+              #      pesquisar_youtube_opera(pesquisa)
+               # else:
+                #    responde_voz("Por favor, diga o que deseja pesquisar no YouTube.")
+
+            #elif "Abrir primeiro vídeo" in comando:
+               # abriPrimeiro_video()
+
+            #elif "pular anúncio" in comando:
+             #   Pular_Anuncio()
+
+            elif "Tocar" in comando and "YouTube" in comando or "tocar" in comando and "YouTube" in comando:
+                pesquisa = comando.replace("tocar", "").replace("no YouTube", "").strip()
+    
+                if pesquisa:
+        # Realiza a pesquisa no YouTube
+                    driver = pesquisar_youtube_chrome(pesquisa)
+                    responde_voz("Pesquisa realizada para {} no YouTube.".format(pesquisa))
+
+        # Aguarda o próximo comando para escolher o vídeo ou canal
+                    responde_voz("Qual video gostaria de abrir?")
+                    acao = reconhece_fala()
+
+                    if "primeiro" in acao:
+                        clicar_video(driver, posicao=1)
+                        responde_voz("Tocando o primeiro vídeo encontrado.")
+                    elif "segundo" in acao:
+                        clicar_video(driver, posicao=2)
+                        responde_voz("Tocando o segundo vídeo encontrado.")
+                    elif "terceiro" in acao:
+                        clicar_video(driver, posicao=3)
+                        responde_voz("Tocando o terceiro vídeo encontrado.")
+                    elif "canal" in acao:
+                        selecionar_canal(driver)
+                        responde_voz("Canal selecionado.")
+                    else:
+                        responde_voz("Desculpe, não entendi qual vídeo ou canal você deseja.")
+                else:
+                    responde_voz("Por favor, diga o nome do vídeo ou playlist que deseja tocar no YouTube.")
 
             else:
                 responde_voz("Desculpe, não entendi o comando.")
