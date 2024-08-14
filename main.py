@@ -9,7 +9,7 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video
+from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
@@ -202,26 +202,24 @@ if __name__ == "__main__":
                     driver = pesquisar_youtube_chrome(pesquisa)
                     responde_voz("Pesquisa realizada para {} no YouTube.".format(pesquisa))
 
-        # Aguarda o próximo comando para escolher o vídeo ou canal
-                    responde_voz("Qual video gostaria de abrir?")
-                    acao = reconhece_fala()
+            elif "tocar primeiro vídeo" in comando:
+                clicar_video(driver, posicao=1)
+                responde_voz("Tocando o primeiro vídeo encontrado.")
+            elif "segundo" in comando:
+                clicar_video(driver, posicao=2)
+                responde_voz("Tocando o segundo vídeo encontrado.")
+            elif "terceiro" in comando:
+                clicar_video(driver, posicao=3)
+                responde_voz("Tocando o terceiro vídeo encontrado.")
+            elif "canal" in comando:
+                selecionar_canal(driver)
+                responde_voz("Canal selecionado.")
 
-                    if "primeiro" in acao:
-                        clicar_video(driver, posicao=1)
-                        responde_voz("Tocando o primeiro vídeo encontrado.")
-                    elif "segundo" in acao:
-                        clicar_video(driver, posicao=2)
-                        responde_voz("Tocando o segundo vídeo encontrado.")
-                    elif "terceiro" in acao:
-                        clicar_video(driver, posicao=3)
-                        responde_voz("Tocando o terceiro vídeo encontrado.")
-                    elif "canal" in acao:
-                        selecionar_canal(driver)
-                        responde_voz("Canal selecionado.")
-                    else:
-                        responde_voz("Desculpe, não entendi qual vídeo ou canal você deseja.")
-                else:
-                    responde_voz("Por favor, diga o nome do vídeo ou playlist que deseja tocar no YouTube.")
+            elif "retroceder" in comando or "voltar " in comando or "voltar" in comando or "volta" in comando:
+                voltar_para_pesquisa(driver)
+
+            elif "pause o vídeo" in comando:
+                pausar_retornar_video(driver)
 
             else:
                 responde_voz("Desculpe, não entendi o comando.")

@@ -21,7 +21,7 @@ def pesquisar_youtube_chrome(pesquisa):
             driver.get('https://www.youtube.com')
 
         # Aguarde o carregamento da página
-            WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.NAME, "search_query"))
             )
 
@@ -31,16 +31,39 @@ def pesquisar_youtube_chrome(pesquisa):
             search_box.send_keys(Keys.RETURN)
 
         # Aguarde os resultados carregarem
-            WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 15).until(
                 EC.presence_of_all_elements_located((By.XPATH, '//a[@id="video-title"]'))
             )
 
             return driver
 
-        except Exception as e:
-                print(f"Erro ao inicializar o WebDriver ou realizar a pesquisa: {e}")
-                print(traceback.format_exc())
-                return None
+        except TimeoutError as e:
+            print(f"Erro ao inicializar o WebDriver ou realizar a pesquisa: {e}")
+            print(traceback.format_exc())
+            driver.refresh()  # Recarrega a página em caso de falha
+            return None
+
+def voltar_para_pesquisa(driver):
+    try:
+        # Retroceder à página de pesquisa
+        driver.back()
+        print("Retornou para a página de pesquisa.")
+        
+        # Aguarde a página de pesquisa carregar novamente
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//a[@id="video-title"]'))
+        )
+
+    except Exception as e:
+        print(f"Erro ao tentar voltar para a página de pesquisa: {e}")
+        print(traceback.format_exc())
+
+def pausar_retornar_video(driver):
+    try:
+        driver.execute_script("var video = document.querySelector('video'); video.paused ? video.play() : video.pause();")
+        print("Vídeo pausado ou retomado com sucesso.")
+    except Exception as e:
+        print(f"Erro ao tentar pausar ou retomar o vídeo: {e}")
 
 def clicar_video(driver, posicao=1):
     if driver is None:
