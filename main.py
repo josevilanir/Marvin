@@ -10,6 +10,7 @@ from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
 from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video
+from comandos.controlar_volume import ajustar_volume
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
@@ -221,5 +222,9 @@ if __name__ == "__main__":
             elif "pause o vídeo" in comando:
                 pausar_retornar_video(driver)
 
+            elif "Ajuste o volume para " in comando:
+                comando = comando.replace("Ajuste o volume para ", "").strip()
+                print(comando)
+                ajustar_volume(comando)
             else:
                 responde_voz("Desculpe, não entendi o comando.")
