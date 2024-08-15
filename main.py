@@ -9,7 +9,7 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video
+from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome
 from comandos.controlar_volume import ajustar_volume
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
@@ -139,12 +139,15 @@ if __name__ == "__main__":
             elif "conectar dispositivo" in comando:
                 listar_e_conectar_dispositivo()
             
+            
             elif "avançar música" in comando or "próxima música" in comando:
                 avancar_musica()
 
+            
             elif "voltar música" in comando or "música anterior" in comando:
                 voltar_musica()    
 
+            
             elif "listar músicas da playlist" in comando:
                 responde_voz("Qual playlist você deseja listar?")
                 pesquisa = reconhece_fala()
@@ -154,6 +157,7 @@ if __name__ == "__main__":
                     except ValueError:
                         pass
                     listar_musicas_da_playlist(pesquisa)
+            
             
             elif "Abrir aplicativo" in comando:
                 responde_voz("Qual aplicativo você gostaria de abrir?")
@@ -180,20 +184,6 @@ if __name__ == "__main__":
                         responde_voz("Não consegui entender a mensagem. Por favor, tente novamente.")
                 else:
                     responde_voz("Não consegui entender o nome do contato. Por favor, tente novamente.")
-
-            #elif "pesquisar no YouTube" in comando:
-                ##pesquisa = reconhece_fala()
-                #if pesquisa:
-             #       responde_voz(f"Pesquisando no YouTube por {pesquisa}")
-              #      pesquisar_youtube_opera(pesquisa)
-               # else:
-                #    responde_voz("Por favor, diga o que deseja pesquisar no YouTube.")
-
-            #elif "Abrir primeiro vídeo" in comando:
-               # abriPrimeiro_video()
-
-            #elif "pular anúncio" in comando:
-             #   Pular_Anuncio()
 
             elif "Tocar" in comando and "YouTube" in comando or "tocar" in comando and "YouTube" in comando:
                 pesquisa = comando.replace("tocar", "").replace("no YouTube", "").strip()
@@ -226,5 +216,9 @@ if __name__ == "__main__":
                 comando = comando.replace("Ajuste o volume para ", "").strip()
                 print(comando)
                 ajustar_volume(comando)
+            
+            elif "tela cheia" in comando or "Tela cheia" in comando:
+                tela_cheia_chrome(driver)
+            
             else:
                 responde_voz("Desculpe, não entendi o comando.")

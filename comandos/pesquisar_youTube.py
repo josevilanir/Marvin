@@ -65,6 +65,13 @@ def pausar_retornar_video(driver):
     except Exception as e:
         print(f"Erro ao tentar pausar ou retomar o vídeo: {e}")
 
+def tela_cheia_chrome(driver):
+    try:
+        driver.fullscreen_window()
+        print("Chrome está agora em tela cheia.")
+    except Exception as e:
+        print(f"Erro ao tentar colocar o Chrome em tela cheia: {e}")
+
 def clicar_video(driver, posicao=1):
     if driver is None:
         print("Driver não foi inicializado corretamente.")
