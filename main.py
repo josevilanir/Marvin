@@ -9,7 +9,7 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome
+from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia
 from comandos.controlar_volume import ajustar_volume
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
@@ -219,6 +219,15 @@ if __name__ == "__main__":
             
             elif "tela cheia" in comando or "Tela cheia" in comando:
                 tela_cheia_chrome(driver)
+            
+            elif "expandir" in comando:
+                maximizar_janela(driver)
+
+            elif "sair" in comando or "saia" in comando:
+                sair_tela_cheia()
+
+            elif "pular anúncio" in comando:
+                Pular_Anuncio()
             
             else:
                 responde_voz("Desculpe, não entendi o comando.")

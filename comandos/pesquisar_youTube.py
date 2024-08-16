@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -72,6 +73,22 @@ def tela_cheia_chrome(driver):
     except Exception as e:
         print(f"Erro ao tentar colocar o Chrome em tela cheia: {e}")
 
+def maximizar_janela(driver):
+    try:
+        # Maximizar a janela do Chrome
+        driver.maximize_window()
+        print("Janela maximizada.")
+    except Exception as e:
+        print(f"Erro ao tentar maximizar a janela: {e}")
+
+def sair_tela_cheia():
+    try:
+        # Simular o pressionamento da tecla 'Esc' usando pyautogui
+        pyautogui.press('esc')
+        print("Tecla 'Esc' pressionada para sair da tela cheia.")
+    except Exception as e:
+        print(f"Erro ao tentar sair da tela cheia: {e}")
+
 def clicar_video(driver, posicao=1):
     if driver is None:
         print("Driver não foi inicializado corretamente.")
@@ -125,5 +142,5 @@ def abriPrimeiro_video():
 
 def Pular_Anuncio():
     # Move o cursor para o local do primeiro vídeo e clica (ajuste as coordenadas conforme necessário)
-    pyautogui.moveTo(1339, 762)  # As coordenadas (300, 300) são um exemplo; ajuste conforme necessário
+    pyautogui.moveTo(1332, 787)  # As coordenadas (300, 300) são um exemplo; ajuste conforme necessário
     pyautogui.click()
