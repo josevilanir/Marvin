@@ -1,3 +1,5 @@
+## arquivo para capturar coordenadas em funções que usam a lib pygui
+
 from pynput import mouse
 
 
