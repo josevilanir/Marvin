@@ -10,6 +10,7 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import traceback
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 
 def pesquisar_youtube_chrome(pesquisa):
     # Configurar o WebDriver para usar o Chrome
@@ -111,6 +112,53 @@ def clicar_video(driver, posicao=1):
 
     except Exception as e:
         print(f"Erro ao tentar clicar no vídeo na posição {posicao}: {e}")
+
+def navegar_aba(driver, aba="videos"):
+    try:
+        # Pegar a URL atual do canal
+        canal_url = driver.current_url
+
+        # Garantir que estamos na aba correta (Vídeos, Shorts, etc.)
+        if aba.lower() not in canal_url:
+            # Construir a URL da aba específica
+            canal_url_aba = f"https://www.youtube.com/@{canal_url.split('@')[1].split('/')[0]}/{aba.lower()}"
+            
+            # Navegar para a URL da aba
+            driver.get(canal_url_aba)
+            print(f"Navegado para a aba {aba.capitalize()}.")
+    except Exception as e:
+        print(f"Erro ao tentar navegar para a aba '{aba.capitalize()}': {e}")
+
+def clicar_video_canal(driver, video_title):
+    try:
+        # Navegar para a aba de vídeos
+        navegar_aba(driver, "videos")
+         
+        # Aguardar até que os vídeos estejam carregados na página
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//a[@id="video-title"]'))
+        )
+
+        # Converter o título do vídeo informado pelo usuário para minúsculas
+        video_title_lower = video_title.lower()
+
+        # Encontrar todos os vídeos na página
+        videos = driver.find_elements(By.XPATH, '//a[@id="video-title"]')
+        
+        print(f"Vídeos encontrados: {[video.get_attribute('title') for video in videos]}")
+
+        # Verificar se algum dos vídeos na página corresponde ao título informado
+        for video in videos:
+            if video_title_lower in video.get_attribute('title').lower():
+                # Usar JavaScript para clicar
+                driver.execute_script("arguments[0].click();", video)
+                print(f"Vídeo '{video_title}' foi clicado.")
+                return
+        
+        print(f"Vídeo com o título '{video_title}' não encontrado.")
+
+    except Exception as e:
+        print(f"Erro ao tentar clicar no vídeo '{video_title}': {e}")
 
 def selecionar_canal(driver):
     # Aguarde os resultados carregarem

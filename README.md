@@ -84,4 +84,4 @@ Após iniciar o Marvin, você pode utilizar os seguintes comandos de voz:
 - "Abrir navegador" - Marvin abrirá o navegador e pedirá o termo a ser pesquisado.
 - "Tocar música no Spotify" - Marvin tocará uma música da sua playlist.
 - "Enviar mensagem no WhatsApp" - Marvin abrirá o whatsapp e pedirá o nome do contato e a mensagem.
-- "Tocar NOME_DO_VIDEO no YouTube" - Marvin buscará um vídeo no YouTube e o reproduzirá.
+- "Tocar NOME_DO_VIDEO no YouTube" - Marvin buscará um vídeo no YouTube.
