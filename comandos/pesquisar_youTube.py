@@ -9,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import traceback
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 
@@ -149,8 +150,13 @@ def clicar_video_canal(driver, video_title):
         for video in videos:
             video_title_text = video.find_element(By.ID, 'video-title').get_attribute('title').lower()
             if video_title_lower in video_title_text:
-                # Usar JavaScript para clicar
-                driver.execute_script("arguments[0].click();", video)
+                # Garantir que o vídeo esteja em foco e visível antes de clicar
+                driver.execute_script("arguments[0].scrollIntoView(true);", video)
+
+                # Tentar clicar com ActionChains
+                actions = ActionChains(driver)
+                actions.move_to_element(video).click().perform()
+
                 print(f"Vídeo '{video_title}' foi clicado.")
                 return
 
@@ -158,7 +164,6 @@ def clicar_video_canal(driver, video_title):
 
     except Exception as e:
         print(f"Erro ao tentar clicar no vídeo '{video_title}': {e}")
-
 
 def selecionar_canal(driver):
     # Aguarde os resultados carregarem
