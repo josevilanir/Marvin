@@ -71,17 +71,21 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
     SPOTIPY_REDIRECT_URI = 'http://localhost:8888/callback/'
     ```
 
-    ```python
-    TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
-    TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
-    TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
-    ```
-
 # Comandos para execução:
 Após iniciar o Marvin, você pode utilizar os seguintes comandos de voz:
 
 - "Que horas são?" - Marvin informará a hora atual.
+- "tchau" - Encerra a captação de Audio do Marvin.
+- "me fale mais de você" - Marvin da uma breve explicação sobre ele e quem o criou.
+- "Abrir calculadora" - Abre a calculadora no seu desktop.
+- "Abrir aplicativo" - Marvin perguntará o nome do app a ser aberto.
+- "Tocar música" -  Com o spotify aberto, marvin perguntará qual musica vc deseja tocar e reproduzira.
+- "Conectar dispositivo" - com o spotify aberto (na conta do arquivo spotify_utils) marvin listará todos os dispositivos disponiveis pra vc controlar a musicas com ele (Tambem funciona se vc abrir o spotify no celular) 
 - "Abrir navegador" - Marvin abrirá o navegador e pedirá o termo a ser pesquisado.
 - "Tocar música no Spotify" - Marvin tocará uma música da sua playlist.
+- "pausar" - Pause qualquer música que esteja tocando.
+- "Play" - retoma uma musica que estava pausada.
+- "adicionar música" - Marvin pergunta que musica vc gostaria de adicionar e dps pergunta em que playlist você vai adicionar essa música.
+- "listar playlists" - Lista todas as playlists na conta do spotify.
 - "Enviar mensagem no WhatsApp" - Marvin abrirá o whatsapp e pedirá o nome do contato e a mensagem.
 - "Tocar NOME_DO_VIDEO no YouTube" - Marvin buscará um vídeo no YouTube.
