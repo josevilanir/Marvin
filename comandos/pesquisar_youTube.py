@@ -6,10 +6,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
-import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 import traceback
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 
@@ -91,6 +89,22 @@ def sair_tela_cheia():
     except Exception as e:
         print(f"Erro ao tentar sair da tela cheia: {e}")
 
+def navegar_aba(driver, aba="videos"):
+    try:
+        # Pegar a URL atual do canal
+        canal_url = driver.current_url
+
+        # Garantir que estamos na aba correta (Vídeos, Shorts, etc.)
+        if aba.lower() not in canal_url:
+            # Construir a URL da aba específica
+            canal_url_aba = f"https://www.youtube.com/@{canal_url.split('@')[1].split('/')[0]}/{aba.lower()}"
+            
+            # Navegar para a URL da aba
+            driver.get(canal_url_aba)
+            print(f"Navegado para a aba {aba.capitalize()}.")
+    except Exception as e:
+        print(f"Erro ao tentar navegar para a aba '{aba.capitalize()}': {e}")
+
 def clicar_video(driver, posicao=1):
     if driver is None:
         print("Driver não foi inicializado corretamente.")
@@ -114,22 +128,6 @@ def clicar_video(driver, posicao=1):
     except Exception as e:
         print(f"Erro ao tentar clicar no vídeo na posição {posicao}: {e}")
 
-def navegar_aba(driver, aba="videos"):
-    try:
-        # Pegar a URL atual do canal
-        canal_url = driver.current_url
-
-        # Garantir que estamos na aba correta (Vídeos, Shorts, etc.)
-        if aba.lower() not in canal_url:
-            # Construir a URL da aba específica
-            canal_url_aba = f"https://www.youtube.com/@{canal_url.split('@')[1].split('/')[0]}/{aba.lower()}"
-            
-            # Navegar para a URL da aba
-            driver.get(canal_url_aba)
-            print(f"Navegado para a aba {aba.capitalize()}.")
-    except Exception as e:
-        print(f"Erro ao tentar navegar para a aba '{aba.capitalize()}': {e}")
-
 def clicar_video_canal(driver, video_title):
     try:
         # Esperar que a página seja carregada completamente
@@ -149,6 +147,50 @@ def clicar_video_canal(driver, video_title):
         # Verificar se algum dos vídeos na página corresponde ao título informado
         for video in videos:
             video_title_text = video.find_element(By.ID, 'video-title').get_attribute('title').lower()
+            if video_title_lower in video_title_text:
+                # Garantir que o vídeo esteja em foco e visível antes de clicar
+                driver.execute_script("arguments[0].scrollIntoView(true);", video)
+
+                # Tentar clicar com ActionChains
+                actions = ActionChains(driver)
+                actions.move_to_element(video).click().perform()
+
+                print(f"Vídeo '{video_title}' foi clicado.")
+                return
+
+        print(f"Vídeo com o título '{video_title}' não encontrado.")
+
+    except Exception as e:
+        print(f"Erro ao tentar clicar no vídeo '{video_title}': {e}")
+
+def clicar_video_canal_in(driver, video_title):
+    try:
+        # Esperar que os vídeos na aba "Vídeos" sejam carregados
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//ytd-rich-grid-media'))
+        )
+
+        # Atualizar o título do vídeo informado para minúsculas
+        video_title_lower = video_title.lower()
+
+        # Encontrar todos os vídeos na aba "Vídeos"
+        videos = driver.find_elements(By.XPATH, '//ytd-rich-grid-media')
+
+        # Verificar se algum dos vídeos na página corresponde ao título informado
+        for video in videos:
+            # Tentativa 1: Verificar se o título está no atributo 'aria-label'
+            video_title_text = video.get_attribute('aria-label')
+            
+            # Tentativa 2: Caso o título não esteja no 'aria-label', tentar buscar pelo elemento filho
+            if not video_title_text:
+                video_title_element = video.find_element(By.ID, 'video-title')
+                video_title_text = video_title_element.get_attribute('title') or video_title_element.text
+            
+            video_title_text = video_title_text.lower()
+
+            # Debug: Verificar quais títulos foram encontrados
+            print(f"Título encontrado: {video_title_text}")
+
             if video_title_lower in video_title_text:
                 # Garantir que o vídeo esteja em foco e visível antes de clicar
                 driver.execute_script("arguments[0].scrollIntoView(true);", video)

@@ -9,8 +9,9 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba
+from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba, clicar_video_canal_in
 from comandos.controlar_volume import ajustar_volume
+from comandos.timer import definir_timer
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
@@ -193,15 +194,15 @@ if __name__ == "__main__":
                     driver = pesquisar_youtube_chrome(pesquisa)
                     responde_voz("Pesquisa realizada para {} no YouTube.".format(pesquisa))
 
-            elif "tocar primeiro vídeo" in comando:
-                clicar_video(driver, posicao=1)
-                responde_voz("Tocando o primeiro vídeo encontrado.")
-            elif "segundo" in comando:
-                clicar_video(driver, posicao=2)
-                responde_voz("Tocando o segundo vídeo encontrado.")
-            elif "terceiro" in comando:
-                clicar_video(driver, posicao=3)
-                responde_voz("Tocando o terceiro vídeo encontrado.")
+                elif "tocar primeiro vídeo" in comando:
+                    clicar_video(driver, posicao=1)
+                    responde_voz("Tocando o primeiro vídeo encontrado.")
+                elif "segundo" in comando:
+                    clicar_video(driver, posicao=2)
+                    responde_voz("Tocando o segundo vídeo encontrado.")
+                elif "terceiro" in comando:
+                    clicar_video(driver, posicao=3)
+                    responde_voz("Tocando o terceiro vídeo encontrado.")
             elif "canal" in comando:
                 selecionar_canal(driver)
                 responde_voz("Canal selecionado.")
@@ -235,6 +236,16 @@ if __name__ == "__main__":
 
             elif "ir para aba" in comando:
                 navegar_aba(driver)
+
+            elif "selecione o vídeo" in comando or "Selecione o vídeo" in comando:
+                titulo_video = comando.replace("selecione o vídeo".lower(), "").strip()
+                clicar_video_canal_in(driver, titulo_video)
+            
+            elif "Defina um timer de" in comando:
+                tempo = comando.replace("Defina um timer de ", "")
+                responde_voz(f"Timer definido para {tempo}")
+                definir_timer(tempo)
+                
 
             else:
                 responde_voz("Desculpe, não entendi o comando.")
