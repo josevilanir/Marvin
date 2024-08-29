@@ -11,7 +11,7 @@ from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
 from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba, clicar_video_canal_in
 from comandos.controlar_volume import ajustar_volume
-from comandos.timer import definir_timer
+from comandos.timer import iniciar_timer_em_thread
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
 from reconhece_fala import reconhece_fala
@@ -54,8 +54,7 @@ if __name__ == "__main__":
             
             
             elif "tocar música" in comando:
-                responde_voz("Qual música você gostaria de ouvir no Spotify?")
-                pesquisa = reconhece_fala()
+                pesquisa = comando.replace("tocar música ", "")
                 if pesquisa:
                     tocar_musica(pesquisa)
                 else:
@@ -65,7 +64,6 @@ if __name__ == "__main__":
             elif "pausar" in comando:
                 try:
                     pausar_musica()
-                    responde_voz("Reprodução pausada.")
                 except Exception as e:
                     responde_voz(str(e))
             
@@ -116,8 +114,7 @@ if __name__ == "__main__":
             
             
             elif "tocar playlist" in comando:
-                responde_voz("Qual playlist você deseja ouvir?")
-                pesquisa = reconhece_fala()
+                pesquisa = comando.replace("tocar playlist ", "")
                 if pesquisa:
                 # Pergunta pelo modo de reprodução
                     responde_voz("Você deseja ouvir no modo padrão ou aleatório?")
@@ -194,15 +191,26 @@ if __name__ == "__main__":
                     driver = pesquisar_youtube_chrome(pesquisa)
                     responde_voz("Pesquisa realizada para {} no YouTube.".format(pesquisa))
 
-                elif "tocar primeiro vídeo" in comando:
-                    clicar_video(driver, posicao=1)
-                    responde_voz("Tocando o primeiro vídeo encontrado.")
-                elif "segundo" in comando:
-                    clicar_video(driver, posicao=2)
-                    responde_voz("Tocando o segundo vídeo encontrado.")
-                elif "terceiro" in comando:
-                    clicar_video(driver, posicao=3)
-                    responde_voz("Tocando o terceiro vídeo encontrado.")
+            elif "tocar primeiro vídeo" in comando:
+                clicar_video(driver, posicao=1)
+                responde_voz("Tocando o primeiro vídeo da pesquisa.")
+            
+            elif "tocar segundo vídeo" in comando:
+                clicar_video(driver, posicao=2)
+                responde_voz("Tocando o segundo vídeo da pesquisa.")
+            
+            elif "tocar terceiro vídeo" in comando:
+                clicar_video(driver, posicao=3)
+                responde_voz("Tocando o terceiro vídeo da pesquisa.")
+            
+            elif "tocar quarto vídeo" in comando:
+                clicar_video(driver, posicao=4)
+                responde_voz("Tocando o quarto vídeo da pesquisa.")
+            
+            elif "tocar quinto vídeo" in comando:
+                clicar_video(driver, posicao=5)
+                responde_voz("Tocando o quinto vídeo da pesquisa.")
+
             elif "canal" in comando:
                 selecionar_canal(driver)
                 responde_voz("Canal selecionado.")
@@ -244,8 +252,7 @@ if __name__ == "__main__":
             elif "Defina um timer de" in comando:
                 tempo = comando.replace("Defina um timer de ", "")
                 responde_voz(f"Timer definido para {tempo}")
-                definir_timer(tempo)
+                iniciar_timer_em_thread(tempo)
                 
-
             else:
                 responde_voz("Desculpe, não entendi o comando.")

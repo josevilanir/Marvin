@@ -68,6 +68,11 @@ def listar_musicas_da_playlist(pesquisa):
     except spotipy.exceptions.SpotifyException as e:
         responde_voz(f"Erro ao listar músicas da playlist: {e}")
 
+def tocar_musica_da_playlist(playlist, musica):
+    musicas = listar_musicas_da_playlist(playlist)
+    if musica in musicas:
+        sp.start_playback
+
 def selecionar_playlist_por_voz(playlists):
     for i, playlist in enumerate(playlists):
         print(f"{i+1}. {playlist['name']} (ID: {playlist['id']})")
