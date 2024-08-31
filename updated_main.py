@@ -14,11 +14,10 @@ from comandos.controlar_volume import ajustar_volume
 from comandos.timer import iniciar_timer_em_thread
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
-from reconhece_fala import reconhece_fala, ouvir_palavra_ativacao
+from reconhece_fala import reconhece_fala, ouvir_comando_completo
 
 if __name__ == "__main__":
     while True:
-        if ouvir_palavra_ativacao():
             comando = reconhece_fala()
             if comando:
                 if "Marvin" in comando:
@@ -40,9 +39,8 @@ if __name__ == "__main__":
                     responde_voz(sobre)
                 
                 
-                elif "Abrir navegador" in comando:
-                    responde_voz("O que você gostaria de pesquisar?")
-                    pesquisa = reconhece_fala()
+                elif "Pesquise por" in comando:
+                    pesquisa = comando.replace("Pesquise por ", "")
                     if pesquisa:
                         abrir_navegador_com_pesquisa(pesquisa)
                     else:
@@ -82,7 +80,7 @@ if __name__ == "__main__":
                     musica = reconhece_fala()
                     if musica:
                         responde_voz("Qual playlist você deseja adicionar a música?")
-                        escolha_playlist = reconhece_fala()
+                        escolha_playlist = ouvir_comando_completo()
                         if escolha_playlist:
                             escolha_numero = numero_por_extenso_para_numero(escolha_playlist)
                             if isinstance(escolha_numero, int) and 1 <= escolha_numero <= len(playlists):
@@ -119,7 +117,7 @@ if __name__ == "__main__":
                     if pesquisa:
                     # Pergunta pelo modo de reprodução
                         responde_voz("Você deseja ouvir no modo padrão ou aleatório?")
-                        modo = reconhece_fala()
+                        modo = ouvir_comando_completo()
             
                         if modo and modo.lower() == 'aleatório':
                             modo = 'shuffle'
@@ -149,7 +147,7 @@ if __name__ == "__main__":
                 
                 elif "listar músicas da playlist" in comando:
                     responde_voz("Qual playlist você deseja listar?")
-                    pesquisa = reconhece_fala()
+                    pesquisa = ouvir_comando_completo()
                     if pesquisa:
                         try:
                             pesquisa = int(pesquisa)
@@ -159,8 +157,7 @@ if __name__ == "__main__":
                 
                 
                 elif "Abrir aplicativo" in comando:
-                    responde_voz("Qual aplicativo você gostaria de abrir?")
-                    aplicativo = reconhece_fala()
+                    aplicativo = comando.replace("Abrir aplicativo ", "")
                     if aplicativo:
                         abrir_aplicativo(aplicativo)
                         responde_voz(f"Abrindo {aplicativo}.")
@@ -169,11 +166,11 @@ if __name__ == "__main__":
 
                 elif "Enviar mensagem" in comando:
                     responde_voz("Para quem você deseja enviar a mensagem?")
-                    contato = reconhece_fala()
+                    contato = ouvir_comando_completo()
 
                     if contato:
                         responde_voz(f"O que você gostaria de dizer para {contato}?")
-                        mensagem = reconhece_fala()
+                        mensagem = ouvir_comando_completo()
 
                         if mensagem:
                             responde_voz(f"Enviando mensagem para {contato}.")

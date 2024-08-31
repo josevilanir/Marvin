@@ -4,7 +4,7 @@ from spotipy.exceptions import SpotifyException
 from utils.spotify_utils import listar_dispositivos_spotify
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
-from reconhece_fala import reconhece_fala
+from reconhece_fala import reconhece_fala, ouvir_comando_completo
 import config
 
 # Autenticação com Spotify
@@ -24,7 +24,7 @@ def listar_e_conectar_dispositivo():
             
 
         responde_voz("Qual dispositivo você deseja conectar?")
-        escolha = reconhece_fala()
+        escolha = ouvir_comando_completo()
         if escolha:
             try:
                 # Tenta converter a escolha para um número
