@@ -177,5 +177,35 @@ def tocar_playlist(pesquisa, modo='standard'):
     except spotipy.exceptions.SpotifyException as e:
         responde_voz(f"Erro ao tocar a playlist: {e}")
 
+def tocar_musica_da_playlist(playlist_nome, musica_nome):
+    try:
+        # Lista as playlists disponíveis
+        playlists = listar_playlists()
+
+        # Busca a playlist pelo nome
+        playlist = next((p for p in playlists if p['name'].lower() == playlist_nome.lower()), None)
+        
+        if not playlist:
+            responde_voz("Playlist não encontrada.")
+            return
+
+        playlist_id = playlist['id']
+
+        # Busca as músicas da playlist
+        tracks = sp.playlist_tracks(playlist_id)
+        
+        # Procura a música pelo nome
+        track = next((item['track'] for item in tracks['items'] if musica_nome.lower() in item['track']['name'].lower()), None)
+
+        if not track:
+            responde_voz("Música não encontrada na playlist.")
+            return
+
+        # Toca a música
+        sp.start_playback(uris=[track['uri']])
+        responde_voz(f"Tocando {track['name']} de {', '.join([artist['name'] for artist in track['artists']])}.")
+        
+    except spotipy.exceptions.SpotifyException as e:
+        responde_voz(f"Erro ao tentar tocar a música: {e}")
 
 

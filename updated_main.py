@@ -4,7 +4,7 @@ from comandos.sobre_mim import sobre_mim
 from comandos.abrir_navegador import abrir_navegador_com_pesquisa
 from comandos.abrir_calculadora import abrir_calculadora
 from comandos.conectar_dispositivo import listar_e_conectar_dispositivo
-from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists, tocar_playlist, listar_musicas_da_playlist, sp
+from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists, tocar_playlist, listar_musicas_da_playlist, tocar_musica_da_playlist, sp
 from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
@@ -155,6 +155,16 @@ if __name__ == "__main__":
                             pass
                         listar_musicas_da_playlist(pesquisa)
                 
+                elif "toque a música" in comando:
+                    try:
+                        partes = comando.split(" na playlist ")
+                        musica_nome = partes[0].replace("toque a música", "").strip()
+                        playlist_nome = partes[1].strip()
+
+                        tocar_musica_da_playlist(playlist_nome, musica_nome)
+                    except IndexError:
+                        responde_voz("Comando incompleto")
+
                 
                 elif "Abrir aplicativo" in comando:
                     aplicativo = comando.replace("Abrir aplicativo ", "")

@@ -42,7 +42,9 @@ def reconhece_fala():
             except sr.WaitTimeoutError:
                 print("Tempo de escuta esgotado, tente novamente.")
                 continue
+                        
 
+# função para quando o Marvin já estiver acionado ex: quando ele perguntar se a playlist deve ser tocanda no modo padrão ou aleatorio
 def ouvir_comando_completo():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
