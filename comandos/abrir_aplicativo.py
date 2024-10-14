@@ -14,7 +14,7 @@ def abrir_aplicativo(nome_aplicativo):
             "calculadora": "calc.exe",
             "spotify": "C:\\Users\\Vilanir\\AppData\\Roaming\\Spotify\\Spotify.exe",  # Exemplo para Google Chrome
             "steam": "C:\\Program Files (x86)\\Steam\\steam.exe"
-            # Adicione outros aplicativos conforme necessário
+            
         }
 
         if nome_aplicativo.lower() in aplicativos:
