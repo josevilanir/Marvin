@@ -8,4 +8,7 @@ requests
 pluggy
 pytest
 iniconfig
+noisereduce
+gtts
+numpy
 
