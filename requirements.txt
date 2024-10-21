@@ -7,4 +7,5 @@ SpeechRecognition
 requests
 pluggy
 pytest
+iniconfig
 
