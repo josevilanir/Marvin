@@ -12,6 +12,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope="user-read-playback-state,user-modify-playback-state"
 ))
 
+
 def voltar_musica():
     try:
         sp.previous_track()
