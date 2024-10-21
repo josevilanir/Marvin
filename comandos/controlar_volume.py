@@ -3,11 +3,13 @@ from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
 from comtypes.client import CreateObject
 
+
 def ajustar_volume(volume_str):
     try:
         # Obter o volume do sistema
         devices = AudioUtilities.GetSpeakers()
-        interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+        interface = devices.Activate(
+            IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
         volume = cast(interface, POINTER(IAudioEndpointVolume))
 
         # Converter a string em um valor numérico

@@ -3,6 +3,7 @@ import time
 import pygame
 from gtts import gTTS
 
+
 def responde_voz(texto):
     diretório_atual = os.path.dirname(os.path.abspath(__file__))
     caminho_arquivo = os.path.join(diretório_atual, "resposta.mp3")
