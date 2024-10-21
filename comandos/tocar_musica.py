@@ -68,11 +68,6 @@ def listar_musicas_da_playlist(pesquisa):
     except spotipy.exceptions.SpotifyException as e:
         responde_voz(f"Erro ao listar músicas da playlist: {e}")
 
-def tocar_musica_da_playlist(playlist, musica):
-    musicas = listar_musicas_da_playlist(playlist)
-    if musica in musicas:
-        sp.start_playback
-
 def selecionar_playlist_por_voz(playlists):
     for i, playlist in enumerate(playlists):
         print(f"{i+1}. {playlist['name']} (ID: {playlist['id']})")
@@ -177,35 +172,54 @@ def tocar_playlist(pesquisa, modo='standard'):
     except spotipy.exceptions.SpotifyException as e:
         responde_voz(f"Erro ao tocar a playlist: {e}")
 
-def tocar_musica_da_playlist(playlist_nome, musica_nome):
+def tocar_musica_na_playlist(pesquisa_playlist, musica_nome):
     try:
-        # Lista as playlists disponíveis
         playlists = listar_playlists()
 
-        # Busca a playlist pelo nome
-        playlist = next((p for p in playlists if p['name'].lower() == playlist_nome.lower()), None)
-        
-        if not playlist:
-            responde_voz("Playlist não encontrada.")
-            return
+        # Tenta converter a escolha da playlist para número
+        numero_playlist = numero_por_extenso_para_numero(pesquisa_playlist)
+
+        if numero_playlist is not None:
+            # Se for um número, seleciona a playlist pela posição na lista
+            if 1 <= numero_playlist <= len(playlists):
+                playlist = playlists[numero_playlist - 1]
+            else:
+                responde_voz("Número da playlist fora do intervalo.")
+                return
+        else:
+            # Se não for um número, tenta encontrar a playlist pelo nome
+            playlist = next((p for p in playlists if p['name'].lower() == pesquisa_playlist.lower()), None)
+            if not playlist:
+                responde_voz("Playlist não encontrada.")
+                return
 
         playlist_id = playlist['id']
+        playlist_uri = playlist['uri']  # Pega o URI da playlist
 
-        # Busca as músicas da playlist
+        # Recupera todas as músicas da playlist
         tracks = sp.playlist_tracks(playlist_id)
-        
-        # Procura a música pelo nome
-        track = next((item['track'] for item in tracks['items'] if musica_nome.lower() in item['track']['name'].lower()), None)
+        track_uris = []
+        posicao_musica = None
 
-        if not track:
+        # Procura a música dentro da playlist e obtém sua posição
+        for index, item in enumerate(tracks['items']):
+            track = item['track']
+            nome_musica = track['name']
+            track_uris.append(track['uri'])
+
+            if musica_nome.lower() in nome_musica.lower():
+                posicao_musica = index
+
+        if posicao_musica is None:
             responde_voz("Música não encontrada na playlist.")
             return
 
-        # Toca a música
-        sp.start_playback(uris=[track['uri']])
-        responde_voz(f"Tocando {track['name']} de {', '.join([artist['name'] for artist in track['artists']])}.")
-        
+        # Toca a playlist a partir da música especificada
+        sp.start_playback(context_uri=playlist_uri, offset={"position": posicao_musica})
+        responde_voz(f"Tocando {musica_nome} da playlist {playlist['name']}.")
+    
     except spotipy.exceptions.SpotifyException as e:
-        responde_voz(f"Erro ao tentar tocar a música: {e}")
+        responde_voz(f"Erro ao tentar tocar música na playlist: {e}")
+
 
 

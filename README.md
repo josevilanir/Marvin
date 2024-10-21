@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-*MARVIN* é um assistente de voz desenvolvido em Python que permite interagir com o Spotify, além de executar comandos de voz básicos. Ele é capaz de tocar playlists, controlar a reprodução de músicas, listar dispositivos, conectar-se a dispositivos, pausar, retomar, avançar e retroceder músicas, e reconhecer comandos em português e inglês. Além disso, o Marvin também pode realizar pesquisas na web, controlar o volume do computador, enviar mensagens no WhatsApp, e controlar vídeos no YouTube.
+*MARVIN* é um assistente de voz desenvolvido em Python que permite interagir com o Spotify, além de executar comandos de voz básicos. Ele é capaz de tocar playlists, controlar a reprodução de músicas, listar dispositivos, conectar-se a dispositivos, pausar, retomar, avançar e retroceder músicas, e reconhecer comandos em português e inglês. Além disso, o Marvin também pode realizar pesquisas na web, controlar o volume do computador, enviar mensagens no WhatsApp e controlar vídeos no YouTube.
 
 ## Funcionalidades
 
@@ -16,7 +16,7 @@
 - **Listar Músicas de uma Playlist:** Lista todas as músicas de uma playlist especificada.
 - **Reconhecimento de Voz:** Reconhece comandos de voz em português e inglês.
 - **Síntese de Fala:** Responde aos comandos de voz utilizando síntese de fala.
-- **Controle do YouTube:** Pesquisa vídeos, seleciona e reproduz vídeos e/ou canais no YouTube
+- **Controle do YouTube:** Pesquisa vídeos, seleciona e reproduz vídeos e/ou canais no YouTube.
 - **Envio de Mensagens no WhatsApp:** Envia mensagens para contatos via WhatsApp.
 
 ## Pré-requisitos
@@ -26,7 +26,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 - **Python 3.11** ou superior
 - **Pip** (gerenciador de pacotes do Python)
 - **portaudio** (para uso do PyAudio)
-- Conta no Spotify com permissões de desenvolvedor e um aplicativo registrado para obter as credenciais necessárias
+- Conta no Spotify com permissões de desenvolvedor e um aplicativo registrado para obter as credenciais necessárias.
 
 ## Instalação
 
@@ -71,21 +71,22 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
     SPOTIPY_REDIRECT_URI = 'http://localhost:8888/callback/'
     ```
 
-# Comandos para execução:
+## Comandos para execução
+
 Após iniciar o Marvin, você pode utilizar os seguintes comandos de voz:
 
-- "Que horas são?" - Marvin informará a hora atual.
-- "tchau" - Encerra a captação de Audio do Marvin.
-- "me fale mais de você" - Marvin da uma breve explicação sobre ele e quem o criou.
-- "Abrir calculadora" - Abre a calculadora no seu desktop.
-- "Abrir aplicativo" - Marvin perguntará o nome do app a ser aberto.
-- "Tocar música" -  Com o spotify aberto, marvin perguntará qual musica vc deseja tocar e reproduzira.
-- "Conectar dispositivo" - com o spotify aberto (na conta do arquivo spotify_utils) marvin listará todos os dispositivos disponiveis pra vc controlar a musicas com ele (Tambem funciona se vc abrir o spotify no celular) 
-- "Abrir navegador" - Marvin abrirá o navegador e pedirá o termo a ser pesquisado.
-- "Tocar música no Spotify" - Marvin tocará uma música da sua playlist.
-- "pausar" - Pause qualquer música que esteja tocando.
-- "Play" - retoma uma musica que estava pausada.
-- "adicionar música" - Marvin pergunta que musica vc gostaria de adicionar e dps pergunta em que playlist você vai adicionar essa música.
-- "listar playlists" - Lista todas as playlists na conta do spotify.
-- "Enviar mensagem no WhatsApp" - Marvin abrirá o whatsapp e pedirá o nome do contato e a mensagem.
-- "Tocar NOME_DO_VIDEO no YouTube" - Marvin buscará um vídeo no YouTube.
+- **"Que horas são?"** - Marvin informará a hora atual.
+- **"Tchau"** - Encerra a captação de áudio do Marvin.
+- **"Me fale mais de você"** - Marvin dá uma breve explicação sobre ele e quem o criou.
+- **"Abrir calculadora"** - Abre a calculadora no seu desktop.
+- **"Abrir aplicativo"** - Marvin perguntará o nome do app a ser aberto.
+- **"Tocar música"** - Com o Spotify aberto, Marvin perguntará qual música você deseja tocar e a reproduzirá.
+- **"Conectar dispositivo"** - Com o Spotify aberto (na conta do arquivo `spotify_utils`), Marvin listará todos os dispositivos disponíveis para você controlar as músicas (também funciona se você abrir o Spotify no celular).
+- **"Abrir navegador"** - Marvin abrirá o navegador e pedirá o termo a ser pesquisado.
+- **"Tocar música no Spotify"** - Marvin tocará uma música da sua playlist.
+- **"Pausar"** - Pausa qualquer música que esteja tocando.
+- **"Play"** - Retoma uma música que estava pausada.
+- **"Adicionar música"** - Marvin pergunta qual música você gostaria de adicionar e depois pergunta em que playlist você deseja adicioná-la.
+- **"Listar playlists"** - Lista todas as playlists na conta do Spotify.
+- **"Enviar mensagem no WhatsApp"** - Marvin abrirá o WhatsApp e pedirá o nome do contato e a mensagem.
+- **"Tocar [NOME_DO_VIDEO] no YouTube"** - Marvin buscará e reproduzirá um vídeo no YouTube.
