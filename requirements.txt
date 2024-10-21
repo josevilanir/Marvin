@@ -15,3 +15,4 @@ redis
 urllib3
 idna
 certifi
+joblib
