@@ -13,3 +13,4 @@ gtts
 numpy
 redis
 urllib3
+idna
