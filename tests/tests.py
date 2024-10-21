@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from comandos.tocar_musica import *  # Altere para o caminho correto do seu módulo
+from comandos.tocar_musica import *  
 
 def test_pausar_musica_sem_dispositivo():
     with patch('seu_modulo.listar_dispositivos_spotify', return_value=[]):
