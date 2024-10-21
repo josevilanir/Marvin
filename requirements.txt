@@ -11,4 +11,4 @@ iniconfig
 noisereduce
 gtts
 numpy
-
+redis
