@@ -1,0 +1,8 @@
+playsound
+twilio
+pyautogui
+selenium
+spotipy
+pyaudio
+SpeechRecognition
+requests
