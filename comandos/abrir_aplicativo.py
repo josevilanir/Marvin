@@ -3,6 +3,7 @@ import subprocess
 import platform
 import os
 
+
 def abrir_aplicativo(nome_aplicativo):
     if platform.system() == "Windows":
         # Caminho da área de trabalho do usuário
@@ -12,9 +13,10 @@ def abrir_aplicativo(nome_aplicativo):
         aplicativos = {
             "bloco de notas": "notepad.exe",
             "calculadora": "calc.exe",
-            "spotify": "C:\\Users\\Vilanir\\AppData\\Roaming\\Spotify\\Spotify.exe",  # Exemplo para Google Chrome
+            # Exemplo para Google Chrome
+            "spotify": "C:\\Users\\Vilanir\\AppData\\Roaming\\Spotify\\Spotify.exe",
             "steam": "C:\\Program Files (x86)\\Steam\\steam.exe"
-            
+
         }
 
         if nome_aplicativo.lower() in aplicativos:

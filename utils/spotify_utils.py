@@ -10,6 +10,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope="user-read-playback-state,user-modify-playback-state"
 ))
 
+
 def listar_dispositivos_spotify():
     devices = sp.devices()
     return devices['devices'] if devices else []

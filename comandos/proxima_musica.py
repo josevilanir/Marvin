@@ -12,6 +12,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope="user-read-playback-state,user-modify-playback-state"
 ))
 
+
 def avancar_musica():
     try:
         sp.next_track()
