@@ -18,3 +18,4 @@ certifi
 joblib
 tqdm
 scipy
+pylint
