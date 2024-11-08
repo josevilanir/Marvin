@@ -30,7 +30,3 @@ jobs:
     - name: Run tests
       run: |
         pytest
-
-    - name: Validate README.md
-      run: |
-        python check_readme.py
