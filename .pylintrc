@@ -1,17 +1,18 @@
+[master]
+ignore=__pycache__, .git, .github, utils
+
 [MESSAGES CONTROL]
-disable=
-    C0114,  ; Missing module docstring
-    C0115,  ; Missing class docstring
-    C0116   ; Missing function or method docstring
+disable=all
+enable= R0801
 
-[FORMAT]
-max-line-length=100
+#[FORMAT]
+#max-line-length=100
 
-[DESIGN]
-max-args=5
-max-locals=15
-max-branches=12
-max-statements=50
+#[DESIGN]
+#max-args=5
+#max-locals=15
+#max-branches=12
+#max-statements=50
 
 [SIMILARITIES]
 min-similarity-lines=4  ; Número mínimo de linhas para considerar como duplicado
