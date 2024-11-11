@@ -3,15 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from spotipy.exceptions import SpotifyException
 import config
 from responde_voz import responde_voz
-
-# Autenticação com Spotify
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id=config.SPOTIPY_CLIENT_ID,
-    client_secret=config.SPOTIPY_CLIENT_SECRET,
-    redirect_uri=config.SPOTIPY_REDIRECT_URI,
-    scope="user-read-playback-state,user-modify-playback-state"
-))
-
+from utils.spotify_utils import sp
 
 def voltar_musica():
     try:
