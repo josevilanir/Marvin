@@ -32,4 +32,4 @@ jobs:
       #  pytest
     
     - name: Verificar Conformidade de Camadas
-      run: python-layer-linter --config layers.yaml
+      run: layer-linter --config layers.yaml
