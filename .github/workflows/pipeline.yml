@@ -30,3 +30,6 @@ jobs:
     - name: Run tests
       run: |
         pytest
+    
+    - name: Verificar Conformidade de Camadas
+      run: python-layer-linter --config application/layers.yaml
