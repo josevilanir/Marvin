@@ -1,11 +1,8 @@
 My Layers Contract:
   containers:
-    - marvin
+    - application
 
 layers:
-  - name: domain
-    matches: "marvin/domain/*"
-    description: "Camada de domínio: contém as regras de negócio e modelos principais."
   - name: utils
     matches: "marvin/utils/*"
     description: "Camada de utilitários: funções auxiliares genéricas."
@@ -13,7 +10,3 @@ layers:
     matches: "marvin/application/comandos/*"
     depends_on: ["domain", "utils"]
     description: "Camada de comandos: lógica que orquestra ações do Marvin."
-  - name: tests
-    matches: "marvin/tests/*"
-    depends_on: ["comandos", "domain", "utils"]
-    description: "Camada de testes: validação de todas as outras camadas."
