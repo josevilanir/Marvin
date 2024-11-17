@@ -21,3 +21,4 @@ scipy
 pylint
 layer-linter
 networkx
+pyyaml
