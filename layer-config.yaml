@@ -4,9 +4,9 @@ My Layers Contract:
 
 layers:
   - name: utils
-    matches: "marvin/utils/*"
+    matches: "application/utils/*"
     description: "Camada de utilitários: funções auxiliares genéricas."
   - name: comandos
-    matches: "marvin/application/comandos/*"
+    matches: "application/comandos/*"
     depends_on: ["domain", "utils"]
     description: "Camada de comandos: lógica que orquestra ações do Marvin."
