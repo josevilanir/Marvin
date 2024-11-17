@@ -32,4 +32,4 @@ jobs:
       #  pytest
     
     - name: Verificar Conformidade de Camadas
-      run: layer-linter marvin
+      run: layer-lint marvin
