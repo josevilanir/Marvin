@@ -32,4 +32,4 @@ jobs:
       #  pytest
     
     - name: Verificar Conformidade de Camadas
-      run: layer-lint marvin --config marvin/layer-config.yaml
+      run: layer-lint application --config layer-config.yaml
