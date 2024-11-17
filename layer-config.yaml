@@ -1,6 +1,6 @@
 My Layers Contract:
   containers:
-    - MARVIN
+    - marvin
 
 layers:
   - name: domain
