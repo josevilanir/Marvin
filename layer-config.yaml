@@ -1,3 +1,7 @@
+My Layers Contract:
+  containers:
+    - marvin
+
 layers:
   - name: domain
     matches: "marvin/domain/*"
