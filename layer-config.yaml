@@ -8,5 +8,5 @@ layers:
     description: "Camada de utilitários: funções auxiliares genéricas."
   - name: comandos
     matches: "application/comandos/*"
-    depends_on: ["domain", "utils"]
+    depends_on: ["utils"]
     description: "Camada de comandos: lógica que orquestra ações do Marvin."
