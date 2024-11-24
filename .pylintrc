@@ -16,3 +16,19 @@ enable= R0801
 
 [SIMILARITIES]
 min-similarity-lines=4  ; Número mínimo de linhas para considerar como duplicado
+
+# Adicionando o diretório de pacotes ao path
+init-hook='import sys; sys.path.append("./")'
+
+# Configurações específicas para garantir a separação de camadas
+extension-pkg-whitelist=lxml
+
+[IMPORTS]
+# Limitar onde as camadas podem ser importadas
+known-standard-library=
+    application.comandos,
+    application.utils
+
+# Permitir importações apenas entre camadas válidas
+import-graph=true
+import-graph-visibility=application.utils:comandos,application.utils:domain

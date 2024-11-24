@@ -19,3 +19,12 @@ joblib
 tqdm
 scipy
 pylint
+layer-linter
+networkx
+pyyaml
+click
+astroid
+platformdirs
+isort
+dill
+tomlkit
