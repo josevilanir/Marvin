@@ -31,5 +31,11 @@ jobs:
       #run: |
       #  pytest
     
+    # Validar o arquivo YAML antes de rodar o lint
+    - name: Validate layer-config.yaml
+      run: |
+        echo "Exibindo conteúdo do arquivo layer-config.yaml:"
+        cat layer-config.yaml
+
     - name: Verificar Conformidade de Camadas
       run: layer-lint application --config layer-config.yaml
