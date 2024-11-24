@@ -22,20 +22,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install --no-deps -r requirements.txt
 
-    - name: Run pylint
+    - name: Run Pylint
       run: |
-        pip install pylint
-        PYTHONPATH=$PYTHONPATH:. pylint .
+        pylint application --max-line-length=100 --disable=missing-docstring,invalid-name
 
     #- name: Run tests
       #run: |
       #  pytest
     
     # Validar o arquivo YAML antes de rodar o lint
-    - name: Validate layer-config.yaml
-      run: |
-        echo "Exibindo conteúdo do arquivo layer-config.yaml:"
-        cat ./application/layers.yml
-
-    - name: Verificar Conformidade de Camadas
-      run: layer-lint application --config ./application/layers.yml

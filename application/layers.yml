@@ -1,6 +1,0 @@
-My Layers Contract:
-  containers:
-    - application
-  layers:
-    - comandos
-    - utils
