@@ -27,3 +27,4 @@ astroid
 platformdirs
 isort
 dill
+tomlkit
