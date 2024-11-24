@@ -24,3 +24,4 @@ networkx
 pyyaml
 click
 astroid
+platformdirs
