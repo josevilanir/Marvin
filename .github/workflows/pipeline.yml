@@ -38,4 +38,4 @@ jobs:
         cat layers.yml
 
     - name: Verificar Conformidade de Camadas
-      run: layer-lint application
+      run: layer-lint application --config layers.yml
