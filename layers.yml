@@ -1,14 +1,6 @@
 My Layers Contract:
   containers:
     - application
-
-layers:
-  - name: utils
-    matches: "application/utils/*"
-    description: "Camada de utilitários: funções auxiliares genéricas."
-
-  - name: comandos
-    matches: "application/comandos/*"
-    depends_on:
-      - utils
-    description: "Camada de comandos: lógica que orquestra ações do Marvin."
+  layers:
+    - comandos
+    - utils
