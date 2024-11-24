@@ -35,7 +35,7 @@ jobs:
     - name: Validate layer-config.yaml
       run: |
         echo "Exibindo conteúdo do arquivo layer-config.yaml:"
-        cat layers.yml
+        cat ./application/layers.yml
 
     - name: Verificar Conformidade de Camadas
-      run: layer-lint application --config layers.yml
+      run: layer-lint application --config ./application/layers.yml
