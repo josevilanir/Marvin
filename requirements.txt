@@ -26,3 +26,4 @@ click
 astroid
 platformdirs
 isort
+dill
