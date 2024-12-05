@@ -27,6 +27,9 @@ jobs:
         pip install pylint
         PYTHONPATH=$PYTHONPATH:. pylint .
 
+    - name: instalação do PlantUML
+      run: pip install plantuml
+
     - name: Verificar instalação do PlantUML
       run: plantuml -version
 
