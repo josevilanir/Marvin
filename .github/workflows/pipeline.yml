@@ -37,3 +37,5 @@ jobs:
         name: uml-diagram
         path: diagrams/
 
+    - name: Verificar instalação do PlantUML
+      run: plantuml -version
