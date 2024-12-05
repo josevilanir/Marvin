@@ -1,0 +1,60 @@
+@startuml packages_marvin
+set namespaceSeparator none
+package "Marvin" as Marvin {
+}
+package "Marvin.comandos" as Marvin.comandos {
+}
+package "Marvin.comandos.abrir_aplicativo" as Marvin.comandos.abrir_aplicativo {
+}
+package "Marvin.comandos.abrir_calculadora" as Marvin.comandos.abrir_calculadora {
+}
+package "Marvin.comandos.abrir_navegador" as Marvin.comandos.abrir_navegador {
+}
+package "Marvin.comandos.conectar_dispositivo" as Marvin.comandos.conectar_dispositivo {
+}
+package "Marvin.comandos.controlar_volume" as Marvin.comandos.controlar_volume {
+}
+package "Marvin.comandos.data_e_hora" as Marvin.comandos.data_e_hora {
+}
+package "Marvin.comandos.enviar_zap" as Marvin.comandos.enviar_zap {
+}
+package "Marvin.comandos.pesquisar_youTube" as Marvin.comandos.pesquisar_youTube {
+}
+package "Marvin.comandos.proxima_musica" as Marvin.comandos.proxima_musica {
+}
+package "Marvin.comandos.sobre_mim" as Marvin.comandos.sobre_mim {
+}
+package "Marvin.comandos.timer" as Marvin.comandos.timer {
+}
+package "Marvin.comandos.tocar_musica" as Marvin.comandos.tocar_musica {
+}
+package "Marvin.comandos.voltar_musica" as Marvin.comandos.voltar_musica {
+}
+package "Marvin.config" as Marvin.config {
+}
+package "Marvin.main" as Marvin.main {
+}
+package "Marvin.reconhece_fala" as Marvin.reconhece_fala {
+}
+package "Marvin.responde_voz" as Marvin.responde_voz {
+}
+package "Marvin.tests" as Marvin.tests {
+}
+package "Marvin.tests.test_comandos" as Marvin.tests.test_comandos {
+}
+Marvin.main --> Marvin.comandos.abrir_aplicativo
+Marvin.main --> Marvin.comandos.abrir_calculadora
+Marvin.main --> Marvin.comandos.abrir_navegador
+Marvin.main --> Marvin.comandos.conectar_dispositivo
+Marvin.main --> Marvin.comandos.controlar_volume
+Marvin.main --> Marvin.comandos.data_e_hora
+Marvin.main --> Marvin.comandos.enviar_zap
+Marvin.main --> Marvin.comandos.pesquisar_youTube
+Marvin.main --> Marvin.comandos.proxima_musica
+Marvin.main --> Marvin.comandos.sobre_mim
+Marvin.main --> Marvin.comandos.timer
+Marvin.main --> Marvin.comandos.tocar_musica
+Marvin.main --> Marvin.comandos.voltar_musica
+Marvin.main --> Marvin.reconhece_fala
+Marvin.main --> Marvin.responde_voz
+@enduml
