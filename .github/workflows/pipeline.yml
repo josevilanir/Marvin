@@ -27,6 +27,9 @@ jobs:
         pip install pylint
         PYTHONPATH=$PYTHONPATH:. pylint .
 
+    - name: Verificar instalação do PlantUML
+      run: plantuml -version
+
     - name: Gerar Diagrama UML
       run: |
         plantuml -tsvg diagram/marvin_diagram.puml
@@ -36,6 +39,3 @@ jobs:
       with:
         name: uml-diagram
         path: diagrams/
-
-    - name: Verificar instalação do PlantUML
-      run: plantuml -version
