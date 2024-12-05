@@ -1,0 +1,3 @@
+@startuml classes_marvin
+set namespaceSeparator none
+@enduml

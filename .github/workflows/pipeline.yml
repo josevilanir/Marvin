@@ -27,6 +27,13 @@ jobs:
         pip install pylint
         PYTHONPATH=$PYTHONPATH:. pylint .
 
-    - name: Run tests
+    - name: Gerar Diagrama UML
       run: |
-        pytest
+        plantuml -tsvg -o diagrams/ marvin_diagram.puml
+
+    - name: Upload Diagrama UML
+      uses: actions/upload-artifact@v3
+      with:
+        name: uml-diagram
+        path: diagrams/
+

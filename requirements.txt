@@ -19,3 +19,4 @@ joblib
 tqdm
 scipy
 pylint
+plantuml
