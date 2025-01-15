@@ -12,13 +12,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4.2.1
 
-    - name: Set up JDK 17
+    - name: Set up JDK 11 (for SonarCloud)
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '11'
 
-    - name: Verify Java Version
+    - name: Verify Java Version (JDK 11)
       run: java -version
 
     - name: Set up Python
@@ -44,10 +44,11 @@ jobs:
       uses: SonarSource/sonarcloud-github-action@v1
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        JAVA_HOME: /opt/hostedtoolcache/jdk/17.0.13/x64
+        JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.18/x64  # Forçando JDK 11
       with:
         args: >
           -Dsonar.projectKey=josevilanir_Marvin
           -Dsonar.organization=josevilanir
           -Dsonar.python.version=3.11
+
           
