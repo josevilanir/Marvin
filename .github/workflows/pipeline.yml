@@ -44,7 +44,7 @@ jobs:
       uses: SonarSource/sonarcloud-github-action@v1
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        JAVA_HOME: ${{ env.JAVA_HOME }}
+        JAVA_HOME: /opt/hostedtoolcache/jdk/17.0.13/x64
       with:
         args: >
           -Dsonar.projectKey=josevilanir_Marvin
