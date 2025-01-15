@@ -30,10 +30,6 @@ jobs:
         echo "export PATH=\$SONAR_SCANNER_HOME/bin:\$PATH" >> $GITHUB_ENV
         echo "SonarScanner installed successfully"
 
-    - name: Verify SonarScanner installation
-      run: |
-        sonar-scanner --version
-
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
