@@ -30,3 +30,13 @@ jobs:
     - name: Run tests
       run: |
         pytest
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=seu-projeto
+          -Dsonar.organization=sua-organizacao
+          -Dsonar.python.version=3.11
