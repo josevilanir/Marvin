@@ -31,8 +31,7 @@ jobs:
 
     - name: Set PATH for SonarScanner
       run: |
-        echo "export PATH=\$SONAR_SCANNER_HOME/bin:\$PATH" >> ~/.bashrc
-        source ~/.bashrc
+        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
         sonar-scanner --version
 
     - name: Set up Python
@@ -56,6 +55,7 @@ jobs:
 
     - name: Run SonarScanner
       run: |
+        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
         sonar-scanner \
           -Dsonar.projectKey=josevilanir_Marvin \
           -Dsonar.organization=josevilanir \
