@@ -21,6 +21,14 @@ jobs:
     - name: Verify Java Version (JDK 11)
       run: java -version
 
+    - name: Install SonarScanner (specific version)
+      run: |
+        # Baixar e instalar uma versão compatível do SonarScanner
+        wget https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.8.0.2856/sonar-scanner-cli-4.8.0.2856-linux.zip
+        unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+        export SONAR_SCANNER_HOME=$(pwd)/sonar-scanner-4.8.0.2856-linux
+        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -40,15 +48,11 @@ jobs:
       run: |
         pytest
 
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1
+    - name: Run SonarScanner
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=josevilanir_Marvin \
+          -Dsonar.organization=josevilanir \
+          -Dsonar.python.version=3.11
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        JAVA_HOME: /opt/hostedtoolcache/jdk/11.0.18/x64  # Forçando JDK 11
-      with:
-        args: >
-          -Dsonar.projectKey=josevilanir_Marvin
-          -Dsonar.organization=josevilanir
-          -Dsonar.python.version=3.11
-
-          
