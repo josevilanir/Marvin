@@ -27,7 +27,7 @@ jobs:
         wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
         unzip sonar-scanner-cli-4.8.0.2856-linux.zip
         export SONAR_SCANNER_HOME=$(pwd)/sonar-scanner-4.8.0.2856-linux
-        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+        echo "export PATH=\$SONAR_SCANNER_HOME/bin:\$PATH" >> $GITHUB_ENV
         echo "SonarScanner installed successfully"
 
     - name: Verify SonarScanner installation
