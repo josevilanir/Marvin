@@ -6,7 +6,6 @@ from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from reconhece_fala import reconhece_fala
 from responde_voz import responde_voz
 
-
 sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         client_id=config.SPOTIPY_CLIENT_ID,

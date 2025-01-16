@@ -8,6 +8,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import traceback
+
+
 def pesquisar_youtube_chrome(pesquisa):
     # Configurar o WebDriver para usar o Chrome
     try:

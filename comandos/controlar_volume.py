@@ -1,6 +1,8 @@
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from ctypes import cast, POINTER
 from comtypes import CLSCTX_ALL
+
+
 def ajustar_volume(volume_str):
     try:
         # Obter o volume do sistema
