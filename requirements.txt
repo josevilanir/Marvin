@@ -21,3 +21,4 @@ scipy
 pylint
 flake8
 pyflakes
+pycodestyle
