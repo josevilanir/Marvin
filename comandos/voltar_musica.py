@@ -5,6 +5,7 @@ import config
 from responde_voz import responde_voz
 from utils.spotify_utils import sp
 
+
 def voltar_musica():
     try:
         sp.previous_track()

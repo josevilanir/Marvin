@@ -12,7 +12,8 @@ sp = spotipy.Spotify(
         client_id=config.SPOTIPY_CLIENT_ID,
         client_secret=config.SPOTIPY_CLIENT_SECRET,
         redirect_uri=config.SPOTIPY_REDIRECT_URI,
-        scope="user-read-playback-state,user-modify-playback-state,playlist-modify-private,playlist-modify-public,playlist-read-private"))
+        scope="user-read-playback-state,user-modify-playback-state,playlist-modify-private,playlist-modify-public,playlist-read-private"
+        ))
 
 
 def selecionar_dispositivo(dispositivo_id):
@@ -178,7 +179,6 @@ def tocar_playlist(pesquisa, modo='standard'):
 
         # Obtém a lista de faixas da playlist
         tracks = sp.playlist_tracks(playlist_id)
-        uris = [item['track']['uri'] for item in tracks['items']]
 
         # Configura o modo de reprodução
         if modo == 'shuffle':

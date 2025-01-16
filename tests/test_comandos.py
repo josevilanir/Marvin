@@ -8,7 +8,7 @@ def test_pausar_musica_sem_dispositivo():
         with pytest.raises(Exception) as excinfo:
             pausar_musica()
         assert str(
-            excinfo.value) == "Nenhum dispositivo disponível. Por favor, verifique se há dispositivos conectados."
+            excinfo.value) == "Nenhum dispositivo disponível. Por favor, verifique se há dispositivos."
 
 
 def test_pausar_musica_sucesso():

@@ -1,4 +1,3 @@
-import time
 from comandos.data_e_hora import obter_data_e_hora
 from comandos.sobre_mim import sobre_mim
 from comandos.abrir_navegador import abrir_navegador_com_pesquisa
@@ -9,7 +8,7 @@ from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import abriPrimeiro_video, Pular_Anuncio, clicar_video, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba, clicar_video_canal_in
+from comandos.pesquisar_youTube import Pular_Anuncio, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba, clicar_video_canal_in
 from comandos.controlar_volume import ajustar_volume
 from comandos.timer import iniciar_timer_em_thread
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
