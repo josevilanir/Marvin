@@ -175,9 +175,7 @@ def tocar_playlist(pesquisa, modo='standard'):
             else:
                 responde_voz("Playlist não encontrada.")
                 return
-
-
-        # Configura o modo de reprodução
+            # Configura o modo de reprodução
         if modo == 'shuffle':
             sp.shuffle(True)
         else:
