@@ -3,12 +3,15 @@ from comandos.sobre_mim import sobre_mim
 from comandos.abrir_navegador import abrir_navegador_com_pesquisa
 from comandos.abrir_calculadora import abrir_calculadora
 from comandos.conectar_dispositivo import listar_e_conectar_dispositivo
-from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists, tocar_playlist, listar_musicas_da_playlist, sp
+from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists, 
+from comandos.tocar_musica import tocar_playlist, listar_musicas_da_playlist, sp
 from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
 from comandos.abrir_aplicativo import abrir_aplicativo
 from comandos.enviar_zap import enviar_mensagem_whatsapp
-from comandos.pesquisar_youTube import Pular_Anuncio, selecionar_canal, pesquisar_youtube_chrome, clicar_video, voltar_para_pesquisa, pausar_retornar_video, tela_cheia_chrome, maximizar_janela, sair_tela_cheia, clicar_video_canal, navegar_aba, clicar_video_canal_in
+from comandos.pesquisar_youTube import Pular_Anuncio, selecionar_canal, pesquisar_youtube_chrome, clicar_video
+from comandos.pesquisar_youTube import tela_cheia_chrome, maximizar_janela, sair_tela_cheia, navegar_aba
+from comandos.pesquisar_youTube import voltar_para_pesquisa, pausar_retornar_video, clicar_video_canal, clicar_video_canal_in
 from comandos.controlar_volume import ajustar_volume
 from comandos.timer import iniciar_timer_em_thread
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
