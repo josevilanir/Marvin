@@ -6,13 +6,13 @@ from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from reconhece_fala import reconhece_fala
 from responde_voz import responde_voz
 
-
 sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         client_id=config.SPOTIPY_CLIENT_ID,
         client_secret=config.SPOTIPY_CLIENT_SECRET,
         redirect_uri=config.SPOTIPY_REDIRECT_URI,
-        scope="user-read-playback-state,user-modify-playback-state,playlist-modify-private,playlist-modify-public,playlist-read-private"))
+        scope="user-read-playback-state,user-modify-playback-state,playlist-modify-private,playlist-modify-public,playlist-read-private"
+        ))
 
 
 def selecionar_dispositivo(dispositivo_id):
@@ -175,12 +175,7 @@ def tocar_playlist(pesquisa, modo='standard'):
             else:
                 responde_voz("Playlist não encontrada.")
                 return
-
-        # Obtém a lista de faixas da playlist
-        tracks = sp.playlist_tracks(playlist_id)
-        uris = [item['track']['uri'] for item in tracks['items']]
-
-        # Configura o modo de reprodução
+            # Configura o modo de reprodução
         if modo == 'shuffle':
             sp.shuffle(True)
         else:

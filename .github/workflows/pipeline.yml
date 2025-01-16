@@ -30,3 +30,6 @@ jobs:
     - name: Run tests
       run: |
         pytest
+
+    - name: Run Code Smell Analysis
+      run: flake8 .
