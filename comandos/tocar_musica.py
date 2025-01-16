@@ -177,8 +177,6 @@ def tocar_playlist(pesquisa, modo='standard'):
                 responde_voz("Playlist não encontrada.")
                 return
 
-        # Obtém a lista de faixas da playlist
-        tracks = sp.playlist_tracks(playlist_id)
 
         # Configura o modo de reprodução
         if modo == 'shuffle':
