@@ -28,7 +28,6 @@ def abrir_aplicativo(nome_aplicativo):
             if os.path.exists(atalho):
                 subprocess.Popen([atalho], shell=True)
             else:
-                # Caso o aplicativo não seja conhecido ou não esteja na área de trabalho
                 # Tente abrir diretamente como um executável
                 if not nome_aplicativo.lower().endswith('.exe'):
                     nome_aplicativo += '.exe'
