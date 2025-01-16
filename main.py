@@ -3,7 +3,7 @@ from comandos.sobre_mim import sobre_mim
 from comandos.abrir_navegador import abrir_navegador_com_pesquisa
 from comandos.abrir_calculadora import abrir_calculadora
 from comandos.conectar_dispositivo import listar_e_conectar_dispositivo
-from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists, 
+from comandos.tocar_musica import tocar_musica, pausar_musica, retomar_musica, adicionar_musica_playlist, listar_playlists
 from comandos.tocar_musica import tocar_playlist, listar_musicas_da_playlist, sp
 from comandos.proxima_musica import avancar_musica
 from comandos.voltar_musica import voltar_musica
