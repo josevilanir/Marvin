@@ -12,6 +12,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4.2.1
 
+    - name: Set up JDK 11 (for SonarCloud)
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Verify Java Version (JDK 11)
+      run: java -version
+
+    - name: Install SonarScanner (specific version)
+      run: |
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+        unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+        export SONAR_SCANNER_HOME=$(pwd)/sonar-scanner-4.8.0.2856-linux
+        echo "SonarScanner installed successfully"
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
