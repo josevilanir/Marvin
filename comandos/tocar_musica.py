@@ -116,11 +116,16 @@ def pausar_musica():
         print(f"Erro ao pausar a reprodução: {e}")
 
 
+class DeviceNotFoundError(Exception):
+    """Exceção personalizada para indicar que nenhum dispositivo foi encontrado."""
+    pass
+
+
 def retomar_musica():
     dispositivos = listar_dispositivos_spotify()
 
     if not dispositivos:
-        raise Exception(
+        raise DeviceNotFoundError(
             "Nenhum dispositivo disponível. Por favor, verifique se há dispositivos conectados.")
 
     try:

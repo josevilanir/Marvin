@@ -261,10 +261,10 @@ def pesquisar_youtube(pesquisa):
     time.sleep(2)
 
 
-def abriPrimeiro_video():
+def abrir_primeiro_video():
     # Move o cursor para o local do primeiro vídeo e clica (ajuste as
     # coordenadas conforme necessário)
-    # As coordenadas (300, 300) são um exemplo; ajuste conforme necessário
+    # As coordenadas (750, 200) são um exemplo; ajuste conforme necessário
     pyautogui.moveTo(750, 200)
     pyautogui.click()
 
