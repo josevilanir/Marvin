@@ -182,8 +182,8 @@ def tocar_playlist(pesquisa, modo='standard'):
                 return
 
         # Obtém a lista de faixas da playlist
-        tracks = sp.playlist_tracks(playlist_id)
-        uris = [item['track']['uri'] for item in tracks['items']]
+        #tracks = sp.playlist_tracks(playlist_id)
+        #uris = [item['track']['uri'] for item in tracks['items']]
 
         # Configura o modo de reprodução
         if modo == 'shuffle':

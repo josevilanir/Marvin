@@ -1,10 +1,10 @@
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+
+
 from spotipy.exceptions import SpotifyException
 from utils.spotify_utils import listar_dispositivos_spotify
 from utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 from responde_voz import responde_voz
-from reconhece_fala import reconhece_fala, ouvir_comando_completo
+from reconhece_fala import ouvir_comando_completo
 from utils.spotify_utils import sp
 
 def listar_e_conectar_dispositivo():
