@@ -43,6 +43,18 @@ jobs:
         pip install pylint
         PYTHONPATH=$PYTHONPATH:. pylint .
 
-    - name: Run tests
+    - name: Instalar PlantUML
+      run: sudo apt-get install -y plantuml
+
+    - name: Verificar instalação do PlantUML
+      run: plantuml -version
+
+    - name: Gerar Diagrama UML
       run: |
-        pytest
+        plantuml -tsvg diagram/marvin_diagram.puml
+
+    - name: Upload Diagrama UML
+      uses: actions/upload-artifact@v3
+      with:
+        name: marvin_diagram
+        path: diagram/
