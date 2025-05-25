@@ -5,7 +5,7 @@ import pyautogui # For UI automation
 import pyperclip # For reliable copy-pasting, especially with special characters
 
 # Assuming ConfigManager might be used for future settings (e.g., default wait times)
-from app.core.config_manager import ConfigManager
+from backend.app.core.config_manager import ConfigManager
 
 class WhatsAppService:
     def __init__(self, config_manager: ConfigManager):

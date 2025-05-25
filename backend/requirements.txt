@@ -1,6 +1,7 @@
 pygame
 twilio
 pyautogui
+pyaudio
 selenium
 spotipy
 SpeechRecognition
