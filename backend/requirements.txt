@@ -22,3 +22,5 @@ scipy
 pylint
 python-dotenv
 pycaw
+pytest
+pytest-mock 
