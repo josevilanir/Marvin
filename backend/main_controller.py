@@ -8,7 +8,7 @@ import re # For case-insensitive split in the voice loop
 from backend.app.core.config_manager import ConfigManager
 from backend.app.services.spotfy_service import SpotifyService
 from backend.app.services.system_service import SystemService
-from backend.app.services.youtube_sevice import YouTubeService
+from backend.app.services.youtube_service import YouTubeService
 from backend.app.services.whatsapp_service import WhatsAppService
 
 from backend.app.voice_interface.speech_recognizer import SpeechRecognizer
