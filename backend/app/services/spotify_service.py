@@ -276,7 +276,7 @@ class SpotifyService:
         except AttributeError:
             return {"status": "error", "message": "Spotify client not initialized."}
 
-    def add_track_to_playlist(self, track_name: str, playlist_identifier) -> dict:
+    def add_track_to_playlist(self, track_name: str, playlist_identifier, playlists: list = None) -> dict:
         """
         Adds a track to a specified playlist.
 
@@ -304,7 +304,7 @@ class SpotifyService:
 
 
         # Find playlist ID
-        playlist_id = self.get_playlist_id_by_name_or_index(playlist_identifier)
+        playlist_id = self.get_playlist_id_by_name_or_index(playlist_identifier, playlists)
         if not playlist_id:
             message = f"Playlist '{playlist_identifier}' not found or identifier is invalid."
             if isinstance(playlist_identifier, int):
@@ -325,7 +325,7 @@ class SpotifyService:
         except SpotifyException as e:
             return {"status": "error", "message": f"Error adding track to playlist '{playlist_name}': {e}"}
 
-    def list_tracks_in_playlist(self, playlist_identifier) -> dict:
+    def list_tracks_in_playlist(self, playlist_identifier, playlists: list = None) -> dict:
         """
         Lists tracks in a specified playlist.
 
@@ -336,7 +336,7 @@ class SpotifyService:
             dict: Contains status, message, and optionally a list of tracks if successful.
                   Tracks are dictionaries with 'name' and 'artists'.
         """
-        playlist_id = self.get_playlist_id_by_name_or_index(playlist_identifier)
+        playlist_id = self.get_playlist_id_by_name_or_index(playlist_identifier, playlists)
         if not playlist_id:
             message = f"Playlist '{playlist_identifier}' not found or identifier is invalid."
             if isinstance(playlist_identifier, int):

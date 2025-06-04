@@ -6,7 +6,7 @@ import re # For case-insensitive split in the voice loop
 
 # Assuming your services and core modules are in the 'app' package
 from backend.app.core.config_manager import ConfigManager
-from backend.app.services.spotfy_service import SpotifyService
+from backend.app.services.spotify_service import SpotifyService
 from backend.app.services.system_service import SystemService
 from backend.app.services.youtube_service import YouTubeService
 from backend.app.services.whatsapp_service import WhatsAppService
