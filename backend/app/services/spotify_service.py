@@ -2,8 +2,8 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.exceptions import SpotifyException
-from backend.app.core.config_manager import ConfigManager
-from backend.app.utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
+from app.core.config_manager import ConfigManager
+from app.utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 import os
 
 class SpotifyService:

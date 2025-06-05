@@ -9,11 +9,10 @@ import time
 import pygame # For timer alarm
 
 # Assuming ConfigManager might be needed for paths or future settings
-from backend.app.core.config_manager import ConfigManager 
+from app.core.config_manager import ConfigManager 
 # Assuming constants might define resource paths
-from backend.app.core.constants import RESOURCE_PATH # You'll need to define this in constants.py
+from app.core.constants import RESOURCE_PATH # You'll need to define this in constants.py
 
-# For volume control (pycaw) - make sure it's in requirements_backend.txt
 try:
     from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
     from ctypes import cast, POINTER

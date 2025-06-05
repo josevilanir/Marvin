@@ -17,7 +17,7 @@ from selenium.common.exceptions import (
 import traceback
 
 # Assuming ConfigManager might hold WebDriver path or other settings
-from backend.app.core.config_manager import ConfigManager
+from app.core.config_manager import ConfigManager
 
 class YouTubeService:
     def __init__(self, config_manager: ConfigManager):

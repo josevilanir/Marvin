@@ -1,5 +1,5 @@
 import re
-from backend.app.utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
+from app.utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 import time
 
 class IntentProcessor:

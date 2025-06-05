@@ -5,17 +5,17 @@ import traceback
 import re # For case-insensitive split in the voice loop
 
 # Assuming your services and core modules are in the 'app' package
-from backend.app.core.config_manager import ConfigManager
-from backend.app.services.spotify_service import SpotifyService
-from backend.app.services.system_service import SystemService
-from backend.app.services.youtube_service import YouTubeService
-from backend.app.services.whatsapp_service import WhatsAppService
+from app.core.config_manager import ConfigManager
+from app.services.spotify_service import SpotifyService
+from app.services.system_service import SystemService
+from app.services.youtube_service import YouTubeService
+from app.services.whatsapp_service import WhatsAppService
 
-from backend.app.voice_interface.speech_recognizer import SpeechRecognizer
-from backend.app.voice_interface.speech_synthesizer import SpeechSynthesizer
+from app.voice_interface.speech_recognizer import SpeechRecognizer
+from app.voice_interface.speech_synthesizer import SpeechSynthesizer
 
 # Import the new IntentProcessor
-from backend.app.nlp.intent_processor import IntentProcessor
+from app.nlp.intent_processor import IntentProcessor
 
 
 class MainController:
