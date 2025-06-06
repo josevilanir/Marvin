@@ -55,3 +55,20 @@ class SpeechRecognizer:
                 command = self.get_command()
                 if command:
                     callback(command)
+
+    def recognize_once(self):
+        with self.microphone as source:
+            self.recognizer.adjust_for_ambient_noise(source)
+            print("SpeechRecognizer: Aguardando fala...")
+            audio = self.recognizer.listen(source)
+
+        try:
+            texto = self.recognizer.recognize_google(audio, language='pt-BR')
+            print(f"SpeechRecognizer: Você disse: {texto}")
+            return texto
+        except sr.UnknownValueError:
+            print("SpeechRecognizer: Não entendi o que foi dito.")
+            return ""
+        except sr.RequestError as e:
+            print(f"SpeechRecognizer: Erro na requisição: {e}")
+            return ""

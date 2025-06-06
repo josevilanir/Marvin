@@ -23,4 +23,7 @@ pylint
 python-dotenv
 pycaw
 pytest
-pytest-mock 
+pytest-mock
+PySide6>=6.5.0
+xvfbwrapper>=0.2.9  
+pycaw>=20230420  
