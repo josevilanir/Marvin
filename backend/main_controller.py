@@ -87,7 +87,7 @@ class MainController:
             try:
                 self.speech_recognizer = SpeechRecognizer()
                 print("MainController: SpeechRecognizer initialized.")
-                self.speech_recognizer._adjust_for_ambient_noise()
+                self.speech_recognizer.adjust_for_ambient_noise()
             except Exception as e_sr:
                 print(f"MainController: Error initializing SpeechRecognizer: {e_sr}")
                 traceback.print_exc()

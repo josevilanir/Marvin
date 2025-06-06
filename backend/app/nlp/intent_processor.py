@@ -1,6 +1,8 @@
 import re
 from app.utils.numeros_por_extenso_para_numero import numero_por_extenso_para_numero
 import time
+from app.voice_interface.speech_synthesizer import SpeechSynthesizer
+
 
 class IntentProcessor:
     def __init__(self, main_controller):
@@ -13,7 +15,7 @@ class IntentProcessor:
             {
                 "name": "GET_TIME",
                 "regex": re.compile(r"que horas são|horas|me diga as horas|ver horas", re.IGNORECASE),
-                "handler": self._handle_get_time,
+                "handler": self.handle_get_time,
                 "required_service": lambda: self.controller.system_service
             },
             {
@@ -221,8 +223,13 @@ class IntentProcessor:
 
     # --- Handler Methods (Stubs - Implementar a lógica!) ---
 
-    def _handle_get_time(self, entities, original_command):
-        return self.controller.system_service.get_current_datetime_string().get("message")
+    def handle_get_time(self, entities, original_command):
+        mensagem = self.controller.system_service.get_current_datetime_string().get("message")
+    
+        speaker = SpeechSynthesizer()
+        speaker.speak(mensagem)
+
+        return mensagem
 
     def _handle_get_marvin_info(self, entities, original_command):
         return self.controller.system_service.get_marvin_info().get("message")

@@ -2,7 +2,7 @@ import sys
 import threading
 
 from PySide6.QtWidgets import (
-    QApplication, QMainWindow, QLabel, QWidget, QVBoxLayout, QPushButton
+    QApplication, QMainWindow, QLabel, QWidget, QVBoxLayout, QPushButton, QSizePolicy
 )
 from PySide6.QtGui import QFont, QColor, QPalette
 from PySide6.QtCore import Qt, QTimer, Signal, QObject
@@ -10,6 +10,7 @@ from PySide6.QtCore import Qt, QTimer, Signal, QObject
 from app.voice_interface.speech_recognizer import SpeechRecognizer
 from app.nlp.intent_processor import IntentProcessor
 from main_controller import MainController
+from app.voice_interface.speech_synthesizer import SpeechSynthesizer
 
 
 class RecognizerWorker(QObject):
@@ -66,6 +67,13 @@ class MarvinGUI(QMainWindow):
         self.label_transcription.setFont(QFont("Arial", 12))
         self.label_transcription.setWordWrap(True)
         self.label_transcription.setStyleSheet("color: lightgray;")
+        self.label_transcription.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.label_transcription.setStyleSheet("""
+            color: lightgray;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            """)
 
         self.button_toggle = QPushButton("Ativar Microfone")
         self.button_toggle.setFont(QFont("Arial", 11))

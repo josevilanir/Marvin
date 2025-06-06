@@ -10,32 +10,42 @@ class SpeechRecognizer:
         self.microphone = sr.Microphone()
         self.ambient_duration = ambient_duration
 
+    def adjust_for_ambient_noise(self, duration=1):
+        with self.microphone as source:
+            self.recognizer.adjust_for_ambient_noise(source, duration=duration)
+
     def calibrate_microphone(self):
         with self.microphone as source:
             print("Ajustando para o ruído ambiente...")
             self.recognizer.adjust_for_ambient_noise(source, duration=self.ambient_duration)
             print("Pronto para ouvir.")
 
-    def listen_for_activation(self, activation_word="marvin"):
+    def listen_for_activation(self, activation_words=None):
+        if activation_words is None:
+            activation_words = ["marvin", "marv", "marvi", "mar"]
+
         with self.microphone as source:
             print("Escutando...")
-            audio = self.recognizer.listen(source, phrase_time_limit=5)
+            audio = self.recognizer.listen(source, phrase_time_limit=40)
+
         try:
             command = self.recognizer.recognize_google(audio, language="pt-BR").lower()
             print(f"Usuário disse: {command}")
-            if activation_word in command:
+
+            if any(word in command for word in activation_words):
                 synth.speak("Estou ouvindo")
                 return True
         except sr.UnknownValueError:
             pass
         except sr.RequestError as e:
             print(f"Erro ao se comunicar com o serviço de reconhecimento: {e}")
+
         return False
 
     def get_command(self):
         with self.microphone as source:
             print("Ouvindo comando...")
-            audio = self.recognizer.listen(source, phrase_time_limit=7)
+            audio = self.recognizer.listen(source, phrase_time_limit=40)
         try:
             command = self.recognizer.recognize_google(audio, language="pt-BR")
             print(f"Comando reconhecido: {command}")
