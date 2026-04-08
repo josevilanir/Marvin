@@ -1,4 +1,5 @@
 pygame
+groq
 twilio
 pyautogui
 pyaudio
@@ -10,7 +11,9 @@ pluggy
 pytest
 iniconfig
 noisereduce
-gtts
+pyttsx3
+PyQt6
+psutil
 numpy
 redis
 urllib3

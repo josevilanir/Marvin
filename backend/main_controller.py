@@ -1,10 +1,11 @@
 # backend/main_controller.py
 import os
-import time # For timer example
+import time
 import traceback
-import re # For case-insensitive split in the voice loop
+import re
 
-# Assuming your services and core modules are in the 'app' package
+from dotenv import load_dotenv
+
 from app.core.config_manager import ConfigManager
 from app.services.spotify_service import SpotifyService
 from app.services.system_service import SystemService
@@ -14,8 +15,9 @@ from app.services.whatsapp_service import WhatsAppService
 from app.voice_interface.speech_recognizer import SpeechRecognizer
 from app.voice_interface.speech_synthesizer import SpeechSynthesizer
 
-# Import the new IntentProcessor
-from app.nlp.intent_processor import IntentProcessor
+from app.ai.tool_registry import ToolRegistry
+from app.ai.ai_processor import AIProcessor
+from app.ai.service_registrar import register_all
 
 
 class MainController:
@@ -28,102 +30,105 @@ class MainController:
         self.whatsapp_service = None
         self.speech_recognizer = None
         self.speech_synthesizer = None
-        self.intent_processor = None # Initialize IntentProcessor instance
+        self.tool_registry = None
+        self.ai_processor = None
 
         try:
-            backend_root_path = os.path.dirname(os.path.abspath(__file__)) # backend/
+            backend_root_path = os.path.dirname(os.path.abspath(__file__))
             project_root_env = os.path.join(os.path.dirname(backend_root_path), '.env')
             backend_env = os.path.join(backend_root_path, '.env')
 
-            env_path_to_use = None
-            if os.path.exists(project_root_env):
-                env_path_to_use = project_root_env
-            elif os.path.exists(backend_env):
-                env_path_to_use = backend_env
-            
+            env_path_to_use = project_root_env if os.path.exists(project_root_env) else (
+                backend_env if os.path.exists(backend_env) else None
+            )
             if env_path_to_use:
+                load_dotenv(dotenv_path=env_path_to_use)
                 print(f"MainController: Loading .env from {env_path_to_use}")
             else:
-                print("MainController: .env file not found in standard locations. Relying on environment variables.")
+                print("MainController: .env not found, relying on environment variables.")
 
             self.config_manager = ConfigManager(env_file_path=env_path_to_use)
             print("MainController: ConfigManager initialized.")
 
-            # Initialize services
+            # ── Services (each wrapped so one failure doesn't abort init) ──
             try:
                 self.spotify_service = SpotifyService(self.config_manager)
                 print("MainController: SpotifyService initialized.")
-            except Exception as e_spotify:
-                print(f"MainController: Error initializing SpotifyService: {e_spotify}")
-                traceback.print_exc()
-            
+            except Exception as e:
+                print(f"MainController: SpotifyService skipped — {e}")
+
             try:
                 self.system_service = SystemService(self.config_manager)
                 print("MainController: SystemService initialized.")
-            except Exception as e_system:
-                print(f"MainController: Error initializing SystemService: {e_system}")
-                traceback.print_exc()
+            except Exception as e:
+                print(f"MainController: SystemService skipped — {e}")
 
             try:
                 self.youtube_service = YouTubeService(self.config_manager)
                 print("MainController: YouTubeService initialized.")
-            except Exception as e_youtube:
-                print(f"MainController: Error initializing YouTubeService: {e_youtube}")
-                traceback.print_exc()
+            except Exception as e:
+                print(f"MainController: YouTubeService skipped — {e}")
 
             try:
                 self.whatsapp_service = WhatsAppService(self.config_manager)
                 print("MainController: WhatsAppService initialized.")
-            except Exception as e_whatsapp:
-                print(f"MainController: Error initializing WhatsAppService: {e_whatsapp}")
-                traceback.print_exc()
+            except Exception as e:
+                print(f"MainController: WhatsAppService skipped — {e}")
 
-            # Initialize IntentProcessor, passing self (MainController instance)
-            # so IntentProcessor can access the services.
-            self.intent_processor = IntentProcessor(self)
-            print("MainController: IntentProcessor initialized.")
+            # ── AI: ToolRegistry + AIProcessor ──────────────────────────────
+            self.tool_registry = ToolRegistry()
+            registered = register_all(
+                self.tool_registry,
+                spotify=self.spotify_service,
+                youtube=self.youtube_service,
+                whatsapp=self.whatsapp_service,
+                system=self.system_service,
+            )
+            print(f"MainController: {len(registered)} ferramentas registradas: {registered}")
 
-            # Initialize voice interface
+            groq_api_key = self.config_manager.get_groq_api_key()
+            if not groq_api_key:
+                raise ValueError("GROQ_API_KEY não encontrado no .env")
+
+            self.ai_processor = AIProcessor(
+                api_key=groq_api_key,
+                tool_registry=self.tool_registry,
+            )
+            print("MainController: AIProcessor initialized.")
+
+            # ── Voice interface ──────────────────────────────────────────────
             try:
                 self.speech_recognizer = SpeechRecognizer()
                 print("MainController: SpeechRecognizer initialized.")
                 self.speech_recognizer.adjust_for_ambient_noise()
-            except Exception as e_sr:
-                print(f"MainController: Error initializing SpeechRecognizer: {e_sr}")
-                traceback.print_exc()
+            except Exception as e:
+                print(f"MainController: SpeechRecognizer skipped — {e}")
 
             try:
                 self.speech_synthesizer = SpeechSynthesizer()
                 print("MainController: SpeechSynthesizer initialized.")
-            except Exception as e_ss:
-                print(f"MainController: Error initializing SpeechSynthesizer: {e_ss}")
-                traceback.print_exc()
-            
-            print("MainController initialized (potentially with some service errors).")
+            except Exception as e:
+                print(f"MainController: SpeechSynthesizer skipped — {e}")
 
-        except ValueError as ve: 
-            print(f"FATAL: Configuration error during MainController initialization: {ve}")
+            print("MainController initialized.")
+
+        except ValueError as ve:
+            print(f"FATAL: Configuration error: {ve}")
             raise
         except Exception as e:
-            print(f"FATAL: Unexpected error during MainController initialization: {e}")
+            print(f"FATAL: Unexpected error: {e}")
             traceback.print_exc()
             raise
 
     def process_command_text(self, command_text: str) -> str:
-        """
-        Processes a text command by delegating to the IntentProcessor.
-        """
+        """Process a text command via AIProcessor (Groq + ToolRegistry)."""
         if not command_text:
             return "Nenhum comando recebido."
-        
-        if not self.intent_processor:
-            print("MainController: IntentProcessor not initialized. Cannot process command.")
-            return "Desculpe, estou com problemas para processar comandos agora."
 
-        # Delegate the entire command processing to IntentProcessor
-        response_message = self.intent_processor.process(command_text)
-        
-        return response_message
+        if not self.ai_processor:
+            return "Desculpe, o processador de IA não está disponível agora."
+
+        return self.ai_processor.process(command_text)
 
 
     def run_voice_loop(self):

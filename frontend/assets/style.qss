@@ -1,0 +1,150 @@
+/* ============================================================
+   MARVIN — Dark HUD Theme
+   ============================================================ */
+
+/* ── Global ─────────────────────────────────────────────── */
+* {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 10pt;
+    color: #e8e8f0;
+    outline: none;
+}
+
+QMainWindow, QWidget#central {
+    background-color: #0d0d0f;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+QScrollBar:vertical {
+    background: #0d0d0f;
+    width: 6px;
+    border-radius: 3px;
+}
+QScrollBar::handle:vertical {
+    background: #2a2a3a;
+    border-radius: 3px;
+    min-height: 20px;
+}
+QScrollBar::handle:vertical:hover { background: #00d4ff; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }
+
+/* ── Header ──────────────────────────────────────────────── */
+QWidget#header {
+    background-color: #13131a;
+    border-bottom: 1px solid #1e1e2e;
+}
+QLabel#title {
+    color: #00d4ff;
+    font-size: 13pt;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+QLabel#subtitle {
+    color: #6b6b80;
+    font-size: 8pt;
+}
+
+/* ── Control buttons (minimize / close) ─────────────────── */
+QPushButton#btn_minimize,
+QPushButton#btn_close {
+    background: transparent;
+    border: none;
+    color: #6b6b80;
+    font-size: 14pt;
+    padding: 0px 6px;
+    border-radius: 4px;
+}
+QPushButton#btn_minimize:hover { color: #e8e8f0; background: #1e1e2e; }
+QPushButton#btn_close:hover    { color: #ff4444; background: #1e1e2e; }
+
+/* ── Chat area ───────────────────────────────────────────── */
+QScrollArea#chat_scroll, QWidget#chat_content {
+    background-color: #0d0d0f;
+    border: none;
+}
+QWidget#msg_user {
+    background-color: #1e1e2e;
+    border-radius: 10px;
+    padding: 8px 12px;
+}
+QWidget#msg_marvin {
+    background-color: #0f1923;
+    border-radius: 10px;
+    border-left: 2px solid #00d4ff;
+    padding: 8px 12px;
+}
+QLabel#msg_user_text  { color: #e8e8f0; }
+QLabel#msg_marvin_text { color: #00d4ff; }
+QLabel#msg_sender {
+    color: #6b6b80;
+    font-size: 8pt;
+}
+
+/* ── Input bar ───────────────────────────────────────────── */
+QWidget#input_bar {
+    background-color: #13131a;
+    border-top: 1px solid #1e1e2e;
+}
+QLineEdit#chat_input {
+    background-color: #1e1e2e;
+    border: 1px solid #2a2a3a;
+    border-radius: 16px;
+    padding: 6px 14px;
+    color: #e8e8f0;
+    selection-background-color: #00d4ff;
+    selection-color: #0d0d0f;
+}
+QLineEdit#chat_input:focus { border-color: #00d4ff; }
+
+QPushButton#btn_send {
+    background-color: #00d4ff;
+    color: #0d0d0f;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 16px;
+    font-weight: bold;
+}
+QPushButton#btn_send:hover    { background-color: #33ddff; }
+QPushButton#btn_send:pressed  { background-color: #0099bb; }
+QPushButton#btn_send:disabled { background-color: #2a2a3a; color: #6b6b80; }
+
+/* ── Mic button ──────────────────────────────────────────── */
+QPushButton#btn_mic {
+    background-color: #1e1e2e;
+    border: 2px solid #2a2a3a;
+    border-radius: 20px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    font-size: 16pt;
+}
+QPushButton#btn_mic:hover   { border-color: #00d4ff; }
+QPushButton#btn_mic[active="true"] {
+    background-color: #3a0000;
+    border-color: #ff4444;
+}
+
+/* ── System panel ────────────────────────────────────────── */
+QWidget#system_panel {
+    background-color: #0a0a0c;
+    border-top: 1px solid #1e1e2e;
+}
+QLabel#sys_label {
+    color: #6b6b80;
+    font-size: 8pt;
+}
+QLabel#sys_value {
+    color: #e8e8f0;
+    font-size: 8pt;
+    font-weight: bold;
+}
+QLabel#sys_value[warning="true"]  { color: #ffaa00; }
+QLabel#sys_value[critical="true"] { color: #ff4444; }
+QLabel#sys_sep {
+    color: #2a2a3a;
+    font-size: 8pt;
+}
+
+/* ── Status dot ──────────────────────────────────────────── */
+QLabel#status_dot { font-size: 10pt; }

@@ -1,8 +1,5 @@
 import speech_recognition as sr
 import time
-from app.voice_interface.speech_synthesizer import SpeechSynthesizer
-
-synth = SpeechSynthesizer()
 
 class SpeechRecognizer:
     def __init__(self, ambient_duration=1):
@@ -52,10 +49,8 @@ class SpeechRecognizer:
             return command.lower()
         except sr.UnknownValueError:
             print("Não entendi o que foi dito.")
-            synth.speak("Desculpe, não entendi o que você disse.")
         except sr.RequestError as e:
             print(f"Erro ao se comunicar com o serviço de reconhecimento: {e}")
-            synth.speak("Desculpe, ocorreu um erro ao tentar entender.")
         return ""
 
     def run(self, callback):

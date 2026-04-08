@@ -1,91 +1,83 @@
 # backend/app/voice_interface/speech_synthesizer.py
-import os
-import pygame
-from gtts import gTTS
-import tempfile # For safer temporary file creation
+import pyttsx3
+import threading
+
 
 class SpeechSynthesizer:
-    def __init__(self, lang='pt-br', temp_audio_filename="response.mp3"):
-        self.lang = lang
-        # Using tempfile for a more robust temporary file path
-        self.temp_audio_file = os.path.join(tempfile.gettempdir(), temp_audio_filename)
-        
+    """
+    Local text-to-speech via pyttsx3.
+    Zero network latency, no temp files, no pygame dependency.
+    """
+
+    def __init__(self, rate: int = 175, volume: float = 1.0, voice_lang: str = "pt"):
+        """
+        Args:
+            rate:       Words per minute (default 175 — natural conversational pace).
+            volume:     0.0 – 1.0 (default 1.0).
+            voice_lang: Preferred language substring for voice selection (e.g. 'pt', 'en').
+        """
+        self._lock = threading.Lock()
         try:
-            pygame.mixer.init()
-            print("SpeechSynthesizer: Pygame mixer initialized.")
-        except pygame.error as e:
-            print(f"SpeechSynthesizer: Failed to initialize Pygame mixer: {e}")
-            print("SpeechSynthesizer: Text-to-speech output will not be available.")
-            # Fallback or raise error depending on how critical TTS is.
-            # For now, methods will check if pygame.mixer is None or not initialized.
+            self._engine = pyttsx3.init()
+            self._engine.setProperty("rate", rate)
+            self._engine.setProperty("volume", volume)
+            self._set_voice(voice_lang)
+            print("SpeechSynthesizer: pyttsx3 initialized.")
+        except Exception as e:
+            print(f"SpeechSynthesizer: Failed to initialize pyttsx3: {e}")
+            self._engine = None
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
     def speak(self, text: str):
-        """
-        Converts text to speech and plays it.
-        Original logic from responde_voz.py.
-        """
+        """Synthesize and play text synchronously (blocks until done)."""
         if not text:
-            print("SpeechSynthesizer: No text provided to speak.")
+            return
+        if not self._engine:
+            print(f"SpeechSynthesizer: engine not available. Would say: '{text}'")
             return
 
-        if not pygame.mixer.get_init():
-            print(f"SpeechSynthesizer: Pygame mixer not initialized. Cannot speak: '{text}'")
+        with self._lock:
+            try:
+                print(f"SpeechSynthesizer: speaking → '{text}'")
+                self._engine.say(text)
+                self._engine.runAndWait()
+            except RuntimeError as e:
+                # runAndWait can raise if called while already running (edge case)
+                print(f"SpeechSynthesizer: RuntimeError during speak: {e}")
+            except Exception as e:
+                print(f"SpeechSynthesizer: Error during speak: {e}")
+
+    def set_rate(self, rate: int):
+        if self._engine:
+            self._engine.setProperty("rate", rate)
+
+    def set_volume(self, volume: float):
+        if self._engine:
+            self._engine.setProperty("volume", max(0.0, min(1.0, volume)))
+
+    # ------------------------------------------------------------------
+    # Internal helpers
+    # ------------------------------------------------------------------
+
+    def _set_voice(self, lang_hint: str):
+        """Pick the first available voice whose id or name contains lang_hint."""
+        if not self._engine:
             return
-
-        try:
-            print(f"SpeechSynthesizer: Synthesizing speech for: '{text}'")
-            tts = gTTS(text=text, lang=self.lang, slow=False)
-            tts.save(self.temp_audio_file)
-            print(f"SpeechSynthesizer: Audio saved to {self.temp_audio_file}")
-
-            pygame.mixer.music.load(self.temp_audio_file)
-            pygame.mixer.music.play()
-
-            while pygame.mixer.music.get_busy():
-                pygame.time.Clock().tick(10) # Keep CPU usage reasonable
-
-            # Ensure music stops and mixer can release the file
-            pygame.mixer.music.stop() 
-            # pygame.mixer.music.unload() # Good practice before deleting
+        voices = self._engine.getProperty("voices")
+        for voice in voices:
+            if lang_hint.lower() in voice.id.lower() or lang_hint.lower() in voice.name.lower():
+                self._engine.setProperty("voice", voice.id)
+                print(f"SpeechSynthesizer: using voice '{voice.name}'")
+                return
+        # Fallback: keep default voice
+        if voices:
+            print(f"SpeechSynthesizer: no '{lang_hint}' voice found, using default '{voices[0].name}'")
 
 
-        except ConnectionError as ce: # Handle gTTS network issues
-            print(f"SpeechSynthesizer: Network error with gTTS: {ce}. Cannot speak.")
-        except pygame.error as pe: # Handle Pygame specific errors
-            print(f"SpeechSynthesizer: Pygame error during speech playback: {pe}")
-        except Exception as e:
-            print(f"SpeechSynthesizer: Error during speech synthesis or playback: {e}")
-        finally:
-            # Clean up the temporary audio file
-            # Make sure pygame has released the file. A short delay might sometimes be needed on some OS.
-            # pygame.time.wait(100) # Optional small delay
-            if os.path.exists(self.temp_audio_file):
-                try:
-                    os.remove(self.temp_audio_file)
-                    print(f"SpeechSynthesizer: Temporary audio file {self.temp_audio_file} removed.")
-                except Exception as e:
-                    print(f"SpeechSynthesizer: Error removing temporary audio file {self.temp_audio_file}: {e}")
-    
-    def __del__(self):
-        """Ensure pygame mixer is quit when the object is destroyed."""
-        if pygame.mixer.get_init():
-            pygame.mixer.quit()
-            print("SpeechSynthesizer: Pygame mixer quit.")
-
-
-if __name__ == '__main__':
-    try:
-        synthesizer = SpeechSynthesizer()
-        
-        if pygame.mixer.get_init(): # Check if it initialized correctly
-            print("\n--- Testing Speech Synthesizer ---")
-            synthesizer.speak("Olá! Este é um teste do sintetizador de voz.")
-            synthesizer.speak("Testando uma segunda frase para garantir que funciona bem.")
-            synthesizer.speak("Marvin está pronto para ajudar.")
-        else:
-            print("Skipping SpeechSynthesizer test as Pygame mixer failed to initialize.")
-            
-    except Exception as e:
-        print(f"Error in SpeechSynthesizer example: {e}")
-        import traceback
-        traceback.print_exc()
+if __name__ == "__main__":
+    synth = SpeechSynthesizer()
+    synth.speak("Olá! Sou o Marvin. Fala aí, o que você precisa?")
+    synth.speak("Sistema de voz local pronto. Sem internet necessária.")

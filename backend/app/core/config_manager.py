@@ -38,6 +38,9 @@ class ConfigManager:
                 load_dotenv()
 
 
+        # Groq Configuration
+        self.groq_api_key: str = os.getenv("GROQ_API_KEY")
+
         # Spotify Configurations
         self.spotify_client_id: str = os.getenv("SPOTIPY_CLIENT_ID")
         self.spotify_client_secret: str = os.getenv("SPOTIPY_CLIENT_SECRET")
@@ -60,6 +63,10 @@ class ConfigManager:
                 missing_configs.append("SPOTIPY_REDIRECT_URI")
             raise ValueError(f"Missing Spotify configuration(s): {', '.join(missing_configs)}. "
                              "Please set them in your .env file or environment variables.")
+
+    def get_groq_api_key(self) -> str:
+        """Returns the Groq API key."""
+        return self.groq_api_key
 
     def get_spotify_credentials(self) -> dict:
         """
