@@ -161,14 +161,16 @@ class _AIWorker(QObject):
         try:
             from app.voice_interface.speech_recognizer import SpeechRecognizer
             recognizer = SpeechRecognizer()
-            recognizer.adjust_for_ambient_noise()
-            transcription = recognizer.recognize_once()   # método correto
+            # adjust_for_ambient_noise já é chamado dentro de recognize_once
+            transcription = recognizer.recognize_once()
             if transcription:
                 self.handle_text(transcription)
             else:
+                self.response_ready.emit("_(não entendi — tente falar mais perto do microfone)_")
                 self.status_changed.emit("idle")
         except Exception as e:
             print(f"Bridge: voice recognition error: {e}")
+            self.response_ready.emit(f"_(erro no microfone: {e})_")
             self.status_changed.emit("idle")
 
     @staticmethod

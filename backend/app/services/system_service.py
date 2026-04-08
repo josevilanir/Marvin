@@ -2,6 +2,7 @@
 import subprocess
 import platform
 import os
+import shutil
 import webbrowser
 from datetime import datetime
 import threading
@@ -76,83 +77,137 @@ class SystemService:
 
     def open_application(self, app_name: str) -> dict:
         """
-        Opens a specified application.
-        Logic based on comandos/abrir_aplicativo.py
-        This version is simplified and more platform-agnostic where possible.
-        Application paths might need to be configurable or discovered.
+        Opens a specified application on Windows.
+        Search order: known aliases → PATH (shutil.which) → common install paths → desktop shortcut.
         """
-        app_name_lower = app_name.lower()
-        message = ""
-        status = "error"
+        app_name_lower = app_name.lower().strip()
+        current_os = platform.system().lower()
 
-        # Predefined applications (can be expanded or moved to config)
-        # Original had hardcoded paths for Spotify and Steam
-        # This is highly platform and user-specific.
-        # For a more robust solution, consider using environment variables, a config file,
-        # or searching common paths.
-        apps_config = {
-            "bloco de notas": {"windows": "notepad.exe", "linux": "gedit", "darwin": "TextEdit"},
-            "calculadora": {"windows": "calc.exe", "linux": "gnome-calculator", "darwin": "Calculator"},
-            "spotify": {
-                "windows": "C:\\Users\\Vilanir\\AppData\\Roaming\\Spotify\\Spotify.exe", # Example, needs to be generic
-                "linux": "spotify", # Command to launch if in PATH
-                "darwin": "/Applications/Spotify.app" # Needs 'open' command
-            }
-            # Add more apps here
+        # Map of aliases → executable names (or full paths as fallbacks)
+        ALIASES: dict[str, list[str]] = {
+            "bloco de notas": ["notepad.exe"],
+            "notepad":        ["notepad.exe"],
+            "calculadora":    ["calc.exe"],
+            "calculator":     ["calc.exe"],
+            "chrome":         ["chrome.exe"],
+            "google chrome":  ["chrome.exe"],
+            "firefox":        ["firefox.exe"],
+            "edge":           ["msedge.exe"],
+            "steam":          ["steam.exe"],
+            "spotify":        ["Spotify.exe"],
+            "discord":        ["Discord.exe", "discord.exe"],
+            "vscode":         ["code.exe", "Code.exe"],
+            "visual studio code": ["code.exe"],
+            "code":           ["code.exe"],
+            "explorer":       ["explorer.exe"],
+            "task manager":   ["Taskmgr.exe"],
+            "gerenciador de tarefas": ["Taskmgr.exe"],
+            "brave":          ["brave.exe"],
+            "brave browser":  ["brave.exe"],
         }
 
-        current_os = platform.system().lower()
-        command_to_run = None
+        # Known full paths for apps installed in deep subdirectories
+        KNOWN_PATHS: dict[str, list[str]] = {
+            "brave.exe": [
+                os.path.expandvars(r"%LOCALAPPDATA%\BraveSoftware\Brave-Browser\Application\brave.exe"),
+                os.path.expandvars(r"%PROGRAMFILES%\BraveSoftware\Brave-Browser\Application\brave.exe"),
+            ],
+            "chrome.exe": [
+                os.path.expandvars(r"%PROGRAMFILES%\Google\Chrome\Application\chrome.exe"),
+                os.path.expandvars(r"%PROGRAMFILES(X86)%\Google\Chrome\Application\chrome.exe"),
+                os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
+            ],
+            "steam.exe": [
+                os.path.expandvars(r"%PROGRAMFILES(X86)%\Steam\steam.exe"),
+                os.path.expandvars(r"%PROGRAMFILES%\Steam\steam.exe"),
+            ],
+            "Spotify.exe": [
+                os.path.expandvars(r"%APPDATA%\Spotify\Spotify.exe"),
+            ],
+            "Discord.exe": [
+                os.path.expandvars(r"%LOCALAPPDATA%\Discord\Update.exe"),
+                os.path.expandvars(r"%LOCALAPPDATA%\Discord\app-\Discord.exe"),
+            ],
+        }
 
-        if app_name_lower in apps_config:
-            if current_os in apps_config[app_name_lower]:
-                command_to_run = apps_config[app_name_lower][current_os]
-            else:
-                message = f"'{app_name}' is configured, but not for your OS ({current_os})."
-        
-        # Fallback for Windows: try to open directly or via desktop shortcut
-        # This part is still Windows-centric from the original code.
-        if not command_to_run and current_os == "windows":
-            try:
-                # Try direct command (might find it in PATH)
-                subprocess.Popen([app_name_lower if not app_name_lower.endswith('.exe') else app_name_lower], shell=True)
-                message = f"Tentando abrir '{app_name}'."
-                status = "success"
-            except FileNotFoundError:
-                 # Check desktop for shortcut (very Windows specific)
-                desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
-                shortcut_path = os.path.join(desktop_path, f"{app_name}.lnk")
-                if os.path.exists(shortcut_path):
-                    try:
-                        os.startfile(shortcut_path) # Windows specific
-                        message = f"Abrindo atalho '{app_name}' da área de trabalho."
-                        status = "success"
-                    except Exception as e_lnk:
-                        message = f"Falha ao abrir o atalho '{app_name}': {e_lnk}"
-                else:
-                    message = f"Aplicativo '{app_name}' não encontrado diretamente ou como atalho na área de trabalho."
-            except Exception as e_direct:
-                message = f"Erro ao tentar abrir '{app_name}' diretamente: {e_direct}"
+        # Common Windows search paths in addition to PATH
+        SEARCH_DIRS = [
+            os.path.expandvars(r"%PROGRAMFILES%"),
+            os.path.expandvars(r"%PROGRAMFILES(X86)%"),
+            os.path.expandvars(r"%LOCALAPPDATA%"),
+            os.path.expandvars(r"%APPDATA%"),
+        ]
 
-        elif command_to_run: # If command was found in apps_config
+        def find_exe(exe_name: str) -> str | None:
+            """Return full path to exe_name if found, else None."""
+            # 1. Check PATH
+            found = shutil.which(exe_name)
+            if found:
+                return found
+            # 2. Check known deep paths
+            for known_exe, paths in KNOWN_PATHS.items():
+                if known_exe.lower() == exe_name.lower():
+                    for p in paths:
+                        if os.path.isfile(p):
+                            return p
+            # 3. Walk common install dirs (one level deep)
+            for base in SEARCH_DIRS:
+                if not os.path.isdir(base):
+                    continue
+                try:
+                    for entry in os.scandir(base):
+                        if entry.is_dir(follow_symlinks=False):
+                            candidate = os.path.join(entry.path, exe_name)
+                            if os.path.isfile(candidate):
+                                return candidate
+                        elif entry.name.lower() == exe_name.lower():
+                            return entry.path
+                except PermissionError:
+                    continue
+            return None
+
+        def launch(path: str) -> bool:
+            """Launch path via os.startfile (Windows). Returns True on success."""
             try:
-                if current_os == "darwin" and command_to_run.endswith(".app"):
-                    subprocess.Popen(['open', command_to_run])
-                elif current_os == "windows" and (command_to_run.endswith(".exe") or command_to_run in ["calc.exe", "notepad.exe"]):
-                     subprocess.Popen([command_to_run], shell=True) # shell=True for calc/notepad on some Win versions
-                else: # Linux or other commands
-                    subprocess.Popen([command_to_run])
-                message = f"Abrindo '{app_name}'."
-                status = "success"
-            except FileNotFoundError:
-                message = f"Comando '{command_to_run}' para '{app_name}' não encontrado. Verifique a instalação."
+                os.startfile(path)
+                return True
+            except Exception:
+                return False
+
+        # --- Resolve candidates ---
+        exe_candidates: list[str] = ALIASES.get(app_name_lower, [])
+
+        # If not in aliases, treat the raw name as a candidate
+        if not exe_candidates:
+            raw = app_name_lower if app_name_lower.endswith(".exe") else app_name_lower + ".exe"
+            exe_candidates = [raw]
+
+        # --- Try to find and launch ---
+        if current_os == "windows":
+            for exe in exe_candidates:
+                full_path = find_exe(exe)
+                if full_path and launch(full_path):
+                    return {"status": "success", "message": f"Abrindo '{app_name}'."}
+
+            # Fallback: desktop shortcut
+            desktop = os.path.join(os.path.expanduser("~"), "Desktop")
+            for name_variant in [app_name, app_name_lower]:
+                shortcut = os.path.join(desktop, f"{name_variant}.lnk")
+                if os.path.exists(shortcut) and launch(shortcut):
+                    return {"status": "success", "message": f"Abrindo atalho '{app_name}' da área de trabalho."}
+
+            return {"status": "error", "message": f"Não consegui encontrar ou abrir '{app_name}'. Verifique se está instalado."}
+
+        # --- Non-Windows fallback ---
+        cmd = shutil.which(app_name_lower)
+        if cmd:
+            try:
+                subprocess.Popen([cmd])
+                return {"status": "success", "message": f"Abrindo '{app_name}'."}
             except Exception as e:
-                message = f"Erro ao abrir '{app_name}' com comando '{command_to_run}': {e}"
-        else:
-            if not message: # If no specific message set yet
-                message = f"Não sei como abrir '{app_name}' no sistema {current_os}."
+                return {"status": "error", "message": f"Erro ao abrir '{app_name}': {e}"}
 
-        return {"status": status, "message": message}
+        return {"status": "error", "message": f"Não sei como abrir '{app_name}' no sistema {current_os}."}
 
     def open_calculator(self) -> dict:
         """Opens the system calculator."""

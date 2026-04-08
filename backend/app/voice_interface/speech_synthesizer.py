@@ -1,83 +1,111 @@
 # backend/app/voice_interface/speech_synthesizer.py
-import pyttsx3
+import sys
 import threading
 
 
 class SpeechSynthesizer:
     """
     Local text-to-speech via pyttsx3.
-    Zero network latency, no temp files, no pygame dependency.
+
+    pyttsx3's runAndWait() conflicts with QThread's event loop on Windows,
+    causing a permanent hang. Fix: always run speech in a plain threading.Thread,
+    which works regardless of the caller's thread type.
     """
 
     def __init__(self, rate: int = 175, volume: float = 1.0, voice_lang: str = "pt"):
-        """
-        Args:
-            rate:       Words per minute (default 175 — natural conversational pace).
-            volume:     0.0 – 1.0 (default 1.0).
-            voice_lang: Preferred language substring for voice selection (e.g. 'pt', 'en').
-        """
-        self._lock = threading.Lock()
+        self._rate       = rate
+        self._volume     = volume
+        self._voice_lang = voice_lang
+        self._lock       = threading.Lock()   # prevents overlapping speech
+
+        # Probe pyttsx3 on the main thread to validate it works + pick voice id
+        self._voice_id = None
         try:
-            self._engine = pyttsx3.init()
-            self._engine.setProperty("rate", rate)
-            self._engine.setProperty("volume", volume)
-            self._set_voice(voice_lang)
-            print("SpeechSynthesizer: pyttsx3 initialized.")
+            import pyttsx3
+            engine = pyttsx3.init()
+            self._voice_id = self._find_voice(engine, voice_lang)
+            engine.stop()
+            print("SpeechSynthesizer: pyttsx3 OK.")
         except Exception as e:
-            print(f"SpeechSynthesizer: Failed to initialize pyttsx3: {e}")
-            self._engine = None
+            print(f"SpeechSynthesizer: pyttsx3 probe failed ({e}).")
 
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
 
     def speak(self, text: str):
-        """Synthesize and play text synchronously (blocks until done)."""
+        """Speak text synchronously (blocks caller until done)."""
         if not text:
             return
-        if not self._engine:
-            print(f"SpeechSynthesizer: engine not available. Would say: '{text}'")
-            return
-
         with self._lock:
-            try:
-                print(f"SpeechSynthesizer: speaking → '{text}'")
-                self._engine.say(text)
-                self._engine.runAndWait()
-            except RuntimeError as e:
-                # runAndWait can raise if called while already running (edge case)
-                print(f"SpeechSynthesizer: RuntimeError during speak: {e}")
-            except Exception as e:
-                print(f"SpeechSynthesizer: Error during speak: {e}")
+            done  = threading.Event()
+            error = [None]
+
+            def _run():
+                try:
+                    self._speak_in_thread(text)
+                except Exception as e:
+                    error[0] = e
+                finally:
+                    done.set()
+
+            t = threading.Thread(target=_run, daemon=True)
+            t.start()
+            done.wait()
+
+            if error[0]:
+                print(f"SpeechSynthesizer: speak error — {error[0]}")
 
     def set_rate(self, rate: int):
-        if self._engine:
-            self._engine.setProperty("rate", rate)
+        self._rate = rate
 
     def set_volume(self, volume: float):
-        if self._engine:
-            self._engine.setProperty("volume", max(0.0, min(1.0, volume)))
+        self._volume = max(0.0, min(1.0, volume))
 
     # ------------------------------------------------------------------
-    # Internal helpers
+    # Internal
     # ------------------------------------------------------------------
 
-    def _set_voice(self, lang_hint: str):
-        """Pick the first available voice whose id or name contains lang_hint."""
-        if not self._engine:
-            return
-        voices = self._engine.getProperty("voices")
-        for voice in voices:
-            if lang_hint.lower() in voice.id.lower() or lang_hint.lower() in voice.name.lower():
-                self._engine.setProperty("voice", voice.id)
-                print(f"SpeechSynthesizer: using voice '{voice.name}'")
-                return
-        # Fallback: keep default voice
+    def _speak_in_thread(self, text: str):
+        """
+        Creates a fresh pyttsx3 engine per call inside a plain threading.Thread.
+        A plain thread avoids the QThread/COM message-loop conflict.
+        """
+        try:
+            import pythoncom
+            pythoncom.CoInitialize()
+        except ImportError:
+            pass
+
+        try:
+            import pyttsx3
+            engine = pyttsx3.init()
+            engine.setProperty("rate",   self._rate)
+            engine.setProperty("volume", self._volume)
+            if self._voice_id:
+                engine.setProperty("voice", self._voice_id)
+            preview = text[:60] + "…" if len(text) > 60 else text
+            print(f"SpeechSynthesizer: speaking → '{preview}'")
+            engine.say(text)
+            engine.runAndWait()
+        except Exception as e:
+            print(f"SpeechSynthesizer: error in thread — {e}")
+            raise
+
+    @staticmethod
+    def _find_voice(engine, lang_hint: str) -> str | None:
+        voices = engine.getProperty("voices")
+        for v in voices:
+            if lang_hint.lower() in v.id.lower() or lang_hint.lower() in v.name.lower():
+                print(f"SpeechSynthesizer: voice → '{v.name}'")
+                return v.id
         if voices:
-            print(f"SpeechSynthesizer: no '{lang_hint}' voice found, using default '{voices[0].name}'")
+            print(f"SpeechSynthesizer: no '{lang_hint}' voice, using default '{voices[0].name}'")
+            return voices[0].id
+        return None
 
 
 if __name__ == "__main__":
     synth = SpeechSynthesizer()
     synth.speak("Olá! Sou o Marvin. Fala aí, o que você precisa?")
-    synth.speak("Sistema de voz local pronto. Sem internet necessária.")
+    synth.speak("Sistema de voz local pronto.")

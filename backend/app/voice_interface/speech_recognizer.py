@@ -61,11 +61,15 @@ class SpeechRecognizer:
                 if command:
                     callback(command)
 
-    def recognize_once(self):
+    def recognize_once(self, timeout=8, phrase_time_limit=15):
         with self.microphone as source:
             self.recognizer.adjust_for_ambient_noise(source)
             print("SpeechRecognizer: Aguardando fala...")
-            audio = self.recognizer.listen(source)
+            try:
+                audio = self.recognizer.listen(source, timeout=timeout, phrase_time_limit=phrase_time_limit)
+            except sr.WaitTimeoutError:
+                print("SpeechRecognizer: Tempo esgotado sem detectar fala.")
+                return ""
 
         try:
             texto = self.recognizer.recognize_google(audio, language='pt-BR')
@@ -76,4 +80,4 @@ class SpeechRecognizer:
             return ""
         except sr.RequestError as e:
             print(f"SpeechRecognizer: Erro na requisição: {e}")
-            return ""
+            raise

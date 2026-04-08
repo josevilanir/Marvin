@@ -48,12 +48,15 @@ class ChatPanel(QWidget):
     Scrollable chat history + input bar.
     Signals:
         message_submitted(str) — emitted when user sends a message
+        mic_toggled(bool)      — emitted when mic button is pressed (True = active)
     """
 
     message_submitted = pyqtSignal(str)
+    mic_toggled       = pyqtSignal(bool)
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self._mic_active = False
         self._build_ui()
 
     # ------------------------------------------------------------------
@@ -117,11 +120,18 @@ class ChatPanel(QWidget):
         self._input.setPlaceholderText("Digite ou use o microfone…")
         self._input.returnPressed.connect(self._on_send)
 
+        self._btn_mic = QPushButton("🎙")
+        self._btn_mic.setObjectName("btn_mic")
+        self._btn_mic.setFixedSize(36, 36)
+        self._btn_mic.setProperty("active", "false")
+        self._btn_mic.clicked.connect(self._on_mic_clicked)
+
         self._btn_send = QPushButton("Enviar")
         self._btn_send.setObjectName("btn_send")
         self._btn_send.setFixedWidth(72)
         self._btn_send.clicked.connect(self._on_send)
 
+        bar_layout.addWidget(self._btn_mic)
         bar_layout.addWidget(self._input)
         bar_layout.addWidget(self._btn_send)
 
@@ -131,6 +141,22 @@ class ChatPanel(QWidget):
     # ------------------------------------------------------------------
     # Slots
     # ------------------------------------------------------------------
+
+    def _on_mic_clicked(self):
+        self._mic_active = not self._mic_active
+        active_str = "true" if self._mic_active else "false"
+        self._btn_mic.setProperty("active", active_str)
+        self._btn_mic.style().unpolish(self._btn_mic)
+        self._btn_mic.style().polish(self._btn_mic)
+        self.mic_toggled.emit(self._mic_active)
+
+    def set_mic_state(self, active: bool):
+        """Called externally to sync mic button state."""
+        self._mic_active = active
+        active_str = "true" if active else "false"
+        self._btn_mic.setProperty("active", active_str)
+        self._btn_mic.style().unpolish(self._btn_mic)
+        self._btn_mic.style().polish(self._btn_mic)
 
     def _on_send(self):
         text = self._input.text().strip()

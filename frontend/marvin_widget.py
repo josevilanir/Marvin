@@ -122,8 +122,6 @@ class MarvinWidget(QMainWindow):
         self._bridge = bridge
         self._collapsed = False
         self._expanded_height = _WINDOW_H
-        self._mic_active = False
-
         self._setup_window()
         self._build_ui()
         self._setup_tray()
@@ -177,15 +175,8 @@ class MarvinWidget(QMainWindow):
         # Chat panel (stretches to fill remaining space)
         self._chat = ChatPanel()
         self._chat.message_submitted.connect(self._on_user_text_input)
+        self._chat.mic_toggled.connect(self._on_mic_toggled)
         main_layout.addWidget(self._chat, stretch=1)
-
-        # Mic button (floating overlay in bottom-right of chat)
-        self._btn_mic = QPushButton("🎙")
-        self._btn_mic.setObjectName("btn_mic")
-        self._btn_mic.setParent(self._chat)
-        self._btn_mic.setProperty("active", "false")
-        self._btn_mic.clicked.connect(self._toggle_mic)
-        self._btn_mic.raise_()
 
         # System panel
         self._sys_panel = SystemPanel()
@@ -265,15 +256,11 @@ class MarvinWidget(QMainWindow):
     # Mic toggle
     # ------------------------------------------------------------------
 
-    def _toggle_mic(self):
-        self._mic_active = not self._mic_active
-        self._btn_mic.setProperty("active", "true" if self._mic_active else "false")
-        self._btn_mic.style().unpolish(self._btn_mic)
-        self._btn_mic.style().polish(self._btn_mic)
-        self._sys_panel.set_mic_active(self._mic_active)
+    def _on_mic_toggled(self, active: bool):
+        self._sys_panel.set_mic_active(active)
         if self._bridge and hasattr(self._bridge, "set_mic_active"):
-            self._bridge.set_mic_active(self._mic_active)
-        state = "listening" if self._mic_active else "idle"
+            self._bridge.set_mic_active(active)
+        state = "listening" if active else "idle"
         self._animator.set_state(state)
         self._header.set_status(state)
 
@@ -297,18 +284,6 @@ class MarvinWidget(QMainWindow):
         if reason == QSystemTrayIcon.ActivationReason.DoubleClick:
             self.show()
             self.activateWindow()
-
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        # Keep mic button in bottom-right corner of chat panel
-        if hasattr(self, "_btn_mic") and hasattr(self, "_chat"):
-            bw, bh = 44, 44
-            margin = 10
-            self._btn_mic.setGeometry(
-                self._chat.width() - bw - margin,
-                self._chat.height() - bh - 58,   # above input bar
-                bw, bh
-            )
 
     def closeEvent(self, event):
         """Graceful shutdown: stop background threads before exiting."""
