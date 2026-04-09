@@ -2,14 +2,15 @@
 import os
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QLabel, QPushButton, QSystemTrayIcon, QMenu, QApplication,
+    QLabel, QPushButton, QSystemTrayIcon, QMenu, QApplication, QStackedWidget,
 )
-from PyQt6.QtCore import Qt, QPoint, pyqtSlot
+from PyQt6.QtCore import Qt, QPoint, pyqtSlot, pyqtSignal
 from PyQt6.QtGui import QIcon, QPixmap, QPainter, QColor, QFont
 
 from frontend.voice_animator import VoiceAnimator
 from frontend.chat_panel import ChatPanel
 from frontend.system_panel import SystemPanel
+from frontend.apps_panel import AppsPanel
 
 _WINDOW_W = 380
 _WINDOW_H = 600
@@ -110,6 +111,74 @@ class _Header(QWidget):
         self._drag_pos = None
 
 
+class _NavBar(QWidget):
+    """
+    Thin two-button bar for switching between Chat and Apps panels.
+    Emits tab_changed(int) with the index of the selected tab.
+    """
+    tab_changed = pyqtSignal(int)
+
+    _LABELS = ["Chat", "Apps"]
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setObjectName("nav_bar")
+        self.setFixedHeight(30)
+
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(10, 0, 10, 0)
+        layout.setSpacing(4)
+
+        self._btns: list[QPushButton] = []
+        for i, label in enumerate(self._LABELS):
+            btn = QPushButton(label)
+            btn.setCheckable(True)
+            btn.setObjectName("nav_btn")
+            btn.setProperty("active", "true" if i == 0 else "false")
+            btn.setFixedHeight(26)
+            btn.setStyleSheet(self._btn_style(i == 0))
+            btn.clicked.connect(lambda _, idx=i: self._select(idx))
+            layout.addWidget(btn)
+            self._btns.append(btn)
+
+        layout.addStretch()
+
+    @staticmethod
+    def _btn_style(active: bool) -> str:
+        accent = "#00d4ff"
+        if active:
+            return f"""
+                QPushButton {{
+                    background: #0d1c22;
+                    color: {accent};
+                    border: none;
+                    border-bottom: 2px solid {accent};
+                    border-radius: 0px;
+                    padding: 0 14px;
+                    font-size: 11px;
+                    letter-spacing: 1px;
+                }}
+            """
+        return """
+            QPushButton {
+                background: transparent;
+                color: #44445a;
+                border: none;
+                border-bottom: 2px solid transparent;
+                border-radius: 0px;
+                padding: 0 14px;
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+            QPushButton:hover { color: #888899; }
+        """
+
+    def _select(self, idx: int):
+        for i, btn in enumerate(self._btns):
+            btn.setStyleSheet(self._btn_style(i == idx))
+        self.tab_changed.emit(idx)
+
+
 class MarvinWidget(QMainWindow):
     """
     Main always-on-top floating HUD window.
@@ -172,11 +241,24 @@ class MarvinWidget(QMainWindow):
         anim_layout.addWidget(self._animator)
         main_layout.addWidget(anim_container)
 
-        # Chat panel (stretches to fill remaining space)
+        # Nav bar (Chat | Apps)
+        self._nav = _NavBar()
+        self._nav.tab_changed.connect(self._on_nav_changed)
+        main_layout.addWidget(self._nav)
+
+        # Stacked content: index 0 = Chat, index 1 = Apps
+        self._stack = QStackedWidget()
+        self._stack.setStyleSheet("background: #0d0d0f;")
+
         self._chat = ChatPanel()
         self._chat.message_submitted.connect(self._on_user_text_input)
         self._chat.mic_toggled.connect(self._on_mic_toggled)
-        main_layout.addWidget(self._chat, stretch=1)
+        self._stack.addWidget(self._chat)      # index 0
+
+        self._apps = AppsPanel()
+        self._stack.addWidget(self._apps)      # index 1
+
+        main_layout.addWidget(self._stack, stretch=1)
 
         # System panel
         self._sys_panel = SystemPanel()
@@ -251,6 +333,14 @@ class MarvinWidget(QMainWindow):
         self._animator.set_state("listening")
         if self._bridge and hasattr(self._bridge, "submit_text"):
             self._bridge.submit_text(text)
+
+    # ------------------------------------------------------------------
+    # Nav
+    # ------------------------------------------------------------------
+
+    @pyqtSlot(int)
+    def _on_nav_changed(self, idx: int):
+        self._stack.setCurrentIndex(idx)
 
     # ------------------------------------------------------------------
     # Mic toggle

@@ -219,11 +219,36 @@ def register_system(registry: ToolRegistry, system):
 
     registry.register(
         name="open_application",
-        description="Abre um aplicativo no computador (ex: calculadora, bloco de notas, spotify)",
+        description=(
+            "Abre um aplicativo instalado no computador. "
+            "Use list_installed_apps primeiro se não tiver certeza do nome exato."
+        ),
         parameters=_schema(
             _param("app_name", "string", "Nome do aplicativo a abrir"),
         ),
         handler=lambda app_name: system.open_application(app_name),
+    )
+
+    registry.register(
+        name="list_installed_apps",
+        description=(
+            "Lista os aplicativos instalados no computador. "
+            "Aceita um filtro opcional para restringir a busca (ex: 'adobe', 'game', 'browser')."
+        ),
+        parameters=_schema(
+            _param("filter_query", "string", "Termo opcional para filtrar a lista (ex: 'game')", required=False),
+        ),
+        handler=lambda filter_query="": system.list_installed_apps(filter_query=filter_query),
+    )
+
+    registry.register(
+        name="refresh_app_index",
+        description=(
+            "Atualiza a lista de aplicativos instalados escaneando o sistema novamente. "
+            "Use quando o usuário instalar um novo programa e quiser abri-lo."
+        ),
+        parameters=_no_params(),
+        handler=lambda **_: system.refresh_app_index(),
     )
 
     registry.register(
@@ -255,8 +280,179 @@ def register_system(registry: ToolRegistry, system):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 4.6  AppInteractionService
+# ─────────────────────────────────────────────────────────────────────────────
+
+def register_app_interaction(registry: ToolRegistry, app_interaction):
+    """Register AppInteractionService tools."""
+
+    registry.register(
+        name="list_running_apps",
+        description=(
+            "Lista as janelas/aplicativos abertos no momento no computador. "
+            "Use para verificar se um app está rodando antes de interagir com ele."
+        ),
+        parameters=_no_params(),
+        handler=lambda **_: app_interaction.list_running_apps(),
+    )
+
+    registry.register(
+        name="focus_window",
+        description="Traz a janela de um aplicativo aberto para frente (foco).",
+        parameters=_schema(
+            _param("app_name", "string", "Nome parcial do app ou título da janela (ex: 'Steam', 'Chrome')"),
+        ),
+        handler=lambda app_name: app_interaction.focus_window(app_name),
+    )
+
+    registry.register(
+        name="vscode_open_folder",
+        description=(
+            "Abre uma pasta no VSCode. "
+            "Pode reutilizar a janela atual ou abrir uma nova janela."
+        ),
+        parameters=_schema(
+            _param("path", "string", "Caminho completo da pasta a abrir"),
+            _param("new_window", "boolean", "Se true, abre em uma nova janela do VSCode", required=False),
+        ),
+        handler=lambda path, new_window=False: app_interaction.vscode_open_folder(
+            path=path, new_window=bool(new_window)
+        ),
+    )
+
+    registry.register(
+        name="vscode_open_terminal",
+        description=(
+            "Abre uma pasta no VSCode e automaticamente abre o terminal integrado (Ctrl+`). "
+            "Ideal para iniciar um projeto diretamente no terminal."
+        ),
+        parameters=_schema(
+            _param("path", "string", "Caminho completo da pasta do projeto"),
+        ),
+        handler=lambda path: app_interaction.vscode_open_terminal(path=path),
+    )
+
+    registry.register(
+        name="open_terminal_in_folder",
+        description=(
+            "Abre um terminal (Windows Terminal ou PowerShell) diretamente na pasta especificada. "
+            "Use quando o usuário quiser um terminal avulso, não o terminal do VSCode."
+        ),
+        parameters=_schema(
+            _param("path", "string", "Caminho completo da pasta onde abrir o terminal"),
+        ),
+        handler=lambda path: app_interaction.open_terminal_in_folder(path=path),
+    )
+
+    registry.register(
+        name="find_and_open_project",
+        description=(
+            "USE ESTA FERRAMENTA quando o usuário pedir para abrir um projeto ou pasta no VSCode. "
+            "Busca automaticamente a pasta nas pastas comuns do usuário "
+            "(home, Documentos, Desktop, Downloads, Projects, repos, dev) pelo nome informado "
+            "e abre no VSCode. "
+            "Exemplos de quando usar: 'abre o projeto Marvin', 'abre meu portfólio no VSCode', "
+            "'quero trabalhar no projeto landing-page'. "
+            "NÃO use open_application nem vscode_open_folder para este caso."
+        ),
+        parameters=_schema(
+            _param(
+                "project_name",
+                "string",
+                (
+                    "Nome (ou parte do nome) da pasta do projeto. "
+                    "Se o usuário quiser abrir com terminal integrado, inclua 'com terminal' no valor, "
+                    "ex: 'Marvin com terminal'."
+                ),
+            ),
+        ),
+        handler=lambda project_name: app_interaction.find_and_open_project(
+            project_name=project_name
+        ),
+    )
+
+    registry.register(
+        name="steam_search_game",
+        description=(
+            "Abre o cliente Steam e mostra os resultados de busca para o jogo solicitado. "
+            "Requer Steam instalado."
+        ),
+        parameters=_schema(
+            _param("query", "string", "Nome do jogo a buscar na Steam"),
+        ),
+        handler=lambda query: app_interaction.steam_search_game(query=query),
+    )
+
+    registry.register(
+        name="steam_find_game",
+        description=(
+            "Busca jogos na Steam Store pela API e retorna nome e App ID. "
+            "Use para descobrir o App ID de um jogo antes de iniciá-lo com steam_launch_game."
+        ),
+        parameters=_schema(
+            _param("query", "string", "Nome do jogo a buscar"),
+        ),
+        handler=lambda query: app_interaction.steam_find_game(query=query),
+    )
+
+    registry.register(
+        name="steam_launch_game",
+        description=(
+            "Inicia um jogo da Steam pelo App ID. "
+            "Use steam_find_game primeiro para descobrir o App ID a partir do nome do jogo."
+        ),
+        parameters=_schema(
+            _param("app_id", "string", "App ID numérico do jogo na Steam (ex: '730' para CS2)"),
+        ),
+        handler=lambda app_id: app_interaction.steam_launch_game(app_id=str(app_id)),
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Convenience: registra tudo de uma vez
 # ─────────────────────────────────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4.7  AppCapabilityService (profile-driven, dynamic)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def register_app_capabilities(registry: ToolRegistry, capabilities):
+    """
+    Dynamically register all tools produced by AppCapabilityService.
+    Each tool maps to one capability of one detected app.
+    """
+    # Meta-tool: list which apps have interaction support
+    registry.register(
+        name="list_supported_apps",
+        description=(
+            "Lista quais aplicativos instalados têm suporte de interação pelo Marvin "
+            "e quais ações estão disponíveis para cada um."
+        ),
+        parameters=_no_params(),
+        handler=lambda **_: capabilities.list_active_apps(),
+    )
+
+    registry.register(
+        name="refresh_app_capabilities",
+        description=(
+            "Re-escaneia os aplicativos instalados e atualiza a lista de interações disponíveis. "
+            "Use após instalar um novo programa."
+        ),
+        parameters=_no_params(),
+        handler=lambda **_: capabilities.refresh(),
+    )
+
+    tools = capabilities.get_active_tools()
+    for tool in tools:
+        registry.register(
+            name=tool["name"],
+            description=tool["description"],
+            parameters=tool["parameters"],
+            handler=tool["handler"],
+        )
+
+    return len(tools)
+
 
 def register_all(
     registry: ToolRegistry,
@@ -264,6 +460,8 @@ def register_all(
     youtube=None,
     whatsapp=None,
     system=None,
+    app_interaction=None,
+    app_capabilities=None,
 ) -> list[str]:
     """
     Register all available services. Skips services that are None.
@@ -293,8 +491,22 @@ def register_all(
     if system:
         try:
             register_system(registry, system)
-            print("ServiceRegistrar: SystemService registrado (5 ferramentas).")
+            print("ServiceRegistrar: SystemService registrado (7 ferramentas).")
         except Exception as e:
             print(f"ServiceRegistrar: Falha ao registrar System: {e}")
+
+    if app_interaction:
+        try:
+            register_app_interaction(registry, app_interaction)
+            print("ServiceRegistrar: AppInteractionService registrado (7 ferramentas).")
+        except Exception as e:
+            print(f"ServiceRegistrar: Falha ao registrar AppInteraction: {e}")
+
+    if app_capabilities:
+        try:
+            n = register_app_capabilities(registry, app_capabilities)
+            print(f"ServiceRegistrar: AppCapabilityService registrado ({n} capabilities de apps detectados).")
+        except Exception as e:
+            print(f"ServiceRegistrar: Falha ao registrar AppCapabilities: {e}")
 
     return registry.list_names()

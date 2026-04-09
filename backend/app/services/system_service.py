@@ -9,10 +9,26 @@ import threading
 import time
 import pygame # For timer alarm
 
-# Assuming ConfigManager might be needed for paths or future settings
-from app.core.config_manager import ConfigManager 
-# Assuming constants might define resource paths
-from app.core.constants import RESOURCE_PATH # You'll need to define this in constants.py
+from app.core.config_manager import ConfigManager
+from app.core.constants import RESOURCE_PATH
+from app.services.app_discovery import AppDiscovery
+
+# Portuguese → search term used in discovery + PATH fallback
+# Values should match either the app's display name OR its exe stem (for system tools)
+_PT_MAP: dict[str, str] = {
+    "calculadora": "calc",
+    "calculator": "calc",
+    "bloco de notas": "notepad",
+    "gerenciador de tarefas": "taskmgr",
+    "task manager": "taskmgr",
+    "explorador de arquivos": "explorer",
+    "explorador": "explorer",
+    "painel de controle": "control",
+    "prompt de comando": "cmd",
+    "terminal": "cmd",
+    "paint": "mspaint",
+    "wordpad": "wordpad",
+}
 
 try:
     from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
@@ -27,32 +43,18 @@ except ImportError:
 class SystemService:
     def __init__(self, config_manager: ConfigManager):
         self.config_manager = config_manager
-        # Define path for alarm sound. This should come from a reliable source.
-        # For now, assuming it's in a 'resources' folder relative to the app's root.
-        # RESOURCE_PATH should be defined in app/core/constants.py, e.g.
-        # RESOURCE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'resources')
-        # For `despertador.mp3`, if it's now in backend/app/resources/
-        # We need to ensure RESOURCE_PATH in constants.py correctly points there.
-        # For now, let's assume a path structure that can be made configurable.
-        # The original path in timer.py was "C:/Users/Vilanir/Marvin/utils/despertador.mp3"
-        # We should make this path relative and configurable.
-        
-        # Let's define a placeholder for the alarm sound path
-        # It should ideally be set via constants.py or config_manager
+
         self.alarm_sound_path = None
-        if RESOURCE_PATH: # Check if RESOURCE_PATH is defined
+        if RESOURCE_PATH:
             self.alarm_sound_path = os.path.join(RESOURCE_PATH, "despertador.mp3")
             if not os.path.exists(self.alarm_sound_path):
-                 print(f"SystemService Warning: Alarm sound not found at {self.alarm_sound_path}. Timer alarm will be silent.")
-                 self.alarm_sound_path = None # Disable if not found
+                print(f"SystemService Warning: Alarm sound not found at {self.alarm_sound_path}.")
+                self.alarm_sound_path = None
         else:
-            print("SystemService Warning: RESOURCE_PATH not defined. Alarm sound path cannot be determined.")
+            print("SystemService Warning: RESOURCE_PATH not defined.")
 
-        # Initialize pygame mixer for the alarm if not already done by SpeechSynthesizer
-        # However, SpeechSynthesizer quits mixer in __del__. This could conflict.
-        # It's better if the alarm sound playback is self-contained or shares the mixer carefully.
-        # For simplicity, timer will initialize and quit its own mixer instance for the alarm.
-        # This avoids conflicts if SpeechSynthesizer is also active.
+        # App discovery index — built once at startup, cached to disk
+        self._discovery = AppDiscovery()
 
     def get_current_datetime_string(self) -> dict:
         """
@@ -77,142 +79,99 @@ class SystemService:
 
     def open_application(self, app_name: str) -> dict:
         """
-        Opens a specified application on Windows.
-        Search order: known aliases → PATH (shutil.which) → common install paths → desktop shortcut.
+        Opens an application on Windows.
+        Resolution order:
+          1. Translate Portuguese name to English (built-in system tools)
+          2. Search dynamic app index (registry + start menu + desktop)
+          3. Fallback: PATH lookup
         """
-        app_name_lower = app_name.lower().strip()
-        current_os = platform.system().lower()
+        query = app_name.strip()
+        query_lower = query.lower()
 
-        # Map of aliases → executable names (or full paths as fallbacks)
-        ALIASES: dict[str, list[str]] = {
-            "bloco de notas": ["notepad.exe"],
-            "notepad":        ["notepad.exe"],
-            "calculadora":    ["calc.exe"],
-            "calculator":     ["calc.exe"],
-            "chrome":         ["chrome.exe"],
-            "google chrome":  ["chrome.exe"],
-            "firefox":        ["firefox.exe"],
-            "edge":           ["msedge.exe"],
-            "steam":          ["steam.exe"],
-            "spotify":        ["Spotify.exe"],
-            "discord":        ["Discord.exe", "discord.exe"],
-            "vscode":         ["code.exe", "Code.exe"],
-            "visual studio code": ["code.exe"],
-            "code":           ["code.exe"],
-            "explorer":       ["explorer.exe"],
-            "task manager":   ["Taskmgr.exe"],
-            "gerenciador de tarefas": ["Taskmgr.exe"],
-            "brave":          ["brave.exe"],
-            "brave browser":  ["brave.exe"],
+        # Step 1: Portuguese → English for built-in Windows tools
+        resolved = _PT_MAP.get(query_lower, query)
+
+        # Step 2: Search discovery index
+        results = self._discovery.search(resolved)
+        if results:
+            best = results[0]
+            # High confidence (≥ 0.9) → open immediately, no need to ask
+            if best["score"] >= 0.9:
+                if self._launch(best["exe_path"]):
+                    return {"status": "success", "message": f"Abrindo '{best['display_name']}'."}
+            # Medium confidence → only ask if there are genuinely different alternatives
+            elif best["score"] >= 0.6:
+                ambiguous_candidates = [
+                    r for r in results[1:]
+                    if r["score"] >= best["score"] - 0.05
+                ]
+                if ambiguous_candidates:
+                    names = [best["display_name"]] + [r["display_name"] for r in ambiguous_candidates[:3]]
+                    names_str = ", ".join(names)
+                    return {
+                        "status": "ambiguous",
+                        "message": (
+                            f"Encontrei vários apps que podem ser '{query}': {names_str}. "
+                            "Qual exatamente você quer abrir?"
+                        ),
+                        "candidates": names,
+                    }
+                if self._launch(best["exe_path"]):
+                    return {"status": "success", "message": f"Abrindo '{best['display_name']}' ."}
+
+        # Step 3: PATH fallback (handles simple exe names like "notepad", "calc")
+        for candidate in (resolved, resolved + ".exe", query_lower, query_lower + ".exe"):
+            found = shutil.which(candidate)
+            if found and self._launch(found):
+                return {"status": "success", "message": f"Abrindo '{query}'."}
+
+        return {
+            "status": "error",
+            "message": (
+                f"Não encontrei '{query}' no sistema. "
+                "Se você instalou recentemente, peça para eu atualizar a lista de apps e tente novamente."
+            ),
         }
 
-        # Known full paths for apps installed in deep subdirectories
-        KNOWN_PATHS: dict[str, list[str]] = {
-            "brave.exe": [
-                os.path.expandvars(r"%LOCALAPPDATA%\BraveSoftware\Brave-Browser\Application\brave.exe"),
-                os.path.expandvars(r"%PROGRAMFILES%\BraveSoftware\Brave-Browser\Application\brave.exe"),
-            ],
-            "chrome.exe": [
-                os.path.expandvars(r"%PROGRAMFILES%\Google\Chrome\Application\chrome.exe"),
-                os.path.expandvars(r"%PROGRAMFILES(X86)%\Google\Chrome\Application\chrome.exe"),
-                os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
-            ],
-            "steam.exe": [
-                os.path.expandvars(r"%PROGRAMFILES(X86)%\Steam\steam.exe"),
-                os.path.expandvars(r"%PROGRAMFILES%\Steam\steam.exe"),
-            ],
-            "Spotify.exe": [
-                os.path.expandvars(r"%APPDATA%\Spotify\Spotify.exe"),
-            ],
-            "Discord.exe": [
-                os.path.expandvars(r"%LOCALAPPDATA%\Discord\Update.exe"),
-                os.path.expandvars(r"%LOCALAPPDATA%\Discord\app-\Discord.exe"),
-            ],
-        }
-
-        # Common Windows search paths in addition to PATH
-        SEARCH_DIRS = [
-            os.path.expandvars(r"%PROGRAMFILES%"),
-            os.path.expandvars(r"%PROGRAMFILES(X86)%"),
-            os.path.expandvars(r"%LOCALAPPDATA%"),
-            os.path.expandvars(r"%APPDATA%"),
-        ]
-
-        def find_exe(exe_name: str) -> str | None:
-            """Return full path to exe_name if found, else None."""
-            # 1. Check PATH
-            found = shutil.which(exe_name)
-            if found:
-                return found
-            # 2. Check known deep paths
-            for known_exe, paths in KNOWN_PATHS.items():
-                if known_exe.lower() == exe_name.lower():
-                    for p in paths:
-                        if os.path.isfile(p):
-                            return p
-            # 3. Walk common install dirs (one level deep)
-            for base in SEARCH_DIRS:
-                if not os.path.isdir(base):
-                    continue
-                try:
-                    for entry in os.scandir(base):
-                        if entry.is_dir(follow_symlinks=False):
-                            candidate = os.path.join(entry.path, exe_name)
-                            if os.path.isfile(candidate):
-                                return candidate
-                        elif entry.name.lower() == exe_name.lower():
-                            return entry.path
-                except PermissionError:
-                    continue
-            return None
-
-        def launch(path: str) -> bool:
-            """Launch path via os.startfile (Windows). Returns True on success."""
-            try:
-                os.startfile(path)
-                return True
-            except Exception:
-                return False
-
-        # --- Resolve candidates ---
-        exe_candidates: list[str] = ALIASES.get(app_name_lower, [])
-
-        # If not in aliases, treat the raw name as a candidate
-        if not exe_candidates:
-            raw = app_name_lower if app_name_lower.endswith(".exe") else app_name_lower + ".exe"
-            exe_candidates = [raw]
-
-        # --- Try to find and launch ---
-        if current_os == "windows":
-            for exe in exe_candidates:
-                full_path = find_exe(exe)
-                if full_path and launch(full_path):
-                    return {"status": "success", "message": f"Abrindo '{app_name}'."}
-
-            # Fallback: desktop shortcut
-            desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-            for name_variant in [app_name, app_name_lower]:
-                shortcut = os.path.join(desktop, f"{name_variant}.lnk")
-                if os.path.exists(shortcut) and launch(shortcut):
-                    return {"status": "success", "message": f"Abrindo atalho '{app_name}' da área de trabalho."}
-
-            return {"status": "error", "message": f"Não consegui encontrar ou abrir '{app_name}'. Verifique se está instalado."}
-
-        # --- Non-Windows fallback ---
-        cmd = shutil.which(app_name_lower)
-        if cmd:
-            try:
-                subprocess.Popen([cmd])
-                return {"status": "success", "message": f"Abrindo '{app_name}'."}
-            except Exception as e:
-                return {"status": "error", "message": f"Erro ao abrir '{app_name}': {e}"}
-
-        return {"status": "error", "message": f"Não sei como abrir '{app_name}' no sistema {current_os}."}
+    def _launch(self, path: str) -> bool:
+        """Launch a file or shortcut. Works for .exe and .lnk on Windows."""
+        try:
+            os.startfile(path)
+            return True
+        except Exception as e:
+            print(f"SystemService: falha ao abrir '{path}': {e}")
+            return False
 
     def open_calculator(self) -> dict:
-        """Opens the system calculator."""
-        # This can now call open_application for better consistency
         return self.open_application("calculadora")
+
+    def list_installed_apps(self, filter_query: str = "") -> dict:
+        """
+        Returns a readable list of apps in the discovery index.
+        Optionally filtered by a substring (e.g., 'game', 'adobe').
+        """
+        apps = self._discovery.list_all(filter_query)
+        if not apps:
+            label = f" com '{filter_query}'" if filter_query else ""
+            return {"status": "info", "message": f"Nenhum app encontrado{label}."}
+        names = [a["display_name"] for a in apps]
+        total = len(names)
+        # Keep the message readable — truncate if too many
+        display = names[:30]
+        extra = f" (+{total - 30} outros)" if total > 30 else ""
+        return {
+            "status": "success",
+            "message": f"Apps instalados ({total} no total{extra}): {', '.join(display)}.",
+            "apps": names,
+        }
+
+    def refresh_app_index(self) -> dict:
+        """Force a rescan of installed apps and rebuild the cache."""
+        count = self._discovery.refresh()
+        return {
+            "status": "success",
+            "message": f"Lista de apps atualizada! {count} aplicativos encontrados no sistema.",
+        }
 
     def search_web(self, query: str) -> dict:
         """

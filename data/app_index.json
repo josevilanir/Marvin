@@ -1,0 +1,1841 @@
+[
+  {
+    "display_name": "7zFM",
+    "exe_path": "C:\\Program Files\\7-Zip\\7zFM.exe",
+    "source": "app_paths",
+    "keywords": [
+      "7zfm"
+    ]
+  },
+  {
+    "display_name": "brave",
+    "exe_path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "source": "app_paths",
+    "keywords": [
+      "brave"
+    ]
+  },
+  {
+    "display_name": "chrome",
+    "exe_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "source": "app_paths",
+    "keywords": [
+      "chrome"
+    ]
+  },
+  {
+    "display_name": "devenv",
+    "exe_path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\common7\\ide\\devenv.exe",
+    "source": "app_paths",
+    "keywords": [
+      "devenv"
+    ]
+  },
+  {
+    "display_name": "IEDIAG",
+    "exe_path": "C:\\Program Files\\Internet Explorer\\IEDIAGCMD.EXE",
+    "source": "app_paths",
+    "keywords": [
+      "iediag"
+    ]
+  },
+  {
+    "display_name": "IEXPLORE",
+    "exe_path": "C:\\Program Files\\Internet Explorer\\IEXPLORE.EXE",
+    "source": "app_paths",
+    "keywords": [
+      "iexplore"
+    ]
+  },
+  {
+    "display_name": "msedge",
+    "exe_path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "source": "app_paths",
+    "keywords": [
+      "msedge"
+    ]
+  },
+  {
+    "display_name": "vlc",
+    "exe_path": "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",
+    "source": "app_paths",
+    "keywords": [
+      "vlc"
+    ]
+  },
+  {
+    "display_name": "WinRAR",
+    "exe_path": "C:\\Program Files\\WinRAR\\WinRAR.exe",
+    "source": "app_paths",
+    "keywords": [
+      "winrar"
+    ]
+  },
+  {
+    "display_name": "7-Zip 24.09 (x64)",
+    "exe_path": "C:\\Program Files\\7-Zip\\7z.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "zip",
+      "x64"
+    ]
+  },
+  {
+    "display_name": "AMD Software",
+    "exe_path": "C:\\Program Files\\AMD\\CIM\\BIN64\\AMDSoftwareCompatibilityTool.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "amd",
+      "software"
+    ]
+  },
+  {
+    "display_name": "Docker Desktop",
+    "exe_path": "C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "docker",
+      "desktop"
+    ]
+  },
+  {
+    "display_name": "Git",
+    "exe_path": "C:\\Program Files\\Git\\git-cmd.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "git"
+    ]
+  },
+  {
+    "display_name": "PerformanceTest 11",
+    "exe_path": "C:\\Program Files\\PerformanceTest\\PerformanceTest64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "performancetest"
+    ]
+  },
+  {
+    "display_name": "Riot Vanguard",
+    "exe_path": "C:\\Program Files\\Riot Vanguard\\vgtray.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "vanguard",
+      "riot"
+    ]
+  },
+  {
+    "display_name": "OMORI",
+    "exe_path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\OMORI\\OMORI.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "omori"
+    ]
+  },
+  {
+    "display_name": "Devil May Cry 4 Special Edition",
+    "exe_path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Special Edition\\DevilMayCry4SpecialEdition.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "may",
+      "special",
+      "devil",
+      "cry",
+      "edition"
+    ]
+  },
+  {
+    "display_name": "Wallpaper Engine",
+    "exe_path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\wallpaper_engine\\wallpaper64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "wallpaper",
+      "engine"
+    ]
+  },
+  {
+    "display_name": "MiniTool Partition Wizard Free 12.9",
+    "exe_path": "C:\\Program Files\\MiniTool Partition Wizard 12\\partitionwizard.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "free",
+      "wizard",
+      "partition",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "Free Download Manager",
+    "exe_path": "C:\\Program Files\\Softdeluxe\\Free Download Manager\\importwizard.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "free",
+      "manager",
+      "download"
+    ]
+  },
+  {
+    "display_name": "ViGEm Bus Driver",
+    "exe_path": "C:\\Program Files\\Nefarius Software Solutions\\ViGEm Bus Driver\\nefconw.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "bus",
+      "driver",
+      "vigem"
+    ]
+  },
+  {
+    "display_name": "Battle.net",
+    "exe_path": "C:\\Program Files (x86)\\Battle.net\\Battle.net.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "battle",
+      "net"
+    ]
+  },
+  {
+    "display_name": "Microsoft Edge WebView2 Runtime",
+    "exe_path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\146.0.3856.109\\msedgewebview2.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "webview2",
+      "microsoft",
+      "runtime",
+      "edge"
+    ]
+  },
+  {
+    "display_name": "MiniTool ShadowMaker PW Edition",
+    "exe_path": "C:\\Program Files\\MiniTool ShadowMaker\\MTPELoader.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "shadowmaker",
+      "edition",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "OBS Studio",
+    "exe_path": "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "studio",
+      "obs"
+    ]
+  },
+  {
+    "display_name": "Rainmeter",
+    "exe_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "rainmeter"
+    ]
+  },
+  {
+    "display_name": "Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664",
+    "exe_path": "C:\\ProgramData\\Package Cache\\{042d26ef-3dbe-4c25-95d3-4c1b11b235a7}\\vcredist_x64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "microsoft",
+      "x64",
+      "40664",
+      "c++",
+      "redistributable",
+      "2013",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.44.35211",
+    "exe_path": "C:\\ProgramData\\Package Cache\\{0b5169e3-39da-4313-808e-1f9c0407f3bf}\\VC_redist.x86.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "35211",
+      "microsoft",
+      "2022",
+      "c++",
+      "redistributable",
+      "2015",
+      "x86",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030",
+    "exe_path": "C:\\ProgramData\\Package Cache\\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}\\vcredist_x64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "microsoft",
+      "61030",
+      "x64",
+      "c++",
+      "redistributable",
+      "2012",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "Microsoft Windows Desktop Runtime - 8.0.16 (x64)",
+    "exe_path": "C:\\ProgramData\\Package Cache\\{ce93c7b3-106f-4ee3-bf24-6a710e693ac3}\\windowsdesktop-runtime-8.0.16-win-x64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "microsoft",
+      "desktop",
+      "x64",
+      "windows",
+      "runtime"
+    ]
+  },
+  {
+    "display_name": "Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.44.35211",
+    "exe_path": "C:\\ProgramData\\Package Cache\\{d8bbe9f9-7c5b-42c6-b715-9ee898a2e515}\\VC_redist.x64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "35211",
+      "microsoft",
+      "2022",
+      "x64",
+      "c++",
+      "redistributable",
+      "2015",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "REDlauncher",
+    "exe_path": "c:\\Users\\vilan\\AppData\\Local\\Programs\\CD Projekt RED\\REDlauncher\\REDlauncher.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "redlauncher"
+    ]
+  },
+  {
+    "display_name": "Realtek Audio Driver",
+    "exe_path": "C:\\Program Files (x86)\\Realtek\\Audio\\Drivers\\RtlUpd64.exe",
+    "source": "uninstall_hklm",
+    "keywords": [
+      "audio",
+      "driver",
+      "realtek"
+    ]
+  },
+  {
+    "display_name": "CPAvalanche Client 1.0.5",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Programs\\cpavalancheclient\\CPAvalanche Client.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "cpavalanche",
+      "client"
+    ]
+  },
+  {
+    "display_name": "balenaEtcher",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\balena_etcher\\balenaEtcher.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "balenaetcher"
+    ]
+  },
+  {
+    "display_name": "CurseForge 1.296.1-30364",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Programs\\CurseForge Windows\\CurseForge.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "curseforge",
+      "296",
+      "30364"
+    ]
+  },
+  {
+    "display_name": "DBeaver 25.1.2 (current user)",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\DBeaver\\dbeaver.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "dbeaver",
+      "current",
+      "user"
+    ]
+  },
+  {
+    "display_name": "Postman x64 11.71.7",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Postman\\Postman.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "x64",
+      "postman"
+    ]
+  },
+  {
+    "display_name": "League of Legends",
+    "exe_path": "C:/Riot Games/League of Legends\\LeagueClient.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "league",
+      "legends"
+    ]
+  },
+  {
+    "display_name": "Riot Client",
+    "exe_path": "C:/Riot Games/Riot Client\\RiotClientServices.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "client",
+      "riot"
+    ]
+  },
+  {
+    "display_name": "Ruby 3.4.8-1-x64",
+    "exe_path": "C:\\Ruby34-x64\\unins000.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "x64",
+      "ruby"
+    ]
+  },
+  {
+    "display_name": "Stremio",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Programs\\LNV\\Stremio-4\\stremio.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "stremio"
+    ]
+  },
+  {
+    "display_name": "Zoom Workplace",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Zoom\\bin\\Zoom_launcher.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "zoom",
+      "workplace"
+    ]
+  },
+  {
+    "display_name": "Microsoft Visual Studio Code (User)",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "code",
+      "microsoft",
+      "studio",
+      "visual",
+      "user"
+    ]
+  },
+  {
+    "display_name": "Antigravity (User)",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe",
+    "source": "uninstall_hkcu",
+    "keywords": [
+      "antigravity",
+      "user"
+    ]
+  },
+  {
+    "display_name": "ActionsMcpHost",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\ActionsMcpHost.exe",
+    "source": "windows_store",
+    "keywords": [
+      "actionsmcphost"
+    ]
+  },
+  {
+    "display_name": "bash",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\bash.exe",
+    "source": "windows_store",
+    "keywords": [
+      "bash"
+    ]
+  },
+  {
+    "display_name": "GameBarElevatedFT_Alias",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\GameBarElevatedFT_Alias.exe",
+    "source": "windows_store",
+    "keywords": [
+      "alias",
+      "gamebarelevatedft"
+    ]
+  },
+  {
+    "display_name": "GetHelp",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\GetHelp.exe",
+    "source": "windows_store",
+    "keywords": [
+      "gethelp"
+    ]
+  },
+  {
+    "display_name": "idle",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\idle.exe",
+    "source": "windows_store",
+    "keywords": [
+      "idle"
+    ]
+  },
+  {
+    "display_name": "idle3.12",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\idle3.12.exe",
+    "source": "windows_store",
+    "keywords": [
+      "idle3"
+    ]
+  },
+  {
+    "display_name": "idle3",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\idle3.exe",
+    "source": "windows_store",
+    "keywords": [
+      "idle3"
+    ]
+  },
+  {
+    "display_name": "MediaPlayer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\MediaPlayer.exe",
+    "source": "windows_store",
+    "keywords": [
+      "mediaplayer"
+    ]
+  },
+  {
+    "display_name": "microsoftstore",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\microsoftstore.exe",
+    "source": "windows_store",
+    "keywords": [
+      "microsoftstore"
+    ]
+  },
+  {
+    "display_name": "MicrosoftWindows.DesktopStickerEditorCentennial",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\MicrosoftWindows.DesktopStickerEditorCentennial.exe",
+    "source": "windows_store",
+    "keywords": [
+      "microsoftwindows",
+      "desktopstickereditorcentennial"
+    ]
+  },
+  {
+    "display_name": "ms-teams",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\ms-teams.exe",
+    "source": "windows_store",
+    "keywords": [
+      "teams"
+    ]
+  },
+  {
+    "display_name": "ms-teams_appcontainer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\ms-teams_appcontainer.exe",
+    "source": "windows_store",
+    "keywords": [
+      "appcontainer",
+      "teams"
+    ]
+  },
+  {
+    "display_name": "ms-teams_autostarter",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\ms-teams_autostarter.exe",
+    "source": "windows_store",
+    "keywords": [
+      "autostarter",
+      "teams"
+    ]
+  },
+  {
+    "display_name": "mspaint",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\mspaint.exe",
+    "source": "windows_store",
+    "keywords": [
+      "mspaint"
+    ]
+  },
+  {
+    "display_name": "notepad",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\notepad.exe",
+    "source": "windows_store",
+    "keywords": [
+      "notepad"
+    ]
+  },
+  {
+    "display_name": "olk",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\olk.exe",
+    "source": "windows_store",
+    "keywords": [
+      "olk"
+    ]
+  },
+  {
+    "display_name": "pbrush",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pbrush.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pbrush"
+    ]
+  },
+  {
+    "display_name": "pip",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pip.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pip"
+    ]
+  },
+  {
+    "display_name": "pip3.12",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pip3.12.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pip3"
+    ]
+  },
+  {
+    "display_name": "pip3",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pip3.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pip3"
+    ]
+  },
+  {
+    "display_name": "python",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "source": "windows_store",
+    "keywords": [
+      "python"
+    ]
+  },
+  {
+    "display_name": "python3.12",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\python3.12.exe",
+    "source": "windows_store",
+    "keywords": [
+      "python3"
+    ]
+  },
+  {
+    "display_name": "python3",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\python3.exe",
+    "source": "windows_store",
+    "keywords": [
+      "python3"
+    ]
+  },
+  {
+    "display_name": "pythonw",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pythonw.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pythonw"
+    ]
+  },
+  {
+    "display_name": "pythonw3.12",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pythonw3.12.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pythonw3"
+    ]
+  },
+  {
+    "display_name": "pythonw3",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\pythonw3.exe",
+    "source": "windows_store",
+    "keywords": [
+      "pythonw3"
+    ]
+  },
+  {
+    "display_name": "SnippingTool",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\SnippingTool.exe",
+    "source": "windows_store",
+    "keywords": [
+      "snippingtool"
+    ]
+  },
+  {
+    "display_name": "Spotify",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\Spotify.exe",
+    "source": "windows_store",
+    "keywords": [
+      "spotify"
+    ]
+  },
+  {
+    "display_name": "store",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\store.exe",
+    "source": "windows_store",
+    "keywords": [
+      "store"
+    ]
+  },
+  {
+    "display_name": "ttb",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\ttb.exe",
+    "source": "windows_store",
+    "keywords": [
+      "ttb"
+    ]
+  },
+  {
+    "display_name": "VisualAssist",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\VisualAssist.exe",
+    "source": "windows_store",
+    "keywords": [
+      "visualassist"
+    ]
+  },
+  {
+    "display_name": "WindowsPackageManagerMCPServer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\WindowsPackageManagerMCPServer.exe",
+    "source": "windows_store",
+    "keywords": [
+      "windowspackagemanagermcpserver"
+    ]
+  },
+  {
+    "display_name": "WindowsPackageManagerServer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\WindowsPackageManagerServer.exe",
+    "source": "windows_store",
+    "keywords": [
+      "windowspackagemanagerserver"
+    ]
+  },
+  {
+    "display_name": "winget",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\winget.exe",
+    "source": "windows_store",
+    "keywords": [
+      "winget"
+    ]
+  },
+  {
+    "display_name": "wsl",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\wsl.exe",
+    "source": "windows_store",
+    "keywords": [
+      "wsl"
+    ]
+  },
+  {
+    "display_name": "wslconfig",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\wslconfig.exe",
+    "source": "windows_store",
+    "keywords": [
+      "wslconfig"
+    ]
+  },
+  {
+    "display_name": "wt",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+    "source": "windows_store",
+    "keywords": []
+  },
+  {
+    "display_name": "XboxPcAppAdminServer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\XboxPcAppAdminServer.exe",
+    "source": "windows_store",
+    "keywords": [
+      "xboxpcappadminserver"
+    ]
+  },
+  {
+    "display_name": "XboxPcAppCE",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Local\\Microsoft\\WindowsApps\\XboxPcAppCE.exe",
+    "source": "windows_store",
+    "keywords": [
+      "xboxpcappce"
+    ]
+  },
+  {
+    "display_name": "Administrative Tools",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "tools",
+      "administrative"
+    ]
+  },
+  {
+    "display_name": "CPAvalanche Client",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\CPAvalanche Client.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "cpavalanche",
+      "client"
+    ]
+  },
+  {
+    "display_name": "CurseForge",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\CurseForge.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "curseforge"
+    ]
+  },
+  {
+    "display_name": "File Explorer",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "file",
+      "explorer"
+    ]
+  },
+  {
+    "display_name": "OneDrive",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\OneDrive.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "onedrive"
+    ]
+  },
+  {
+    "display_name": "LiveCaptions",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\LiveCaptions.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "livecaptions"
+    ]
+  },
+  {
+    "display_name": "Magnify",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\Magnify.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "magnify"
+    ]
+  },
+  {
+    "display_name": "Narrator",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\Narrator.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "narrator"
+    ]
+  },
+  {
+    "display_name": "On-Screen Keyboard",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\On-Screen Keyboard.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "keyboard",
+      "screen"
+    ]
+  },
+  {
+    "display_name": "VoiceAccess",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\VoiceAccess.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "voiceaccess"
+    ]
+  },
+  {
+    "display_name": "Antigravity",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Antigravity\\Antigravity.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "antigravity"
+    ]
+  },
+  {
+    "display_name": "balenaEtcher",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Balena Ltd\\balenaEtcher.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "balenaetcher"
+    ]
+  },
+  {
+    "display_name": "DBeaver",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\DBeaver Community\\DBeaver.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "dbeaver"
+    ]
+  },
+  {
+    "display_name": "Uninstall",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\DBeaver Community\\Uninstall.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall"
+    ]
+  },
+  {
+    "display_name": "Discord",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Discord Inc\\Discord.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "discord"
+    ]
+  },
+  {
+    "display_name": "Postman",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Postman\\Postman.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "postman"
+    ]
+  },
+  {
+    "display_name": "Roblox Studio",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Roblox\\Roblox Studio.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "roblox",
+      "studio"
+    ]
+  },
+  {
+    "display_name": "Interactive Ruby",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Ruby 3.4.8-1-x64\\Interactive Ruby.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "interactive",
+      "ruby"
+    ]
+  },
+  {
+    "display_name": "RubyGems Documentation Server",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Ruby 3.4.8-1-x64\\RubyGems Documentation Server.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "server",
+      "documentation",
+      "rubygems"
+    ]
+  },
+  {
+    "display_name": "Start Command Prompt with Ruby",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Ruby 3.4.8-1-x64\\Start Command Prompt with Ruby.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "with",
+      "start",
+      "prompt",
+      "ruby",
+      "command"
+    ]
+  },
+  {
+    "display_name": "Uninstall Ruby 3.4.8-1-x64",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Ruby 3.4.8-1-x64\\Uninstall Ruby 3.4.8-1-x64.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "x64",
+      "ruby"
+    ]
+  },
+  {
+    "display_name": "Ruby 3.4.8 API Reference",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Ruby 3.4.8-1-x64\\Documentation\\Ruby 3.4.8 API Reference.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "reference",
+      "api",
+      "ruby"
+    ]
+  },
+  {
+    "display_name": "Rainmeter",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Rainmeter.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "rainmeter"
+    ]
+  },
+  {
+    "display_name": "Steam",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Steam\\Steam.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "steam"
+    ]
+  },
+  {
+    "display_name": "Stremio",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Stremio\\Stremio.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "stremio"
+    ]
+  },
+  {
+    "display_name": "Uninstall Stremio",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Stremio\\Uninstall Stremio.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "stremio"
+    ]
+  },
+  {
+    "display_name": "Command Prompt",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Command Prompt.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "prompt",
+      "command"
+    ]
+  },
+  {
+    "display_name": "Control Panel",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Control Panel.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "control",
+      "panel"
+    ]
+  },
+  {
+    "display_name": "Run",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Run.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "run"
+    ]
+  },
+  {
+    "display_name": "Visual Studio Code",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code\\Visual Studio Code.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "code",
+      "studio",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "Windows PowerShell (x86)",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell (x86).lnk",
+    "source": "shortcut",
+    "keywords": [
+      "x86",
+      "windows",
+      "powershell"
+    ]
+  },
+  {
+    "display_name": "Windows PowerShell",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "windows",
+      "powershell"
+    ]
+  },
+  {
+    "display_name": "Ajuda do WinRAR",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\Ajuda do WinRAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "ajuda",
+      "winrar"
+    ]
+  },
+  {
+    "display_name": "Manual do Console RAR",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\Manual do Console RAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "console",
+      "manual",
+      "rar"
+    ]
+  },
+  {
+    "display_name": "O que há de novo na última versão",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\O que há de novo na última versão.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "novo",
+      "última",
+      "versão"
+    ]
+  },
+  {
+    "display_name": "WinRAR",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\WinRAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "winrar"
+    ]
+  },
+  {
+    "display_name": "Uninstall Zoom Workplace",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Zoom\\Uninstall Zoom Workplace.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "zoom",
+      "workplace"
+    ]
+  },
+  {
+    "display_name": "Zoom Workplace",
+    "exe_path": "C:\\Users\\vilan\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Zoom\\Zoom Workplace.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "zoom",
+      "workplace"
+    ]
+  },
+  {
+    "display_name": "Brave",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Brave.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "brave"
+    ]
+  },
+  {
+    "display_name": "Epic Games Launcher",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Epic Games Launcher.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "launcher",
+      "games",
+      "epic"
+    ]
+  },
+  {
+    "display_name": "Google Chrome",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Google Chrome.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "chrome",
+      "google"
+    ]
+  },
+  {
+    "display_name": "Microsoft Edge",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "microsoft",
+      "edge"
+    ]
+  },
+  {
+    "display_name": "OBS Studio",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\OBS Studio.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "studio",
+      "obs"
+    ]
+  },
+  {
+    "display_name": "Rainmeter",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Rainmeter.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "rainmeter"
+    ]
+  },
+  {
+    "display_name": "Visual Studio 2022",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "2022",
+      "studio",
+      "visual"
+    ]
+  },
+  {
+    "display_name": "Visual Studio Installer",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Installer.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "studio",
+      "visual",
+      "installer"
+    ]
+  },
+  {
+    "display_name": "WSL Settings",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL Settings.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "wsl",
+      "settings"
+    ]
+  },
+  {
+    "display_name": "WSL",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "wsl"
+    ]
+  },
+  {
+    "display_name": "7-Zip File Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip File Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "zip",
+      "manager",
+      "file"
+    ]
+  },
+  {
+    "display_name": "7-Zip Help",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip Help.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "zip",
+      "help"
+    ]
+  },
+  {
+    "display_name": "Remote Desktop Connection",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\Remote Desktop Connection.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "connection",
+      "remote",
+      "desktop"
+    ]
+  },
+  {
+    "display_name": "Steps Recorder",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\Steps Recorder.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "recorder",
+      "steps"
+    ]
+  },
+  {
+    "display_name": "Windows Media Player Legacy",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\Windows Media Player Legacy.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "player",
+      "media",
+      "windows",
+      "legacy"
+    ]
+  },
+  {
+    "display_name": "Character Map",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories\\System Tools\\Character Map.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "map",
+      "character"
+    ]
+  },
+  {
+    "display_name": "Component Services",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Component Services.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "component",
+      "services"
+    ]
+  },
+  {
+    "display_name": "Computer Management",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Computer Management.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "management",
+      "computer"
+    ]
+  },
+  {
+    "display_name": "dfrgui",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\dfrgui.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "dfrgui"
+    ]
+  },
+  {
+    "display_name": "Disk Cleanup",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Disk Cleanup.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "disk",
+      "cleanup"
+    ]
+  },
+  {
+    "display_name": "Event Viewer",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Event Viewer.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "viewer",
+      "event"
+    ]
+  },
+  {
+    "display_name": "iSCSI Initiator",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\iSCSI Initiator.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "iscsi",
+      "initiator"
+    ]
+  },
+  {
+    "display_name": "Memory Diagnostics Tool",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Memory Diagnostics Tool.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "memory",
+      "tool",
+      "diagnostics"
+    ]
+  },
+  {
+    "display_name": "ODBC Data Sources (32-bit)",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\ODBC Data Sources (32-bit).lnk",
+    "source": "shortcut",
+    "keywords": [
+      "data",
+      "bit",
+      "odbc",
+      "sources"
+    ]
+  },
+  {
+    "display_name": "ODBC Data Sources (64-bit)",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\ODBC Data Sources (64-bit).lnk",
+    "source": "shortcut",
+    "keywords": [
+      "data",
+      "bit",
+      "odbc",
+      "sources"
+    ]
+  },
+  {
+    "display_name": "Performance Monitor",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Performance Monitor.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "monitor",
+      "performance"
+    ]
+  },
+  {
+    "display_name": "RecoveryDrive",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\RecoveryDrive.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "recoverydrive"
+    ]
+  },
+  {
+    "display_name": "Registry Editor",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Registry Editor.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "registry",
+      "editor"
+    ]
+  },
+  {
+    "display_name": "Resource Monitor",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Resource Monitor.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "monitor",
+      "resource"
+    ]
+  },
+  {
+    "display_name": "services",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\services.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "services"
+    ]
+  },
+  {
+    "display_name": "System Configuration",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\System Configuration.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "system",
+      "configuration"
+    ]
+  },
+  {
+    "display_name": "System Information",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\System Information.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "information",
+      "system"
+    ]
+  },
+  {
+    "display_name": "Task Scheduler",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Task Scheduler.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "scheduler",
+      "task"
+    ]
+  },
+  {
+    "display_name": "Windows Defender Firewall with Advanced Security",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Windows Defender Firewall with Advanced Security.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "advanced",
+      "with",
+      "defender",
+      "windows",
+      "firewall",
+      "security"
+    ]
+  },
+  {
+    "display_name": "AMD Bug Report Tool",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\AMD Bug Report Tool\\AMD Bug Report Tool.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "amd",
+      "tool",
+      "bug",
+      "report"
+    ]
+  },
+  {
+    "display_name": "AMD Software꞉ Adrenalin Edition",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\AMD Software꞉ Adrenalin Edition\\AMD Software꞉ Adrenalin Edition.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "amd",
+      "edition",
+      "software꞉",
+      "adrenalin"
+    ]
+  },
+  {
+    "display_name": "AMD Install Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\AMDInstallManager\\AMD Install Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "amd",
+      "install",
+      "manager"
+    ]
+  },
+  {
+    "display_name": "Android Studio",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Android Studio\\Android Studio.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "studio",
+      "android"
+    ]
+  },
+  {
+    "display_name": "Battle.net",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Battle.net\\Battle.net.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "battle",
+      "net"
+    ]
+  },
+  {
+    "display_name": "Desinstalar o Free Download Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Free Download Manager\\Desinstalar o Free Download Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "free",
+      "manager",
+      "desinstalar",
+      "download"
+    ]
+  },
+  {
+    "display_name": "Free Download Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Free Download Manager\\Free Download Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "free",
+      "manager",
+      "download"
+    ]
+  },
+  {
+    "display_name": "Git Bash",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git Bash.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "git",
+      "bash"
+    ]
+  },
+  {
+    "display_name": "Git CMD",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git CMD.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "git",
+      "cmd"
+    ]
+  },
+  {
+    "display_name": "Git GUI",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git GUI.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "git",
+      "gui"
+    ]
+  },
+  {
+    "display_name": "Git Release Notes",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git Release Notes.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "git",
+      "notes",
+      "release"
+    ]
+  },
+  {
+    "display_name": "Desinstalar o MiniTool Partition Wizard",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MiniTool Partition Wizard 12\\Desinstalar o MiniTool Partition Wizard.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "wizard",
+      "desinstalar",
+      "partition",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "MiniTool Partition Wizard",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MiniTool Partition Wizard 12\\MiniTool Partition Wizard.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "wizard",
+      "partition",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "MiniTool ShadowMaker",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MiniTool ShadowMaker\\MiniTool ShadowMaker.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "shadowmaker",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "Uninstall  MiniTool ShadowMaker",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\MiniTool ShadowMaker\\Uninstall  MiniTool ShadowMaker.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "shadowmaker",
+      "minitool"
+    ]
+  },
+  {
+    "display_name": "Install Additional Tools for Node.js",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Node.js\\Install Additional Tools for Node.js.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "node",
+      "install",
+      "additional",
+      "tools"
+    ]
+  },
+  {
+    "display_name": "Node.js command prompt",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Node.js\\Node.js command prompt.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "prompt",
+      "node",
+      "command"
+    ]
+  },
+  {
+    "display_name": "Node.js",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Node.js\\Node.js.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "node"
+    ]
+  },
+  {
+    "display_name": "Uninstall Node.js",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Node.js\\Uninstall Node.js.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "node"
+    ]
+  },
+  {
+    "display_name": "PerformanceTest Documentation",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PerformanceTest\\PerformanceTest Documentation.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "documentation",
+      "performancetest"
+    ]
+  },
+  {
+    "display_name": "PerformanceTest",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PerformanceTest\\PerformanceTest.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "performancetest"
+    ]
+  },
+  {
+    "display_name": "Uninstall PerformanceTest",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PerformanceTest\\Uninstall PerformanceTest.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "uninstall",
+      "performancetest"
+    ]
+  },
+  {
+    "display_name": "Application Stack Builder",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PostgreSQL 18\\Application Stack Builder.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "stack",
+      "builder",
+      "application"
+    ]
+  },
+  {
+    "display_name": "pgAdmin 4",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PostgreSQL 18\\pgAdmin 4.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "pgadmin"
+    ]
+  },
+  {
+    "display_name": "Reload Configuration",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PostgreSQL 18\\Reload Configuration.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "configuration",
+      "reload"
+    ]
+  },
+  {
+    "display_name": "SQL Shell (psql)",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\PostgreSQL 18\\SQL Shell (psql).lnk",
+    "source": "shortcut",
+    "keywords": [
+      "sql",
+      "psql",
+      "shell"
+    ]
+  },
+  {
+    "display_name": "Cliente Riot",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\Cliente Riot.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "cliente",
+      "riot"
+    ]
+  },
+  {
+    "display_name": "League of Legends",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\League of Legends.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "league",
+      "legends"
+    ]
+  },
+  {
+    "display_name": "Riot Client",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\Riot Client.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "client",
+      "riot"
+    ]
+  },
+  {
+    "display_name": "Steam",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Steam\\Steam.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "steam"
+    ]
+  },
+  {
+    "display_name": "Task Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Task Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "manager",
+      "task"
+    ]
+  },
+  {
+    "display_name": "Documentation",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\Documentation.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "documentation"
+    ]
+  },
+  {
+    "display_name": "Release Notes",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\Release Notes.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "notes",
+      "release"
+    ]
+  },
+  {
+    "display_name": "VideoLAN Website",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\VideoLAN Website.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "website",
+      "videolan"
+    ]
+  },
+  {
+    "display_name": "VLC media player - reset preferences and cache files",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\VLC media player - reset preferences and cache files.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "media",
+      "player",
+      "preferences",
+      "cache",
+      "files",
+      "reset",
+      "vlc"
+    ]
+  },
+  {
+    "display_name": "VLC media player skinned",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\VLC media player skinned.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "skinned",
+      "player",
+      "media",
+      "vlc"
+    ]
+  },
+  {
+    "display_name": "VLC media player",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\VLC media player.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "player",
+      "media",
+      "vlc"
+    ]
+  },
+  {
+    "display_name": "Debuggable Package Manager",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022\\Visual Studio Tools\\Debuggable Package Manager.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "package",
+      "debuggable",
+      "manager"
+    ]
+  },
+  {
+    "display_name": "Developer Command Prompt for VS 2022",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022\\Visual Studio Tools\\Developer Command Prompt for VS 2022.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "2022",
+      "prompt",
+      "command",
+      "developer"
+    ]
+  },
+  {
+    "display_name": "Developer PowerShell for VS 2022",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022\\Visual Studio Tools\\Developer PowerShell for VS 2022.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "2022",
+      "powershell",
+      "developer"
+    ]
+  },
+  {
+    "display_name": "Windows PowerShell ISE (x86)",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell ISE (x86).lnk",
+    "source": "shortcut",
+    "keywords": [
+      "ise",
+      "x86",
+      "windows",
+      "powershell"
+    ]
+  },
+  {
+    "display_name": "Windows PowerShell ISE",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell ISE.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "ise",
+      "windows",
+      "powershell"
+    ]
+  },
+  {
+    "display_name": "Ajuda do WinRAR",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\Ajuda do WinRAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "ajuda",
+      "winrar"
+    ]
+  },
+  {
+    "display_name": "Manual do Console RAR",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\Manual do Console RAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "console",
+      "manual",
+      "rar"
+    ]
+  },
+  {
+    "display_name": "O que há de novo na última versão",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\O que há de novo na última versão.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "novo",
+      "última",
+      "versão"
+    ]
+  },
+  {
+    "display_name": "WinRAR",
+    "exe_path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WinRAR\\WinRAR.lnk",
+    "source": "shortcut",
+    "keywords": [
+      "winrar"
+    ]
+  }
+]

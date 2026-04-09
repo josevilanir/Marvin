@@ -1,0 +1,357 @@
+{
+  "_comment": "Catálogo de perfis de apps para o Marvin. Adicione novos apps aqui sem alterar Python.",
+  "_schema": {
+    "detect": {
+      "cli": "nome do comando no PATH (shutil.which)",
+      "app_name": "nome para busca no AppDiscovery (registro/atalhos do sistema)"
+    },
+    "capabilities": {
+      "type": "'cli' roda subprocess | 'uri' abre URI/protocolo via os.startfile",
+      "args": "lista de strings; use {param} para interpolar parâmetros",
+      "uri": "string URI; use {param} para interpolar parâmetros",
+      "params": "lista de {name, type, description, required}",
+      "response": "mensagem de sucesso com {param} interpolados"
+    }
+  },
+
+  "vscode": {
+    "display_name": "Visual Studio Code",
+    "detect": { "cli": "code" },
+    "capabilities": [
+      {
+        "id": "open_folder",
+        "description": "Abre uma pasta no VSCode (reutiliza a janela atual se já estiver aberto)",
+        "type": "cli",
+        "command": "code",
+        "args": ["--reuse-window", "{path}"],
+        "params": [
+          { "name": "path", "type": "string", "description": "Caminho completo da pasta a abrir", "required": true }
+        ],
+        "response": "Abrindo '{path}' no VSCode."
+      },
+      {
+        "id": "open_folder_new_window",
+        "description": "Abre uma pasta em uma NOVA janela do VSCode",
+        "type": "cli",
+        "command": "code",
+        "args": ["--new-window", "{path}"],
+        "params": [
+          { "name": "path", "type": "string", "description": "Caminho completo da pasta a abrir", "required": true }
+        ],
+        "response": "Abrindo '{path}' em nova janela do VSCode."
+      },
+      {
+        "id": "open_file",
+        "description": "Abre um arquivo específico no VSCode, opcionalmente numa linha",
+        "type": "cli",
+        "command": "code",
+        "args": ["--goto", "{file}"],
+        "params": [
+          { "name": "file", "type": "string", "description": "Caminho do arquivo (pode incluir :linha, ex: main.py:42)", "required": true }
+        ],
+        "response": "Abrindo arquivo '{file}' no VSCode."
+      },
+      {
+        "id": "diff",
+        "description": "Abre o diff entre dois arquivos no VSCode",
+        "type": "cli",
+        "command": "code",
+        "args": ["--diff", "{file1}", "{file2}"],
+        "params": [
+          { "name": "file1", "type": "string", "description": "Caminho do primeiro arquivo", "required": true },
+          { "name": "file2", "type": "string", "description": "Caminho do segundo arquivo", "required": true }
+        ],
+        "response": "Abrindo diff entre '{file1}' e '{file2}' no VSCode."
+      }
+    ]
+  },
+
+  "steam": {
+    "display_name": "Steam",
+    "detect": { "app_name": "Steam" },
+    "capabilities": [
+      {
+        "id": "search_game",
+        "description": "Abre o cliente Steam na tela de busca pelo jogo solicitado",
+        "type": "uri",
+        "uri": "steam://search/{query}",
+        "params": [
+          { "name": "query", "type": "string", "description": "Nome do jogo a buscar na Steam", "required": true }
+        ],
+        "response": "Buscando '{query}' na Steam."
+      },
+      {
+        "id": "launch_game",
+        "description": "Inicia um jogo da Steam pelo App ID numérico. Use steam_find_game para descobrir o ID.",
+        "type": "uri",
+        "uri": "steam://run/{app_id}",
+        "params": [
+          { "name": "app_id", "type": "string", "description": "App ID numérico do jogo na Steam (ex: '730' para CS2)", "required": true }
+        ],
+        "response": "Iniciando jogo Steam (App ID: {app_id})."
+      },
+      {
+        "id": "open_store_page",
+        "description": "Abre a página da loja Steam de um jogo pelo App ID",
+        "type": "uri",
+        "uri": "steam://store/{app_id}",
+        "params": [
+          { "name": "app_id", "type": "string", "description": "App ID numérico do jogo na Steam", "required": true }
+        ],
+        "response": "Abrindo página da loja do jogo {app_id} na Steam."
+      },
+      {
+        "id": "open_friends",
+        "description": "Abre a lista de amigos no Steam",
+        "type": "uri",
+        "uri": "steam://open/friends",
+        "params": [],
+        "response": "Abrindo lista de amigos na Steam."
+      }
+    ]
+  },
+
+  "chrome": {
+    "display_name": "Google Chrome",
+    "detect": { "cli": "chrome" },
+    "capabilities": [
+      {
+        "id": "open_url",
+        "description": "Abre uma URL no Google Chrome",
+        "type": "cli",
+        "command": "chrome",
+        "args": ["{url}"],
+        "params": [
+          { "name": "url", "type": "string", "description": "URL a abrir no Chrome", "required": true }
+        ],
+        "response": "Abrindo '{url}' no Chrome."
+      },
+      {
+        "id": "open_incognito",
+        "description": "Abre uma URL no Chrome em modo anônimo (incógnito)",
+        "type": "cli",
+        "command": "chrome",
+        "args": ["--incognito", "{url}"],
+        "params": [
+          { "name": "url", "type": "string", "description": "URL a abrir no modo anônimo", "required": true }
+        ],
+        "response": "Abrindo '{url}' no Chrome em modo anônimo."
+      }
+    ]
+  },
+
+  "firefox": {
+    "display_name": "Mozilla Firefox",
+    "detect": { "cli": "firefox" },
+    "capabilities": [
+      {
+        "id": "open_url",
+        "description": "Abre uma URL no Mozilla Firefox",
+        "type": "cli",
+        "command": "firefox",
+        "args": ["{url}"],
+        "params": [
+          { "name": "url", "type": "string", "description": "URL a abrir no Firefox", "required": true }
+        ],
+        "response": "Abrindo '{url}' no Firefox."
+      },
+      {
+        "id": "open_private",
+        "description": "Abre uma URL no Firefox em janela privada",
+        "type": "cli",
+        "command": "firefox",
+        "args": ["--private-window", "{url}"],
+        "params": [
+          { "name": "url", "type": "string", "description": "URL a abrir no modo privado", "required": true }
+        ],
+        "response": "Abrindo '{url}' no Firefox em modo privado."
+      }
+    ]
+  },
+
+  "notepadpp": {
+    "display_name": "Notepad++",
+    "detect": { "app_name": "Notepad++" },
+    "capabilities": [
+      {
+        "id": "open_file",
+        "description": "Abre um arquivo no Notepad++",
+        "type": "cli",
+        "command": "notepad++",
+        "args": ["{path}"],
+        "params": [
+          { "name": "path", "type": "string", "description": "Caminho do arquivo a abrir no Notepad++", "required": true }
+        ],
+        "response": "Abrindo '{path}' no Notepad++."
+      }
+    ]
+  },
+
+  "discord": {
+    "display_name": "Discord",
+    "detect": { "app_name": "Discord" },
+    "capabilities": [
+      {
+        "id": "open",
+        "description": "Abre ou traz o Discord para frente",
+        "type": "uri",
+        "uri": "discord://",
+        "params": [],
+        "response": "Abrindo Discord."
+      },
+      {
+        "id": "open_channel",
+        "description": "Abre um canal específico no Discord pelo ID",
+        "type": "uri",
+        "uri": "discord://channels/{guild_id}/{channel_id}",
+        "params": [
+          { "name": "guild_id", "type": "string", "description": "ID do servidor Discord", "required": true },
+          { "name": "channel_id", "type": "string", "description": "ID do canal no servidor", "required": true }
+        ],
+        "response": "Abrindo canal {channel_id} no Discord."
+      }
+    ]
+  },
+
+  "spotify_desktop": {
+    "display_name": "Spotify (Desktop)",
+    "detect": { "app_name": "Spotify" },
+    "capabilities": [
+      {
+        "id": "open",
+        "description": "Abre o app Spotify ou traz para frente",
+        "type": "uri",
+        "uri": "spotify://",
+        "params": [],
+        "response": "Abrindo Spotify."
+      },
+      {
+        "id": "open_track",
+        "description": "Abre uma faixa específica no Spotify pelo URI (spotify:track:ID)",
+        "type": "uri",
+        "uri": "spotify:track:{track_id}",
+        "params": [
+          { "name": "track_id", "type": "string", "description": "ID da faixa no Spotify (parte do URI spotify:track:XXX)", "required": true }
+        ],
+        "response": "Abrindo faixa {track_id} no Spotify."
+      }
+    ]
+  },
+
+  "vlc": {
+    "display_name": "VLC Media Player",
+    "detect": { "cli": "vlc" },
+    "capabilities": [
+      {
+        "id": "play_file",
+        "description": "Abre e toca um arquivo de mídia no VLC",
+        "type": "cli",
+        "command": "vlc",
+        "args": ["{path}"],
+        "params": [
+          { "name": "path", "type": "string", "description": "Caminho do arquivo de vídeo/áudio a tocar no VLC", "required": true }
+        ],
+        "response": "Reproduzindo '{path}' no VLC."
+      }
+    ]
+  },
+
+  "obs": {
+    "display_name": "OBS Studio",
+    "detect": { "app_name": "OBS Studio" },
+    "capabilities": [
+      {
+        "id": "start_recording",
+        "description": "Inicia a gravação no OBS Studio via linha de comando",
+        "type": "cli",
+        "command": "obs64",
+        "args": ["--startrecording"],
+        "params": [],
+        "response": "Iniciando gravação no OBS Studio."
+      },
+      {
+        "id": "start_streaming",
+        "description": "Inicia a transmissão ao vivo no OBS Studio",
+        "type": "cli",
+        "command": "obs64",
+        "args": ["--startstreaming"],
+        "params": [],
+        "response": "Iniciando transmissão no OBS Studio."
+      }
+    ]
+  },
+
+  "figma": {
+    "display_name": "Figma",
+    "detect": { "app_name": "Figma" },
+    "capabilities": [
+      {
+        "id": "open",
+        "description": "Abre o aplicativo Figma",
+        "type": "uri",
+        "uri": "figma://",
+        "params": [],
+        "response": "Abrindo Figma."
+      },
+      {
+        "id": "open_file",
+        "description": "Abre um arquivo do Figma pelo ID",
+        "type": "uri",
+        "uri": "figma://file/{file_id}",
+        "params": [
+          { "name": "file_id", "type": "string", "description": "ID do arquivo no Figma", "required": true }
+        ],
+        "response": "Abrindo arquivo {file_id} no Figma."
+      }
+    ]
+  },
+
+  "notion": {
+    "display_name": "Notion",
+    "detect": { "app_name": "Notion" },
+    "capabilities": [
+      {
+        "id": "open",
+        "description": "Abre o aplicativo Notion",
+        "type": "uri",
+        "uri": "notion://",
+        "params": [],
+        "response": "Abrindo Notion."
+      }
+    ]
+  },
+
+  "postman": {
+    "display_name": "Postman",
+    "detect": { "app_name": "Postman" },
+    "capabilities": [
+      {
+        "id": "open",
+        "description": "Abre o Postman",
+        "type": "uri",
+        "uri": "postman://",
+        "params": [],
+        "response": "Abrindo Postman."
+      }
+    ]
+  },
+
+  "git_bash": {
+    "display_name": "Git Bash",
+    "detect": { "cli": "bash" },
+    "capabilities": [
+      {
+        "id": "open_in_folder",
+        "description": "Abre o Git Bash com o diretório de trabalho na pasta especificada",
+        "type": "cli",
+        "command": "bash",
+        "args": ["--login", "-i"],
+        "cwd": "{path}",
+        "params": [
+          { "name": "path", "type": "string", "description": "Caminho da pasta onde abrir o Git Bash", "required": true }
+        ],
+        "response": "Abrindo Git Bash em '{path}'."
+      }
+    ]
+  }
+}

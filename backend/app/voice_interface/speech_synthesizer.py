@@ -1,33 +1,44 @@
 # backend/app/voice_interface/speech_synthesizer.py
-import sys
+import io
+import os
 import threading
+
+import pygame
+from dotenv import load_dotenv
+from elevenlabs import ElevenLabs
+
+# JARVIS voice from ElevenLabs library
+VOICE_ID = "JBFqnCBsd6RMkjVDRZzb"  # George - Warm, Captivating Storyteller (british)
+MODEL_ID  = "eleven_multilingual_v2"  # supports Portuguese
 
 
 class SpeechSynthesizer:
     """
-    Local text-to-speech via pyttsx3.
-
-    pyttsx3's runAndWait() conflicts with QThread's event loop on Windows,
-    causing a permanent hang. Fix: always run speech in a plain threading.Thread,
-    which works regardless of the caller's thread type.
+    Text-to-speech via ElevenLabs API (JARVIS - Robot voice).
+    Falls back to Edge TTS (pt-BR-AntonioNeural) if API key is missing.
     """
 
     def __init__(self, rate: int = 175, volume: float = 1.0, voice_lang: str = "pt"):
-        self._rate       = rate
-        self._volume     = volume
-        self._voice_lang = voice_lang
-        self._lock       = threading.Lock()   # prevents overlapping speech
+        self._volume = volume
+        self._lock   = threading.Lock()
 
-        # Probe pyttsx3 on the main thread to validate it works + pick voice id
-        self._voice_id = None
+        load_dotenv()
+        api_key = os.getenv("ELEVENLABS_API_KEY")
+
+        if api_key:
+            self._client = ElevenLabs(api_key=api_key)
+            self._mode   = "elevenlabs"
+            print(f"SpeechSynthesizer: ElevenLabs OK (voice {VOICE_ID}).")
+        else:
+            self._client = None
+            self._mode   = "edge"
+            print("SpeechSynthesizer: no ELEVENLABS_API_KEY, falling back to Edge TTS.")
+
         try:
-            import pyttsx3
-            engine = pyttsx3.init()
-            self._voice_id = self._find_voice(engine, voice_lang)
-            engine.stop()
-            print("SpeechSynthesizer: pyttsx3 OK.")
+            pygame.mixer.init()
+            print("SpeechSynthesizer: pygame mixer OK.")
         except Exception as e:
-            print(f"SpeechSynthesizer: pyttsx3 probe failed ({e}).")
+            print(f"SpeechSynthesizer: pygame mixer init failed ({e}).")
 
     # ------------------------------------------------------------------
     # Public API
@@ -43,7 +54,10 @@ class SpeechSynthesizer:
 
             def _run():
                 try:
-                    self._speak_in_thread(text)
+                    if self._mode == "elevenlabs":
+                        self._speak_elevenlabs(text)
+                    else:
+                        self._speak_edge(text)
                 except Exception as e:
                     error[0] = e
                 finally:
@@ -57,7 +71,7 @@ class SpeechSynthesizer:
                 print(f"SpeechSynthesizer: speak error — {error[0]}")
 
     def set_rate(self, rate: int):
-        self._rate = rate
+        pass  # ElevenLabs doesn't expose rate directly
 
     def set_volume(self, volume: float):
         self._volume = max(0.0, min(1.0, volume))
@@ -66,46 +80,54 @@ class SpeechSynthesizer:
     # Internal
     # ------------------------------------------------------------------
 
-    def _speak_in_thread(self, text: str):
-        """
-        Creates a fresh pyttsx3 engine per call inside a plain threading.Thread.
-        A plain thread avoids the QThread/COM message-loop conflict.
-        """
-        try:
-            import pythoncom
-            pythoncom.CoInitialize()
-        except ImportError:
-            pass
+    def _speak_elevenlabs(self, text: str):
+        preview = text[:60] + "…" if len(text) > 60 else text
+        print(f"SpeechSynthesizer: speaking → '{preview}'")
 
-        try:
-            import pyttsx3
-            engine = pyttsx3.init()
-            engine.setProperty("rate",   self._rate)
-            engine.setProperty("volume", self._volume)
-            if self._voice_id:
-                engine.setProperty("voice", self._voice_id)
-            preview = text[:60] + "…" if len(text) > 60 else text
-            print(f"SpeechSynthesizer: speaking → '{preview}'")
-            engine.say(text)
-            engine.runAndWait()
-        except Exception as e:
-            print(f"SpeechSynthesizer: error in thread — {e}")
-            raise
+        audio_bytes = self._client.text_to_speech.convert(
+            voice_id=VOICE_ID,
+            text=text,
+            model_id=MODEL_ID,
+            output_format="mp3_44100_128",
+        )
 
-    @staticmethod
-    def _find_voice(engine, lang_hint: str) -> str | None:
-        voices = engine.getProperty("voices")
-        for v in voices:
-            if lang_hint.lower() in v.id.lower() or lang_hint.lower() in v.name.lower():
-                print(f"SpeechSynthesizer: voice → '{v.name}'")
-                return v.id
-        if voices:
-            print(f"SpeechSynthesizer: no '{lang_hint}' voice, using default '{voices[0].name}'")
-            return voices[0].id
-        return None
+        buf = io.BytesIO(b"".join(audio_bytes))
+        buf.seek(0)
+
+        sound = pygame.mixer.Sound(buf)
+        sound.set_volume(self._volume)
+        channel = sound.play()
+        while channel.get_busy():
+            import time; time.sleep(0.05)
+
+    def _speak_edge(self, text: str):
+        import asyncio
+        import edge_tts
+
+        preview = text[:60] + "…" if len(text) > 60 else text
+        print(f"SpeechSynthesizer: [edge] speaking → '{preview}'")
+
+        async def _synthesize():
+            communicate = edge_tts.Communicate(text, "pt-BR-AntonioNeural")
+            buf = io.BytesIO()
+            async for chunk in communicate.stream():
+                if chunk["type"] == "audio":
+                    buf.write(chunk["data"])
+            buf.seek(0)
+            return buf
+
+        buf = asyncio.run(_synthesize())
+        if buf.getbuffer().nbytes == 0:
+            return
+
+        sound = pygame.mixer.Sound(buf)
+        sound.set_volume(self._volume)
+        channel = sound.play()
+        import time
+        while channel.get_busy():
+            time.sleep(0.05)
 
 
 if __name__ == "__main__":
     synth = SpeechSynthesizer()
-    synth.speak("Olá! Sou o Marvin. Fala aí, o que você precisa?")
-    synth.speak("Sistema de voz local pronto.")
+    synth.speak("Olá! Todos os sistemas operacionais. Como posso ajudá-lo?")

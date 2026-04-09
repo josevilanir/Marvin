@@ -213,8 +213,25 @@ class _AIWorker(QObject):
             except Exception as e:
                 print(f"Bridge: WhatsAppService skipped — {e}")
 
-            names = register_all_fn(registry, spotify=spotify, youtube=youtube,
-                                    whatsapp=whatsapp, system=system)
+            from app.services.app_interaction_service import AppInteractionService
+            from app.services.app_capability_service import AppCapabilityService
+
+            app_interaction = app_capabilities = None
+            try:
+                app_interaction = AppInteractionService()
+            except Exception as e:
+                print(f"Bridge: AppInteractionService skipped — {e}")
+            try:
+                discovery = getattr(system, "_discovery", None)
+                app_capabilities = AppCapabilityService(app_discovery=discovery)
+            except Exception as e:
+                print(f"Bridge: AppCapabilityService skipped — {e}")
+
+            names = register_all_fn(
+                registry,
+                spotify=spotify, youtube=youtube, whatsapp=whatsapp, system=system,
+                app_interaction=app_interaction, app_capabilities=app_capabilities,
+            )
             print(f"Bridge: {len(names)} ferramentas registradas.")
         except Exception as e:
             print(f"Bridge: Falha ao registrar serviços: {e}")

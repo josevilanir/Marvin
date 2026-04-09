@@ -11,6 +11,8 @@ from app.services.spotify_service import SpotifyService
 from app.services.system_service import SystemService
 from app.services.youtube_service import YouTubeService
 from app.services.whatsapp_service import WhatsAppService
+from app.services.app_interaction_service import AppInteractionService
+from app.services.app_capability_service import AppCapabilityService
 
 from app.voice_interface.speech_recognizer import SpeechRecognizer
 from app.voice_interface.speech_synthesizer import SpeechSynthesizer
@@ -28,6 +30,8 @@ class MainController:
         self.system_service = None
         self.youtube_service = None
         self.whatsapp_service = None
+        self.app_interaction_service = None
+        self.app_capability_service = None
         self.speech_recognizer = None
         self.speech_synthesizer = None
         self.tool_registry = None
@@ -75,6 +79,20 @@ class MainController:
             except Exception as e:
                 print(f"MainController: WhatsAppService skipped — {e}")
 
+            try:
+                self.app_interaction_service = AppInteractionService()
+                print("MainController: AppInteractionService initialized.")
+            except Exception as e:
+                print(f"MainController: AppInteractionService skipped — {e}")
+
+            try:
+                # Reuse AppDiscovery instance from SystemService to avoid double scan
+                discovery = getattr(self.system_service, "_discovery", None)
+                self.app_capability_service = AppCapabilityService(app_discovery=discovery)
+                print("MainController: AppCapabilityService initialized.")
+            except Exception as e:
+                print(f"MainController: AppCapabilityService skipped — {e}")
+
             # ── AI: ToolRegistry + AIProcessor ──────────────────────────────
             self.tool_registry = ToolRegistry()
             registered = register_all(
@@ -83,6 +101,8 @@ class MainController:
                 youtube=self.youtube_service,
                 whatsapp=self.whatsapp_service,
                 system=self.system_service,
+                app_interaction=self.app_interaction_service,
+                app_capabilities=self.app_capability_service,
             )
             print(f"MainController: {len(registered)} ferramentas registradas: {registered}")
 

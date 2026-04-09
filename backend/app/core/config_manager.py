@@ -41,6 +41,9 @@ class ConfigManager:
         # Groq Configuration
         self.groq_api_key: str = os.getenv("GROQ_API_KEY")
 
+        # ElevenLabs Configuration
+        self.elevenlabs_api_key: str = os.getenv("ELEVENLABS_API_KEY")
+
         # Spotify Configurations
         self.spotify_client_id: str = os.getenv("SPOTIPY_CLIENT_ID")
         self.spotify_client_secret: str = os.getenv("SPOTIPY_CLIENT_SECRET")
