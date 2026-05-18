@@ -27,6 +27,6 @@ python-dotenv
 pycaw
 pytest
 pytest-mock
-PySide6>=6.5.0
+PySide6>=6.11.1
 xvfbwrapper>=0.2.9  
 pycaw>=20230420  
